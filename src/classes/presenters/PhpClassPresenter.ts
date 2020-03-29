@@ -2,6 +2,9 @@ import PhpClass from "@/classes/dto/PhpClass";
 import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import Str from "@/classes/support/Str";
+import PhpGetterPresenter from "@/classes/presenters/PhpGetterPresenter";
+import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
+import PhpFluentSetterPresenter from "@/classes/presenters/PhpFluentSetterPresenter";
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -47,6 +50,22 @@ export default class PhpClassPresenter {
             content += '\t}\n';
         }
 
+        // getters
+        if (this.settings.addGetters) {
+            content += '\n';
+            content += typePresenters.map(property => (new PhpGetterPresenter(property, this.settings)).toString()).join('\n');
+        }
+
+        // setter
+        if (this.settings.addSetters) {
+            content += '\n';
+            if (this.settings.isFluentSetter) {
+                content += typePresenters.map(property => (new PhpFluentSetterPresenter(property, this.settings)).toString()).join('\n');
+            } else {
+                content += typePresenters.map(property => (new PhpSetterPresenter(property, this.settings)).toString()).join('\n');
+            }
+        }
+
         // close current class
         content += '}';
 
@@ -56,6 +75,7 @@ export default class PhpClassPresenter {
                 .map(phpClass => (new PhpClassPresenter(phpClass, this.settings)).toString())
                 .join('\n');
         }
+
 
         return content;
     }

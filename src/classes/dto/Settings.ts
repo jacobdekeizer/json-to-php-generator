@@ -9,6 +9,11 @@ export default class Settings {
     public addConstructor = true;
     public addDocBlocks = false;
     public finalClasses = false;
+    public addGetters = false;
+    public getterCase: StringCase = StringCase.CamelCase;
+    public addSetters = false;
+    public setterCase: StringCase = StringCase.CamelCase;
+    public isFluentSetter = true;
 
     public supportsTypedProperties(): boolean {
         const supportedVersions = [PhpVersion.PHP74];

@@ -11,10 +11,30 @@
                 <Select id="property-case" label="Property case" :default-value="settings.propertyCase" :options="caseOptions" @on-value-change="val => settings.propertyCase = val"/>
             </div>
         </div>
+        <hr class="mb-3"/>
+        <div class="flex flex-wrap -mx-3">
+            <div class="w-full md:w-1/3 px-3">
+                <Checkbox class="mb-3" label="Add getters" :default-value="settings.addGetters" @on-value-change="val => settings.addGetters = val"/>
+                <Select v-if="settings.addGetters" class="mb-3" id="getter-case" label="Getter case" :default-value="settings.getterCase" :options="caseOptions" @on-value-change="val => settings.getterCase = val" />
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+                <div class="flex flex-wrap">
+                    <div class="w-full md:w-1/2">
+                        <Checkbox label="Add setters" :default-value="settings.addSetters" @on-value-change="val => settings.addSetters = val"/>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <Checkbox v-if="settings.addSetters" class="mb-3" label="Is fluent setter" :default-value="settings.isFluentSetter" @on-value-change="val => settings.isFluentSetter = val"/>
+                    </div>
+                </div>
 
+                <Select v-if="settings.addSetters" class="mb-3" id="setter-case" label="Setter case" :default-value="settings.setterCase" :options="caseOptions" @on-value-change="val => settings.setterCase = val" />
+            </div>
+        </div>
+        <hr class="mb-3"/>
         <Checkbox label="Add constructor" :default-value="settings.addConstructor" @on-value-change="val => settings.addConstructor = val"/>
         <Checkbox label="Add docblocks" :default-value="settings.addDocBlocks" @on-value-change="val => settings.addDocBlocks = val"/>
         <Checkbox label="Final classes" :default-value="settings.finalClasses" @on-value-change="val => settings.finalClasses = val"/>
+
     </div>
 </template>
 
