@@ -1,6 +1,8 @@
 # JSON to PHP class generator
 
-Generate PHP classes from json
+Generate PHP classes from json.
+
+View it [here](https://jacobdekeizer.github.io/json-to-php-generator/).
 
 ## Project setup
 ```
