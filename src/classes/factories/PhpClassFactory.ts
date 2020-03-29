@@ -4,6 +4,7 @@ import PhpClass from "@/classes/dto/PhpClass";
 import UnknownType from "@/classes/php-types/UnknownType";
 
 export default class PhpClassFactory {
+    // todo filter out duplicate children from different classes
     public static make(content: any, name: string): PhpClass {
         const properties: PhpType[] = [];
         const children: PhpClass[] = [];
@@ -89,7 +90,33 @@ export default class PhpClassFactory {
             return null;
         }
 
-        return new PhpClass(name, this.mergeProperties(allClasses));
+        return new PhpClass(name, this.mergeProperties(allClasses), this.mergeChildren(allClasses));
+    }
+
+    private static mergeChildren(phpClasses: PhpClass[]): PhpClass[] {
+        const tempChildren: Map<string, PhpClass[]> = new Map<string, PhpClass[]>();
+
+        for (const phpClass of phpClasses) {
+            for (const childPhpClass of phpClass.getChildren()) {
+                if (!tempChildren.has(childPhpClass.getName())) {
+                    tempChildren.set(childPhpClass.getName(), [childPhpClass]);
+                } else {
+                    const result = tempChildren.get(childPhpClass.getName());
+
+                    if (result) {
+                       result.push(childPhpClass);
+                    }
+                }
+            }
+        }
+
+        const children: PhpClass[] = [];
+
+        for (const [tempName, subChildren] of tempChildren) {
+            children.push(new PhpClass(tempName, this.mergeProperties(subChildren), this.mergeChildren(subChildren)));
+        }
+
+        return children;
     }
 
     private static mergeProperties(phpClasses: PhpClass[]): PhpType[] {
@@ -105,8 +132,6 @@ export default class PhpClassFactory {
                     }
                     continue;
                 }
-
-                // todo if item is not here we have to make the property nullable
 
                 properties.push(property);
             }
