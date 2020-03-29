@@ -1,5 +1,6 @@
 import PhpType from "@/classes/php-types/PhpType";
 import Settings from "@/classes/dto/Settings";
+import Str from "@/classes/support/Str";
 
 export default class PhpTypePresenter {
     private readonly phpType: PhpType;
@@ -14,8 +15,12 @@ export default class PhpTypePresenter {
         return (this.phpType.isNullable() && this.phpType.getType() !== '' ? '?' : '') + this.phpType.getType();
     }
 
+    public getPhpVarName(): string {
+        return Str.changeCase(this.phpType.getName(), this.settings.propertyCase);
+    }
+
     public getPhpVar(): string {
-        return '$' + this.phpType.getName();
+        return '$' + this.getPhpVarName();
     }
 
     public getPhpVarWithType(): string {
@@ -24,10 +29,6 @@ export default class PhpTypePresenter {
 
     public getDocblockContent(): string {
         return this.phpType.getDocblockContent() + (this.phpType.isNullable() ? '|null' : '');
-    }
-
-    public getPhpType(): PhpType {
-        return this.phpType;
     }
 
     public toString(): string {

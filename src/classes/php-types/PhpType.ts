@@ -1,3 +1,5 @@
+import Settings from "@/classes/dto/Settings";
+
 export default interface PhpType {
     getName(): string;
 
@@ -10,4 +12,6 @@ export default interface PhpType {
     setNullable(nullable: boolean): void;
 
     isNullable(): boolean;
+
+    setSettings(settings: Settings | null): void;
 }

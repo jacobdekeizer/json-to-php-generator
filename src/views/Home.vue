@@ -12,7 +12,7 @@
 
             <div class="mb-4">
                 <h2 class="text-gray-700 text-sm font-bold text-2xl mb-2">Settings</h2>
-                <Settings class="px-3" :settings="settings"/>
+                <Settings :settings="settings"/>
             </div>
 
             <button @click="generate" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
