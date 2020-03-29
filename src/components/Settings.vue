@@ -34,7 +34,6 @@
         <Checkbox label="Add constructor" :default-value="settings.addConstructor" @on-value-change="val => settings.addConstructor = val"/>
         <Checkbox label="Add docblocks" :default-value="settings.addDocBlocks" @on-value-change="val => settings.addDocBlocks = val"/>
         <Checkbox label="Final classes" :default-value="settings.finalClasses" @on-value-change="val => settings.finalClasses = val"/>
-
     </div>
 </template>
 

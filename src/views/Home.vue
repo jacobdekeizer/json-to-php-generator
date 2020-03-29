@@ -29,7 +29,6 @@
     import Card from '@/components/Card.vue';
     import Code from '@/components/Code.vue';
     import Settings from "@/components/Settings.vue";
-
     import TextArea from "@/components/form/TextArea.vue";
 
     import {default as SettingsModel} from "@/classes/dto/Settings";

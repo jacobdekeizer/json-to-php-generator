@@ -56,7 +56,7 @@ export default class PhpClassPresenter {
             content += typePresenters.map(property => (new PhpGetterPresenter(property, this.settings)).toString()).join('\n');
         }
 
-        // setter
+        // setters
         if (this.settings.addSetters) {
             content += '\n';
             if (this.settings.isFluentSetter) {

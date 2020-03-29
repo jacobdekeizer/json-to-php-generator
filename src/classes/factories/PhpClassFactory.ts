@@ -112,7 +112,7 @@ export default class PhpClassFactory {
             }
         }
 
-        // check items which are in one array item but not the other array item
+        // check for properties which are present in one item but not in one of the other items
         // when a difference is found make them nullable
         const currentPropertyNames = properties.map(item => item.getName());
 
