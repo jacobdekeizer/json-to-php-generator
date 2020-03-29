@@ -10,14 +10,8 @@
 
             <TextArea class="mb-4" id="json-input" label="Json input" @on-value-change="onJsonContentChange"/>
 
-            <div class="mb-4">
-                <h2 class="text-gray-700 text-sm font-bold text-2xl mb-2">Settings</h2>
-                <Settings :settings="settings"/>
-            </div>
-
-            <button @click="generate" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Generate
-            </button>
+            <h2 class="text-gray-700 text-sm font-bold text-2xl mb-2">Settings</h2>
+            <Settings :settings="settings"/>
         </Card>
         <Card v-if="this.code">
             <Code :code="code"/>
@@ -54,21 +48,25 @@
     })
     export default class Home extends Vue {
         private jsonContent = '';
-        private code: string | null = null;
         private class: PhpClass | null = null;
         private settings = new SettingsModel();
         private errorMessage = '';
 
-        public generate(): void {
+        get code(): string | null {
             this.errorMessage = '';
+
+            if (!this.jsonContent) {
+                return null;
+            }
+
             try {
                 this.class = JsonToPhpFactory.make(this.jsonContent);
             } catch (e) {
                 this.errorMessage = e.message;
-                return;
+                return null;
             }
 
-            this.code = (new PhpClassPresenter(this.class, this.settings)).toString();
+            return (new PhpClassPresenter(this.class, this.settings)).toString();
         }
 
         private onJsonContentChange(content: string) {
