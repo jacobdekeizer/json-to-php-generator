@@ -45,6 +45,7 @@ export default class PhpTypePresenter {
             content += '\tprivate ' + this.getPhpVar();
         }
 
+        content += ';';
 
         return content;
     }
