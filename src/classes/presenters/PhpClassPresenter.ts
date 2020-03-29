@@ -5,6 +5,7 @@ import Str from "@/classes/support/Str";
 import PhpGetterPresenter from "@/classes/presenters/PhpGetterPresenter";
 import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
 import PhpFluentSetterPresenter from "@/classes/presenters/PhpFluentSetterPresenter";
+import PhpConstructorPresenter from "@/classes/presenters/PhpConstructorPresenter";
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -36,18 +37,7 @@ export default class PhpClassPresenter {
 
         // constructor
         if (this.settings.addConstructor) {
-            content += '\n';
-
-            if (this.settings.addDocBlocks) {
-                content += '\t/**\n';
-                content += typePresenters.map(property => '\t * ' + property.getDocblockContent() + ' ' + property.getPhpVar()).join('\n') + '\n';
-                content += '\t */\n';
-            }
-
-            content += '\tpublic constructor(' + typePresenters.map(property => property.getPhpVarWithType()).join(', ') +') \n';
-            content +='\t{\n';
-            content += typePresenters.map(item => '\t\t$this->' + item.getPhpVarName() + ' = ' + item.getPhpVar()).join(';\n') + '\n';
-            content += '\t}\n';
+            content += (new PhpConstructorPresenter(typePresenters, this.settings)).toString();
         }
 
         // getters
@@ -75,7 +65,6 @@ export default class PhpClassPresenter {
                 .map(phpClass => (new PhpClassPresenter(phpClass, this.settings)).toString())
                 .join('\n');
         }
-
 
         return content;
     }

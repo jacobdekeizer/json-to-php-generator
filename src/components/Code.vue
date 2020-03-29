@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-sm">
         <VueCodeHighlight>{{this.code}}</VueCodeHighlight>
     </div>
 </template>
