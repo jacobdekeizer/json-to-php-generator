@@ -1,6 +1,6 @@
 import PhpType from "@/classes/php-types/PhpType";
 import Settings from "@/classes/dto/Settings";
-import set = Reflect.set;
+import PhpClassType from "@/classes/php-types/PhpClassType";
 
 export default class ArrayType implements PhpType {
     private readonly name: string;
@@ -40,5 +40,13 @@ export default class ArrayType implements PhpType {
     public setSettings(settings: Settings | null): void {
         this.settings = settings;
         this.type.setSettings(settings);
+    }
+
+    public isPhpClassArray(): boolean {
+        return this.type instanceof PhpClassType;
+    }
+
+    public getPhpType(): PhpType {
+        return this.type;
     }
 }

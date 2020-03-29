@@ -3,12 +3,16 @@ import Settings from "@/classes/dto/Settings";
 import Str from "@/classes/support/Str";
 
 export default class PhpSetterPresenter {
-    private readonly typePresenter: PhpTypePresenter;
-    private readonly settings: Settings;
+    protected readonly typePresenter: PhpTypePresenter;
+    protected readonly settings: Settings;
 
     public constructor(type: PhpTypePresenter, settings: Settings) {
         this.typePresenter = type;
         this.settings = settings;
+    }
+
+    public getMethodName(): string {
+        return Str.changeCase('set_' + this.typePresenter.getPhpVarName(), this.settings.setterCase);
     }
 
     public toString(): string {
@@ -21,9 +25,7 @@ export default class PhpSetterPresenter {
             content += '\t */\n'
         }
 
-        content += '\tpublic function '
-            + Str.changeCase('set_' + this.typePresenter.getPhpVarName(), this.settings.setterCase)
-            + '(' + this.typePresenter.getPhpVarWithType() + '): void\n';
+        content += '\tpublic function ' + this.getMethodName() + '(' + this.typePresenter.getPhpVarWithType() + '): void\n';
 
         content += '\t{\n';
         content += '\t\t$this->' + this.typePresenter.getPhpVarName() + ' = ' + this.typePresenter.getPhpVar() +';\n';

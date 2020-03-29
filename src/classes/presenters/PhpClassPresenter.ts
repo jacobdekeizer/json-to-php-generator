@@ -6,6 +6,7 @@ import PhpGetterPresenter from "@/classes/presenters/PhpGetterPresenter";
 import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
 import PhpFluentSetterPresenter from "@/classes/presenters/PhpFluentSetterPresenter";
 import PhpConstructorPresenter from "@/classes/presenters/PhpConstructorPresenter";
+import PhpClassFromJsonMethodPresenter from "@/classes/presenters/PhpClassFromJsonMethodPresenter";
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -54,6 +55,11 @@ export default class PhpClassPresenter {
             } else {
                 content += typePresenters.map(property => (new PhpSetterPresenter(property, this.settings)).toString()).join('\n');
             }
+        }
+
+        // from json method
+        if (this.settings.addFromJsonMethod) {
+            content += (new PhpClassFromJsonMethodPresenter(typePresenters, this.settings)).toString();
         }
 
         // close current class

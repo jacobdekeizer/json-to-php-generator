@@ -31,6 +31,14 @@ export default class PhpTypePresenter {
         return this.phpType.getDocblockContent() + (this.phpType.isNullable() ? '|null' : '');
     }
 
+    public isNullable(): boolean {
+        return this.phpType.isNullable();
+    }
+
+    public getPhpType(): PhpType {
+        return this.phpType;
+    }
+
     public toString(): string {
         let content = '';
 

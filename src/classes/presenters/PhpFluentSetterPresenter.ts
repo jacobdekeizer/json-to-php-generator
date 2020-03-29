@@ -1,16 +1,6 @@
-import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
-import Settings from "@/classes/dto/Settings";
-import Str from "@/classes/support/Str";
+import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
 
-export default class PhpFluentSetterPresenter {
-    private readonly typePresenter: PhpTypePresenter;
-    private readonly settings: Settings;
-
-    public constructor(type: PhpTypePresenter, settings: Settings) {
-        this.typePresenter = type;
-        this.settings = settings;
-    }
-
+export default class PhpFluentSetterPresenter extends PhpSetterPresenter{
     public toString(): string {
         let content = '';
 
@@ -21,10 +11,7 @@ export default class PhpFluentSetterPresenter {
             content += '\t */\n'
         }
 
-        content += '\tpublic function '
-            + Str.changeCase('set_' + this.typePresenter.getPhpVarName(), this.settings.setterCase)
-            + '(' + this.typePresenter.getPhpVarWithType() + '): self\n';
-
+        content += '\tpublic function ' + this.getMethodName() + '(' + this.typePresenter.getPhpVarWithType() + '): self\n';
         content += '\t{\n';
         content += '\t\t$this->' + this.typePresenter.getPhpVarName() + ' = ' + this.typePresenter.getPhpVar() +';\n';
         content += '\t\treturn $this;\n';
