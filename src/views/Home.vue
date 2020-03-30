@@ -2,7 +2,7 @@
     <div>
         <Card>
             <h1 class="text-gray-700 text-sm font-bold text-3xl">
-                JSON to PHP converter
+                JSON to PHP class converter
             </h1>
             <div class="mt-0 mb-6 text-gray-600">
                 Generate PHP classes from json
