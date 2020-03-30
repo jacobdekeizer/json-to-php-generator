@@ -1,6 +1,7 @@
 import PhpType from "@/classes/php-types/PhpType";
 import Settings from "@/classes/dto/Settings";
 import PhpClassType from "@/classes/php-types/PhpClassType";
+import UnknownType from "@/classes/php-types/UnknownType";
 
 export default class ArrayType implements PhpType {
     private readonly name: string;
@@ -22,6 +23,9 @@ export default class ArrayType implements PhpType {
     }
 
     public getDocblockContent(): string {
+        if (this.type instanceof UnknownType) {
+            return '@var array';
+        }
         return '@var ' + this.type.getType() + '[]';
     }
 

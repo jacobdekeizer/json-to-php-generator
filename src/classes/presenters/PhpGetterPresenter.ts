@@ -1,6 +1,7 @@
 import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import Str from "@/classes/support/Str";
+import PhpMethodDocblockPresenter from "@/classes/presenters/PhpMethodDocblockPresenter";
 
 export default class PhpGetterPresenter {
     private readonly typePresenter: PhpTypePresenter;
@@ -15,9 +16,7 @@ export default class PhpGetterPresenter {
         let content = '';
 
         if (this.settings.addDocBlocks) {
-            content += '\t/**\n';
-            content += '\t * @return ' + this.typePresenter.getPhpTypeNotation() + '\n';
-            content += '\t */\n'
+            content += (new PhpMethodDocblockPresenter([], this.typePresenter.getPhpTypeNotation())).toString();
         }
 
         content += '\tpublic function '

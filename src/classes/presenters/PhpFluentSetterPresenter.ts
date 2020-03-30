@@ -1,14 +1,12 @@
 import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
+import PhpMethodDocblockPresenter from "@/classes/presenters/PhpMethodDocblockPresenter";
 
 export default class PhpFluentSetterPresenter extends PhpSetterPresenter{
     public toString(): string {
         let content = '';
 
         if (this.settings.addDocBlocks) {
-            content += '\t/**\n';
-            content += '\t * @var ' + this.typePresenter.getPhpVarWithType() + '\n';
-            content += '\t * @return self\n';
-            content += '\t */\n'
+            content += (new PhpMethodDocblockPresenter([this.typePresenter], 'self')).toString();
         }
 
         content += '\tpublic function ' + this.getMethodName() + '(' + this.typePresenter.getPhpVarWithType() + '): self\n';
