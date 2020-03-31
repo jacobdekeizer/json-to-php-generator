@@ -38,23 +38,4 @@ export default class PhpTypePresenter {
     public getPhpType(): PhpType {
         return this.phpType;
     }
-
-    public toString(): string {
-        let content = '';
-
-        if (this.phpType.isDocblockRequired() || this.settings.addDocBlocks) {
-            // todo implement settings on how to display docblock
-            content += '\t/** ' + this.getDocblockContent() + ' */\n';
-        }
-
-        if (this.settings.supportsTypedProperties()) {
-            content += '\tprivate ' + this.getPhpVarWithType();
-        } else {
-            content += '\tprivate ' + this.getPhpVar();
-        }
-
-        content += ';';
-
-        return content;
-    }
 }

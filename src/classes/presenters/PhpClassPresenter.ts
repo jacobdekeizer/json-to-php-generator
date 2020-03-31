@@ -7,6 +7,7 @@ import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
 import PhpFluentSetterPresenter from "@/classes/presenters/PhpFluentSetterPresenter";
 import PhpConstructorPresenter from "@/classes/presenters/PhpConstructorPresenter";
 import PhpClassFromJsonMethodPresenter from "@/classes/presenters/PhpClassFromJsonMethodPresenter";
+import PhpPropertyPresenter from "@/classes/presenters/PhpPropertyPresenter";
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -34,7 +35,8 @@ export default class PhpClassPresenter {
         const typePresenters = this.phpClass.getProperties().map(property => new PhpTypePresenter(property, this.settings));
 
         // properties
-        content += typePresenters.map(property => property.toString()).join('\n') + '\n';
+        content += typePresenters.map(property => (new PhpPropertyPresenter(property, this.settings)).toString())
+            .join('\n' + (this.settings.propertyAddExtraNewLine ? '\n' : '')) + '\n';
 
         // constructor
         if (this.settings.addConstructor) {

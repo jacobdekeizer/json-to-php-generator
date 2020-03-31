@@ -1,15 +1,23 @@
 import {PhpVersion} from "@/classes/enums/PhpVersion";
 import {StringCase} from "@/classes/enums/StringCase";
+import {PhpVisibility} from "@/classes/enums/PhpVisibility";
+import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
+import {PropertyDocblockType} from "@/classes/enums/PropertyDocblockType";
 
 export default class Settings {
-    public phpVersion: PhpVersion = PhpVersion.PHP74;
-    public classCase: StringCase = StringCase.PascalCase;
-    public propertyCase: StringCase = StringCase.CamelCase;
+    public phpVersion = PhpVersion.PHP74;
+    public classCase = StringCase.PascalCase;
+    public propertyCase = StringCase.CamelCase;
+
+    public propertyVisibility = PhpVisibility.Private;
+    public propertyDocblock = PhpPropertyDocblock.Necessary;
+    public propertyDocblockType = PropertyDocblockType.Inline;
+    public propertyAddExtraNewLine = false;
 
     public addGetters = false;
-    public getterCase: StringCase = StringCase.CamelCase;
+    public getterCase = StringCase.CamelCase;
     public addSetters = false;
-    public setterCase: StringCase = StringCase.CamelCase;
+    public setterCase = StringCase.CamelCase;
     public isFluentSetter = true;
 
     public addConstructor = true;
