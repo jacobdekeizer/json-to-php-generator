@@ -11,7 +11,10 @@ export default class PhpMethodDocblockPresenter {
 
     public toString(): string {
         let content = '\t/**\n';
-        content += this.typePresenters.map(property => '\t * ' + property.getDocblockContent() + ' ' + property.getPhpVar()).join('\n') + '\n';
+
+        if (this.typePresenters.length) {
+            content += this.typePresenters.map(property => '\t * ' + property.getDocblockContent() + ' ' + property.getPhpVar()).join('\n') + '\n';
+        }
 
         if (this.returnType) {
             content += '\t * @return ' + this.returnType + '\n';
