@@ -23,6 +23,4 @@ export default class PhpClass {
     public getChildren(): PhpClass[] {
         return this.children;
     }
-
-
 }

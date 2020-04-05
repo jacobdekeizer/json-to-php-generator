@@ -9,6 +9,7 @@ import UnknownType from "@/classes/php-types/UnknownType";
 import FloatType from "@/classes/php-types/FloatType";
 
 export default class PhpTypeFactory {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     public static make(name: string, value: any): PhpType {
         if (typeof value === 'string') {
             return new StringType(name);

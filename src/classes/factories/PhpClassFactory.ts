@@ -4,7 +4,7 @@ import PhpClass from "@/classes/dto/PhpClass";
 import UnknownType from "@/classes/php-types/UnknownType";
 
 export default class PhpClassFactory {
-    // todo filter out duplicate children from different classes
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     public static make(content: any, name: string): PhpClass {
         const properties: PhpType[] = [];
         const children: PhpClass[] = [];
