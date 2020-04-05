@@ -2,7 +2,7 @@ import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import ArrayType from "@/classes/php-types/ArrayType";
 import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
-import PhpMethodDocblockPresenter from "@/classes/presenters/PhpMethodDocblockPresenter";
+import PhpDocblockPresenter from "@/classes/presenters/PhpDocblockPresenter";
 import UnknownType from "@/classes/php-types/UnknownType";
 
 export default class PhpClassFromJsonMethodPresenter {
@@ -17,10 +17,9 @@ export default class PhpClassFromJsonMethodPresenter {
     public toString(): string {
         let content = '\n';
 
-        if (this.settings.addDocBlocks) {
-            const arrayPresenter = new PhpTypePresenter(new ArrayType('data', new UnknownType('data')), this.settings);
-            content += (new PhpMethodDocblockPresenter([arrayPresenter], 'self')).toString();
-        }
+        const arrayPresenter = new PhpTypePresenter(new ArrayType('data', new UnknownType('data')), this.settings);
+
+        content += (new PhpDocblockPresenter([arrayPresenter], 'self')).toString();
 
         content += '\tpublic static function fromJson(array $data): self\n';
         content += '\t{\n';

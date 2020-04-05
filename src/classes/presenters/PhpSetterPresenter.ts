@@ -1,7 +1,7 @@
 import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import Str from "@/classes/support/Str";
-import PhpMethodDocblockPresenter from "@/classes/presenters/PhpMethodDocblockPresenter";
+import PhpDocblockPresenter from "@/classes/presenters/PhpDocblockPresenter";
 
 export default class PhpSetterPresenter {
     protected readonly typePresenter: PhpTypePresenter;
@@ -19,9 +19,7 @@ export default class PhpSetterPresenter {
     public toString(): string {
         let content = '';
 
-        if (this.settings.addDocBlocks) {
-            content += (new PhpMethodDocblockPresenter([this.typePresenter], 'void')).toString();
-        }
+        content += (new PhpDocblockPresenter(this.settings, [this.typePresenter], 'void')).toString();
 
         content += '\tpublic function ' + this.getMethodName() + '(' + this.typePresenter.getPhpVarWithType() + '): void\n';
 

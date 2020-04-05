@@ -1,4 +1,4 @@
-import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
+import {PhpDocblock} from "@/classes/enums/PhpDocblock";
 <template>
     <div>
         <div class="flex flex-wrap -mx-3 mb-3">
@@ -42,7 +42,7 @@ import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
                 <Select id="property-docblock"
                         label="Property docblock"
                         :default-value="settings.propertyDocblock"
-                        :options="propertyDocblockOptions"
+                        :options="docblockOptions"
                         @on-value-change="val => settings.propertyDocblock = val"/>
             </div>
             <div class="w-full md:w-1/3 px-3">
@@ -95,18 +95,27 @@ import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
             </div>
         </div>
         <hr class="mb-3"/>
-        <Checkbox label="Add constructor"
-                  :default-value="settings.addConstructor"
-                  @on-value-change="val => settings.addConstructor = val"/>
-        <Checkbox label="Add docblocks"
-                  :default-value="settings.addDocBlocks"
-                  @on-value-change="val => settings.addDocBlocks = val"/>
-        <Checkbox label="Final classes"
-                  :default-value="settings.finalClasses"
-                  @on-value-change="val => settings.finalClasses = val"/>
-        <Checkbox label="Add from json method"
-                  :default-value="settings.addFromJsonMethod"
-                  @on-value-change="val => settings.addFromJsonMethod = val"/>
+        <div class="flex flex-wrap -mx-3">
+            <div class="w-full md:w-1/3 px-3">
+                <Checkbox label="Add constructor"
+                          :default-value="settings.addConstructor"
+                          @on-value-change="val => settings.addConstructor = val"/>
+                <Checkbox label="Final classes"
+                          :default-value="settings.finalClasses"
+                          @on-value-change="val => settings.finalClasses = val"/>
+                <Checkbox label="Add from json method"
+                          :default-value="settings.addFromJsonMethod"
+                          @on-value-change="val => settings.addFromJsonMethod = val"/>
+            </div>
+            <div class="w-full md:w-1/3 px-3">
+                <Select id="method-constructor-docblock"
+                        label="Method/Constructor Docblock"
+                        :default-value="settings.docblock"
+                        :options="docblockOptions"
+                        @on-value-change="val => settings.docblock = val"/>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -120,7 +129,7 @@ import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
     import {PhpVersion} from "@/classes/enums/PhpVersion";
     import {StringCase} from "@/classes/enums/StringCase";
     import {PhpVisibility} from "@/classes/enums/PhpVisibility";
-    import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
+    import {PhpDocblock} from "@/classes/enums/PhpDocblock";
     import {PropertyDocblockType} from "@/classes/enums/PropertyDocblockType";
 
     @Component({
@@ -145,8 +154,8 @@ import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
             return EnumSelect.getOptions(PhpVisibility);
         }
 
-        get propertyDocblockOptions(): SelectOption[] {
-            return EnumSelect.getOptions(PhpPropertyDocblock);
+        get docblockOptions(): SelectOption[] {
+            return EnumSelect.getOptions(PhpDocblock);
         }
 
         get propertyDocblockTypeOptions(): SelectOption[] {
@@ -154,7 +163,7 @@ import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
         }
 
         get propertyDocblockVisible(): boolean {
-            return this.settings.propertyDocblock !== PhpPropertyDocblock.None;
+            return this.settings.propertyDocblock !== PhpDocblock.None;
         }
     }
 </script>

@@ -1,7 +1,7 @@
 import {PhpVersion} from "@/classes/enums/PhpVersion";
 import {StringCase} from "@/classes/enums/StringCase";
 import {PhpVisibility} from "@/classes/enums/PhpVisibility";
-import {PhpPropertyDocblock} from "@/classes/enums/PhpPropertyDocblock";
+import {PhpDocblock} from "@/classes/enums/PhpDocblock";
 import {PropertyDocblockType} from "@/classes/enums/PropertyDocblockType";
 
 export default class Settings {
@@ -10,7 +10,7 @@ export default class Settings {
     public propertyCase = StringCase.CamelCase;
 
     public propertyVisibility = PhpVisibility.Private;
-    public propertyDocblock = PhpPropertyDocblock.Necessary;
+    public propertyDocblock = PhpDocblock.Necessary;
     public propertyDocblockType = PropertyDocblockType.Inline;
     public propertyAddExtraNewLine = false;
 
@@ -21,9 +21,10 @@ export default class Settings {
     public isFluentSetter = true;
 
     public addConstructor = true;
-    public addDocBlocks = false;
     public finalClasses = false;
     public addFromJsonMethod = false;
+
+    public docblock = PhpDocblock.Necessary;
 
     public supportsTypedProperties(): boolean {
         const supportedVersions = [PhpVersion.PHP74];

@@ -1,4 +1,4 @@
-export enum PhpPropertyDocblock {
+export enum PhpDocblock {
     None = 'None',
     Necessary = 'Only necessary',
     All = 'All',

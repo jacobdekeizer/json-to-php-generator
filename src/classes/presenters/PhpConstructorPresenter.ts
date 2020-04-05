@@ -1,6 +1,6 @@
 import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
-import PhpMethodDocblockPresenter from "@/classes/presenters/PhpMethodDocblockPresenter";
+import PhpDocblockPresenter from "@/classes/presenters/PhpDocblockPresenter";
 
 export default class PhpConstructorPresenter {
     private readonly typePresenters: PhpTypePresenter[];
@@ -14,9 +14,7 @@ export default class PhpConstructorPresenter {
     public toString(): string {
         let content = '\n';
 
-        if (this.settings.addDocBlocks) {
-            content += (new PhpMethodDocblockPresenter(this.typePresenters)).toString();
-        }
+        content += (new PhpDocblockPresenter(this.settings, this.typePresenters)).toString();
 
         content += '\tpublic constructor(' + this.typePresenters.map(property => property.getPhpVarWithType()).join(', ') +') \n';
         content +='\t{\n';
