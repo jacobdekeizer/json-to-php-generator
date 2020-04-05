@@ -30,7 +30,7 @@ export default class ArrayType implements PhpType {
     }
 
     public isDocblockRequired(): boolean {
-        return true;
+        return !(this.type instanceof UnknownType);
     }
 
     public isNullable(): boolean {

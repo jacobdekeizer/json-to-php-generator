@@ -19,7 +19,7 @@ export default class PhpClassFromJsonMethodPresenter {
 
         const arrayPresenter = new PhpTypePresenter(new ArrayType('data', new UnknownType('data')), this.settings);
 
-        content += (new PhpDocblockPresenter([arrayPresenter], 'self')).toString();
+        content += (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).toString();
 
         content += '\tpublic static function fromJson(array $data): self\n';
         content += '\t{\n';
