@@ -16,7 +16,7 @@ export default class PhpConstructorPresenter {
 
         content += (new PhpDocblockPresenter(this.settings, this.typePresenters)).toString();
 
-        content += '\tpublic constructor(' + this.typePresenters.map(property => property.getPhpVarWithType()).join(', ') +') \n';
+        content += '\tpublic function __construct(' + this.typePresenters.map(property => property.getPhpVarWithType()).join(', ') +') \n';
         content +='\t{\n';
         content += this.typePresenters.map(item => '\t\t$this->' + item.getPhpVarName() + ' = ' + item.getPhpVar()).join(';\n') + ';\n';
         content += '\t}\n';

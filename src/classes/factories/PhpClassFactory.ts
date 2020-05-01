@@ -120,7 +120,7 @@ export default class PhpClassFactory {
     }
 
     private static mergeProperties(phpClasses: PhpClass[]): PhpType[] {
-        const properties: PhpType[] = [];
+        let properties: PhpType[] = [];
 
         for (const phpClass of phpClasses) {
             for (const property of phpClass.getProperties()) {
@@ -128,7 +128,15 @@ export default class PhpClassFactory {
 
                 if (item) {
                     if (property.isNullable()) {
+                        // property is nullable in one of the items
                         item.setNullable(true);
+                    }
+
+                    if (property.getType() !== item.getType()) {
+                        // property type is different in one of the items
+                        // so we make it mixed type
+                        properties = properties.filter(oldProp => oldProp.getName() === property.getName());
+                        properties.push(new UnknownType(item.getName()));
                     }
                     continue;
                 }

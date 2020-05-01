@@ -17,9 +17,11 @@ export default class PhpGetterPresenter {
 
         content += (new PhpDocblockPresenter(this.settings, [], this.typePresenter.getPhpTypeNotation())).toString();
 
+        const returnType = this.typePresenter.getPhpTypeNotation() ? ': ' + this.typePresenter.getPhpTypeNotation() : '';
+
         content += '\tpublic function '
             + Str.changeCase('get_' + this.typePresenter.getPhpVarName(), this.settings.getterCase)
-            + '(): ' + this.typePresenter.getPhpTypeNotation() + '\n';
+            + '() ' + returnType + '\n';
 
         content += '\t{\n';
         content += '\t\treturn $this->' + this.typePresenter.getPhpVarName() + ';\n';

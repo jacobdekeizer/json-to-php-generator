@@ -57,7 +57,7 @@ export default class PhpClassFromJsonMethodPresenter {
     }
 
     private static getPropertyFromData(typePresenter: PhpTypePresenter, indent: string): string {
-        const dataItem = '$data[\'' + typePresenter.getPhpVarName() + '\']';
+        const dataItem = '$data[\'' + typePresenter.getPhpType().getName() + '\']';
 
         if (typePresenter.getPhpType() instanceof ArrayType) {
             let content = '';
@@ -65,7 +65,7 @@ export default class PhpClassFromJsonMethodPresenter {
                 content += '(' + dataItem + ' ?? null ) !== null ? '
             }
 
-            content += 'array_map(function($data) {\n';
+            content += 'array_map(static function($data) {\n';
             content += indent + '\treturn ';
 
             const arrayTypePresenter = typePresenter.getPhpType() as ArrayType;
