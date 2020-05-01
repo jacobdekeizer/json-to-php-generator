@@ -106,6 +106,9 @@ import {PhpDocblock} from "@/classes/enums/PhpDocblock";
                 <Checkbox label="Add from json method"
                           :default-value="settings.addFromJsonMethod"
                           @on-value-change="val => settings.addFromJsonMethod = val"/>
+                <Checkbox label="All properties nullable"
+                          :default-value="settings.allPropertiesNullable"
+                          @on-value-change="val => settings.allPropertiesNullable = val"/>
             </div>
             <div class="w-full md:w-1/3 px-3">
                 <Select id="method-constructor-docblock"

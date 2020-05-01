@@ -25,14 +25,20 @@ export default class PhpClassPresenter {
 
     public toString(): string
     {
+        // setup properties with presenters
+        this.phpClass.getProperties().forEach(item => item.setSettings(this.settings));
+
+        if (this.settings.allPropertiesNullable) {
+            this.phpClass.getProperties().forEach(item => item.setNullable(true));
+        }
+
+        const typePresenters = this.phpClass.getProperties().map(property => new PhpTypePresenter(property, this.settings));
+
         // open current class
         let content = '\n';
 
         content += (this.settings.finalClasses ? 'final ' : '') + 'class ' + this.getClassName() + '\n';
         content += '{\n';
-
-        this.phpClass.getProperties().forEach(item => item.setSettings(this.settings));
-        const typePresenters = this.phpClass.getProperties().map(property => new PhpTypePresenter(property, this.settings));
 
         // properties
         content += typePresenters.map(property => (new PhpPropertyPresenter(property, this.settings)).toString())
