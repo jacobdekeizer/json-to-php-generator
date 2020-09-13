@@ -18,7 +18,7 @@ export default class PhpClassFromJsonMethodPresenter {
     public toString(): string {
         let content = '\n';
 
-        const arrayPresenter = new PhpPropertyTypePresenter(new PhpProperty('data').add(new UnknownType), this.settings);
+        const arrayPresenter = new PhpPropertyTypePresenter(new PhpProperty('data').add(new ArrayType), this.settings);
 
         content += (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).toString();
 
