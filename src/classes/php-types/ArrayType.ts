@@ -2,55 +2,64 @@ import PhpType from "@/classes/php-types/PhpType";
 import Settings from "@/classes/dto/Settings";
 import PhpClassType from "@/classes/php-types/PhpClassType";
 import UnknownType from "@/classes/php-types/UnknownType";
+import NullType from '@/classes/php-types/NullType';
 
-export default class ArrayType implements PhpType {
-    private readonly name: string;
-    private readonly type: PhpType;
-    private nullable = false;
-    private settings: Settings | null = null;
-
-    public constructor(name: string, type: PhpType) {
-        this.name = name;
-        this.type = type;
-    }
-
-    public getName(): string {
-        return this.name;
-    }
+export default class ArrayType extends PhpType {
+    private readonly types: PhpType[] = [];
 
     public getType(): string {
         return 'array';
     }
 
     public getDocblockContent(): string {
-        if (this.type instanceof UnknownType) {
-            return '@var array';
+        if (this.types.length === 0 || !this.isTyped()) {
+            return 'array';
         }
-        return '@var ' + this.type.getType() + '[]';
+        
+        if (this.types.length === 1) {
+            return this.types[0].getDocblockContent() + '[]';
+        }
+
+        return '('+ this.types.map(type => type.getDocblockContent()).join('|') + ')' + '[]';
     }
 
     public isDocblockRequired(): boolean {
-        return !(this.type instanceof UnknownType);
-    }
-
-    public isNullable(): boolean {
-        return this.nullable;
-    }
-
-    public setNullable(nullable: boolean): void {
-        this.nullable = nullable;
+        return true;
     }
 
     public setSettings(settings: Settings | null): void {
-        this.settings = settings;
-        this.type.setSettings(settings);
+        super.setSettings(settings);
+        for (const type of this.types) {
+            type.setSettings(settings);
+        }
     }
 
     public isPhpClassArray(): boolean {
-        return this.type instanceof PhpClassType;
+        return this.types.some(type => type instanceof PhpClassType)
     }
 
-    public getPhpType(): PhpType {
-        return this.type;
+    public addType(type: PhpType): this {
+        if (this.types.some(t => t.constructor === type.constructor)) {
+            return this;
+        }
+
+        this.types.push(type);
+        return this;
+    }
+
+    private isTyped(): boolean {
+        for (const type of this.types) {
+            if (type instanceof UnknownType) {
+                continue;
+            }
+
+            if (type instanceof NullType) {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

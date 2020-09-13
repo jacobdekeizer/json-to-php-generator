@@ -1,5 +1,4 @@
 import PhpClass from "@/classes/dto/PhpClass";
-import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import Str from "@/classes/support/Str";
 import PhpGetterPresenter from "@/classes/presenters/PhpGetterPresenter";
@@ -8,6 +7,7 @@ import PhpFluentSetterPresenter from "@/classes/presenters/PhpFluentSetterPresen
 import PhpConstructorPresenter from "@/classes/presenters/PhpConstructorPresenter";
 import PhpClassFromJsonMethodPresenter from "@/classes/presenters/PhpClassFromJsonMethodPresenter";
 import PhpPropertyPresenter from "@/classes/presenters/PhpPropertyPresenter";
+import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -29,10 +29,10 @@ export default class PhpClassPresenter {
         this.phpClass.getProperties().forEach(item => item.setSettings(this.settings));
 
         if (this.settings.allPropertiesNullable) {
-            this.phpClass.getProperties().forEach(item => item.setNullable(true));
+            this.phpClass.getProperties().forEach(item => item.makeNullable());
         }
 
-        const typePresenters = this.phpClass.getProperties().map(property => new PhpTypePresenter(property, this.settings));
+        const propertyTypePresenters = this.phpClass.getProperties().map(property => new PhpPropertyTypePresenter(property, this.settings));
 
         // open current class
         let content = '\n';
@@ -41,33 +41,33 @@ export default class PhpClassPresenter {
         content += '{\n';
 
         // properties
-        content += typePresenters.map(property => (new PhpPropertyPresenter(property, this.settings)).toString())
+        content += propertyTypePresenters.map(property => (new PhpPropertyPresenter(property, this.settings)).toString())
             .join('\n' + (this.settings.propertyAddExtraNewLine ? '\n' : '')) + '\n';
 
         // constructor
         if (this.settings.addConstructor) {
-            content += (new PhpConstructorPresenter(typePresenters, this.settings)).toString();
+            content += (new PhpConstructorPresenter(propertyTypePresenters, this.settings)).toString();
         }
 
         // getters
         if (this.settings.addGetters) {
             content += '\n';
-            content += typePresenters.map(property => (new PhpGetterPresenter(property, this.settings)).toString()).join('\n');
+            content += propertyTypePresenters.map(property => (new PhpGetterPresenter(property, this.settings)).toString()).join('\n');
         }
 
         // setters
         if (this.settings.addSetters) {
             content += '\n';
             if (this.settings.isFluentSetter) {
-                content += typePresenters.map(property => (new PhpFluentSetterPresenter(property, this.settings)).toString()).join('\n');
+                content += propertyTypePresenters.map(property => (new PhpFluentSetterPresenter(property, this.settings)).toString()).join('\n');
             } else {
-                content += typePresenters.map(property => (new PhpSetterPresenter(property, this.settings)).toString()).join('\n');
+                content += propertyTypePresenters.map(property => (new PhpSetterPresenter(property, this.settings)).toString()).join('\n');
             }
         }
 
         // from json method
         if (this.settings.addFromJsonMethod) {
-            content += (new PhpClassFromJsonMethodPresenter(typePresenters, this.settings)).toString();
+            content += (new PhpClassFromJsonMethodPresenter(propertyTypePresenters, this.settings)).toString();
         }
 
         // close current class

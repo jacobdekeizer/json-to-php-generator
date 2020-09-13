@@ -1,12 +1,11 @@
-import PhpType from "@/classes/php-types/PhpType";
+import PhpProperty from '@/classes/dto/PhpProperty';
 
 export default class PhpClass {
-
-    private readonly name: string;
-    private readonly properties: PhpType[];
+    private name: string;
+    private readonly properties: PhpProperty[];
     private readonly children: PhpClass[];
 
-    public constructor (name: string, properties: PhpType[], children: PhpClass[] = []) {
+    public constructor (name: string, properties: PhpProperty[], children: PhpClass[] = []) {
         this.name = name;
         this.properties = properties;
         this.children = children;
@@ -16,8 +15,16 @@ export default class PhpClass {
         return this.name;
     }
 
-    public getProperties(): PhpType[] {
+    public setName(name: string): void {
+        this.name = name;
+    }
+
+    public getProperties(): PhpProperty[] {
         return this.properties;
+    }
+
+    public getProperty(name: string): PhpProperty | null {
+        return this.properties.find(property => property.getName() === name) || null;
     }
 
     public getChildren(): PhpClass[] {

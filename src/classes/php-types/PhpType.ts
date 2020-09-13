@@ -1,17 +1,15 @@
 import Settings from "@/classes/dto/Settings";
 
-export default interface PhpType {
-    getName(): string;
+export default abstract class PhpType {
+    protected settings: Settings | null = null;
 
-    getType(): string;
+    abstract getType(): string;
 
-    getDocblockContent(): string;
+    abstract getDocblockContent(): string;
 
-    isDocblockRequired(): boolean;
+    abstract isDocblockRequired(): boolean;
 
-    setNullable(nullable: boolean): void;
-
-    isNullable(): boolean;
-
-    setSettings(settings: Settings | null): void;
+    public setSettings(settings: Settings | null): void {
+        this.settings = settings;
+    }
 }

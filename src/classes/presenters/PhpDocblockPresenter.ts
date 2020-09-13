@@ -1,15 +1,19 @@
-import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import {PhpDocblock} from "@/classes/enums/PhpDocblock";
+import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 
 export default class PhpDocblockPresenter {
-    private readonly typePresenters: PhpTypePresenter[];
+    private readonly propertyTypePresenters: PhpPropertyTypePresenter[];
     private readonly returnType: string | null;
     private readonly settings: Settings;
 
-    public constructor(settings: Settings, typePresenters: PhpTypePresenter[], returnType: string | null = null) {
+    public constructor(
+        settings: Settings,
+        propertyTypePresenters: PhpPropertyTypePresenter[],
+        returnType: string | null = null
+    ) {
         this.settings = settings;
-        this.typePresenters = typePresenters;
+        this.propertyTypePresenters = propertyTypePresenters;
         this.returnType = returnType;
     }
 
@@ -18,8 +22,16 @@ export default class PhpDocblockPresenter {
             return "";
         }
 
-        const filteredTypePresenters = this.typePresenters.filter(presenter => {
-            return !(this.settings.docblock === PhpDocblock.Necessary && !presenter.getPhpType().isDocblockRequired());
+        const filteredTypePresenters = this.propertyTypePresenters.filter(presenter => {
+            if (this.settings.docblock === PhpDocblock.None) {
+                return false;
+            }
+
+            if (this.settings.docblock === PhpDocblock.All) {
+                return true;
+            }
+
+            return this.settings.docblock === PhpDocblock.Necessary && presenter.getProperty().isDocblockRequired();
         });
 
         if (filteredTypePresenters.length === 0 && (this.returnType === null || this.settings.docblock === PhpDocblock.Necessary)) {
@@ -30,7 +42,7 @@ export default class PhpDocblockPresenter {
 
         if (filteredTypePresenters.length) {
             content += filteredTypePresenters
-                .map(property => '\t * ' + property.getDocblockContent() + ' ' + property.getPhpVar()).join('\n') + '\n';
+                .map(presenter => '\t * @param ' + presenter.getDocblockContent() + ' ' + presenter.getPhpVar()).join('\n') + '\n';
         }
 
         if (this.settings.docblock === PhpDocblock.All && this.returnType) {
@@ -38,6 +50,7 @@ export default class PhpDocblockPresenter {
         }
 
         content += '\t */\n';
+
         return content;
     }
 }

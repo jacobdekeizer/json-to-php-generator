@@ -1,23 +1,24 @@
-import PhpType from "@/classes/php-types/PhpType";
 import PhpTypeFactory from "@/classes/factories/PhpTypeFactory";
 import PhpClass from "@/classes/dto/PhpClass";
-import UnknownType from "@/classes/php-types/UnknownType";
+import PhpProperty from '@/classes/dto/PhpProperty';
+import ArrayType from '@/classes/php-types/ArrayType';
+import NullType from '@/classes/php-types/NullType';
 
 export default class PhpClassFactory {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     public static make(content: any, name: string): PhpClass {
-        const properties: PhpType[] = [];
+        const properties: PhpProperty[] = [];
         const children: PhpClass[] = [];
 
         // merge array of same class to one class
         if (Array.isArray(content)) {
-            const result = this.getTypeAndClassFromArray(name, content);
+            const result = this.makePropertyFromArray(name, content);
 
-            if (result[0] !== null) {
-                children.push(result[0]);
+            if (result.phpClass) {
+                children.push(result.phpClass);
             }
 
-            properties.push(result[1]);
+            properties.push(result.property);
 
             return new PhpClass(name, properties, children);
         }
@@ -27,67 +28,71 @@ export default class PhpClassFactory {
             const objectKeys = Object.keys(content);
 
             for (const key of objectKeys) {
-                let type: PhpType | null = null;
                 const keyContent = content[key];
 
                 if (Array.isArray(keyContent)) {
                     // nested array
-                    const result = this.getTypeAndClassFromArray(key, keyContent);
+                    const result = this.makePropertyFromArray(key, keyContent);
 
-                    if (result[0] !== null) {
-                        children.push(result[0]);
+                    if (result.phpClass) {
+                        children.push(result.phpClass);
                     }
 
-                    type = result[1];
-                } else if (typeof keyContent === 'object' && keyContent !== null) {
-                    // nested class
-                    const result = this.make(keyContent, key);
-
-                    children.push(result);
-                    type = PhpTypeFactory.make(key, result);
-                } else {
-                    // normal type
-                    type = PhpTypeFactory.make(key, keyContent);
+                    properties.push(result.property);
+                    continue;
                 }
 
-                properties.push(type);
+                const newProperty = new PhpProperty(key);
+                
+                if (typeof keyContent === 'object' && keyContent !== null) {
+                    // nested class
+                    const result = this.make(keyContent, key);
+                    children.push(result);
+                    
+                    newProperty.add(PhpTypeFactory.make(result));
+                } else {
+                    // normal type
+                    newProperty.add(PhpTypeFactory.make(keyContent));
+                }
+
+                properties.push(newProperty);
             }
         }
 
         return new PhpClass(name, properties, children);
     }
 
-    private static getTypeAndClassFromArray(name: string, content: any): [PhpClass | null, PhpType] {
-        let type: PhpType | null;
+    private static makePropertyFromArray(name: string, items: any[]): {
+        property: PhpProperty;
+        phpClass: PhpClass | null;
+    } {
+        const property = new PhpProperty(name);
+        let phpClass: PhpClass | null = null;
 
-        const phpClass = this.makeOneClassFromArray(content, name);
+        if (items.some(item => item instanceof Object)) {
+            phpClass = this.makeOneClassFromArray(name, items);
+            const arrayType = PhpTypeFactory.make([phpClass]) as ArrayType;
 
-        if (phpClass !== null) {
-            type = PhpTypeFactory.make(name, [phpClass]);
+            if (items.some(item => item === null)) {
+                arrayType.addType(new NullType);
+            }
+
+            property.add(arrayType);
         } else {
-            type = PhpTypeFactory.make(name, content);
+            property.add(PhpTypeFactory.make(items));
         }
 
-        return [phpClass, type];
+        return {
+            property,
+            phpClass
+        };
     }
 
-    private static makeOneClassFromArray(items: any[], name: string): PhpClass | null {
+    private static makeOneClassFromArray(name: string, items: any[]): PhpClass {
         const allClasses: PhpClass[] = [];
 
         for (const item of items) {
-            const type = PhpTypeFactory.make(name, item);
-
-            // check if it is a normal php type
-            if (!(type instanceof UnknownType)) {
-                return null;
-            }
-
-            // create new php class, because it isn't a default type
             allClasses.push(PhpClassFactory.make(item, name));
-        }
-
-        if (allClasses.length === 0) {
-            return null;
         }
 
         return new PhpClass(name, this.mergeProperties(allClasses), this.mergeChildren(allClasses));
@@ -119,47 +124,19 @@ export default class PhpClassFactory {
         return children;
     }
 
-    private static mergeProperties(phpClasses: PhpClass[]): PhpType[] {
-        let properties: PhpType[] = [];
+    private static mergeProperties(phpClasses: PhpClass[]): PhpProperty[] {
+        const properties: PhpProperty[] = [];
 
         for (const phpClass of phpClasses) {
             for (const property of phpClass.getProperties()) {
-                const item = properties.find(item => item.getName() === property.getName());
+                const currentProperty = properties.find(p => p.getName() === property.getName());
 
-                if (item) {
-                    if (property.isNullable()) {
-                        // property is nullable in one of the items
-                        item.setNullable(true);
-                    }
-
-                    if (property.getType() !== item.getType()) {
-                        // property type is different in one of the items
-                        // so we make it mixed type
-                        properties = properties.filter(oldProp => oldProp.getName() === property.getName());
-                        properties.push(new UnknownType(item.getName()));
-                    }
-                    continue;
+                if (currentProperty) {
+                   currentProperty.merge(property);
+                   continue;
                 }
 
                 properties.push(property);
-            }
-        }
-
-        // check for properties which are present in one item but not in one of the other items
-        // when a difference is found make them nullable
-        const currentPropertyNames = properties.map(item => item.getName());
-
-        for (const phpClass of phpClasses) {
-            const classPropertyNames = phpClass.getProperties().map(item => item.getName());
-
-            const nullablePropertyNames = currentPropertyNames.filter(item => !classPropertyNames.includes(item));
-
-            for (const nullableProperty of nullablePropertyNames) {
-                const item = properties.find(item => item.getName() === nullableProperty);
-
-                if (item) {
-                    item.setNullable(true);
-                }
             }
         }
 

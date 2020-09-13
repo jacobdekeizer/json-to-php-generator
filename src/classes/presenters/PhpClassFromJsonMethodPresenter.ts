@@ -1,23 +1,24 @@
-import PhpTypePresenter from "@/classes/presenters/PhpTypePresenter";
 import Settings from "@/classes/dto/Settings";
 import ArrayType from "@/classes/php-types/ArrayType";
 import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
 import PhpDocblockPresenter from "@/classes/presenters/PhpDocblockPresenter";
 import UnknownType from "@/classes/php-types/UnknownType";
+import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
+import PhpProperty from '@/classes/dto/PhpProperty';
 
 export default class PhpClassFromJsonMethodPresenter {
-    private readonly typePresenters: PhpTypePresenter[];
+    private readonly propertyTypePresenter: PhpPropertyTypePresenter[];
     private readonly settings: Settings;
 
-    public constructor(typePresenters: PhpTypePresenter[], settings: Settings) {
-        this.typePresenters = typePresenters;
+    public constructor(propertyTypePresenter: PhpPropertyTypePresenter[], settings: Settings) {
+        this.propertyTypePresenter = propertyTypePresenter;
         this.settings = settings;
     }
 
     public toString(): string {
         let content = '\n';
 
-        const arrayPresenter = new PhpTypePresenter(new ArrayType('data', new UnknownType('data')), this.settings);
+        const arrayPresenter = new PhpPropertyTypePresenter(new PhpProperty('data').add(new UnknownType), this.settings);
 
         content += (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).toString();
 
@@ -30,7 +31,7 @@ export default class PhpClassFromJsonMethodPresenter {
         } else if (this.settings.addSetters) {
             // add through setters
             content += '\t\t$instance = new self();\n';
-            content += this.typePresenters.map(type => {
+            content += this.propertyTypePresenter.map(type => {
                 return  '\t\t$instance->' + (new PhpSetterPresenter(type, this.settings)).getMethodName() + '('
                     + PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t') + ');'
             }).join('\n') + '\n';
@@ -38,7 +39,7 @@ export default class PhpClassFromJsonMethodPresenter {
         } else {
             // add through new instance creation
             content += '\t\t$instance = new self();\n';
-            content += this.typePresenters
+            content += this.propertyTypePresenter
                 .map(type => '\t\t$instance->' + type.getPhpVarName() + ' = ' + PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t') + ';')
                 .join('\n') + '\n';
             content += '\t\treturn $instance;\n';
@@ -51,35 +52,39 @@ export default class PhpClassFromJsonMethodPresenter {
 
     private getNewFromConstructor(): string {
         return '\t\treturn new self(\n\t\t\t'
-            + this.typePresenters.map(type => PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t\t'))
+            + this.propertyTypePresenter.map(type => PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t\t'))
                 .join(',\n\t\t\t') + '\n'
             + '\t\t);';
     }
 
-    private static getPropertyFromData(typePresenter: PhpTypePresenter, indent: string): string {
-        const dataItem = '$data[\'' + typePresenter.getPhpType().getName() + '\']';
+    private static getPropertyFromData(typePresenter: PhpPropertyTypePresenter, indent: string): string {
+        const dataItem = '$data[\'' + typePresenter.getProperty().getName() + '\']';
 
-        if (typePresenter.getPhpType() instanceof ArrayType) {
+        const property = typePresenter.getProperty();
+
+        const classArrayType = property.getTypes().find(type => type instanceof ArrayType && type.isPhpClassArray()) as ArrayType | undefined;
+
+        if (classArrayType) {
             let content = '';
-            if (typePresenter.isNullable()) {
+
+            if (property.isNullable()) {
                 content += '(' + dataItem + ' ?? null ) !== null ? '
             }
 
             content += 'array_map(static function($data) {\n';
             content += indent + '\treturn ';
 
-            const arrayTypePresenter = typePresenter.getPhpType() as ArrayType;
-            if (arrayTypePresenter.isPhpClassArray()) {
-                content += arrayTypePresenter.getPhpType().getType() + '::fromJson($data);\n'
+            if (classArrayType.isPhpClassArray()) {
+                content += classArrayType.getType() + '::fromJson($data);\n'
             } else {
                 content += '$data;\n';
             }
 
-            content += indent + '}, ' + dataItem + (typePresenter.isNullable() ? ' : null' : '') + ')';
+            content += indent + '}, ' + dataItem + (property.isNullable() ? ' : null' : '') + ')';
 
             return content;
         }
 
-        return dataItem + (typePresenter.isNullable() ? ' ?? null': '');
+        return dataItem + (property.isNullable() ? ' ?? null': '');
     }
 }
