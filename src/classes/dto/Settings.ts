@@ -1,8 +1,8 @@
-import {PhpVersion} from "@/classes/enums/PhpVersion";
-import {StringCase} from "@/classes/enums/StringCase";
-import {PhpVisibility} from "@/classes/enums/PhpVisibility";
-import {PhpDocblock} from "@/classes/enums/PhpDocblock";
-import {PropertyDocblockType} from "@/classes/enums/PropertyDocblockType";
+import {PhpVersion} from '@/classes/enums/PhpVersion';
+import {StringCase} from '@/classes/enums/StringCase';
+import {PhpVisibility} from '@/classes/enums/PhpVisibility';
+import {PhpDocblock} from '@/classes/enums/PhpDocblock';
+import {PropertyDocblockType} from '@/classes/enums/PropertyDocblockType';
 
 export default class Settings {
     public phpVersion = PhpVersion.PHP74;

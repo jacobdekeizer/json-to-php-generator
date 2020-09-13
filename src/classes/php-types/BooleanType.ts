@@ -1,4 +1,4 @@
-import PhpType from "@/classes/php-types/PhpType";
+import PhpType from '@/classes/php-types/PhpType';
 
 export default class BooleanType extends PhpType {
     public getType(): string {
@@ -6,7 +6,7 @@ export default class BooleanType extends PhpType {
     }
 
     public getDocblockContent(): string {
-        return "bool";
+        return 'bool';
     }
 
     public isDocblockRequired(): boolean {

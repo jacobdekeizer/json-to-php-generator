@@ -11,7 +11,6 @@
 
     @Component
     export default class Card extends Vue {
-        @Prop(String)
-        private message!: string;
+        @Prop(String) private readonly message!: string;
     }
 </script>

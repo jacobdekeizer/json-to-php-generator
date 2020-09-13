@@ -1,5 +1,5 @@
-import Settings from "@/classes/dto/Settings";
-import PhpDocblockPresenter from "@/classes/presenters/PhpDocblockPresenter";
+import Settings from '@/classes/dto/Settings';
+import PhpDocblockPresenter from '@/classes/presenters/PhpDocblockPresenter';
 import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 
 export default class PhpConstructorPresenter {

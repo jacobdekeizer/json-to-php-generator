@@ -1,5 +1,5 @@
-import Settings from "@/classes/dto/Settings";
-import Str from "@/classes/support/Str";
+import Settings from '@/classes/dto/Settings';
+import Str from '@/classes/support/Str';
 import PhpProperty from '@/classes/dto/PhpProperty';
 
 export default class PhpPropertyTypePresenter {

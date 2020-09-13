@@ -1,12 +1,12 @@
-import PhpClass from "@/classes/dto/PhpClass";
-import Settings from "@/classes/dto/Settings";
-import Str from "@/classes/support/Str";
-import PhpGetterPresenter from "@/classes/presenters/PhpGetterPresenter";
-import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
-import PhpFluentSetterPresenter from "@/classes/presenters/PhpFluentSetterPresenter";
-import PhpConstructorPresenter from "@/classes/presenters/PhpConstructorPresenter";
-import PhpClassFromJsonMethodPresenter from "@/classes/presenters/PhpClassFromJsonMethodPresenter";
-import PhpPropertyPresenter from "@/classes/presenters/PhpPropertyPresenter";
+import PhpClass from '@/classes/dto/PhpClass';
+import Settings from '@/classes/dto/Settings';
+import Str from '@/classes/support/Str';
+import PhpGetterPresenter from '@/classes/presenters/PhpGetterPresenter';
+import PhpSetterPresenter from '@/classes/presenters/PhpSetterPresenter';
+import PhpFluentSetterPresenter from '@/classes/presenters/PhpFluentSetterPresenter';
+import PhpConstructorPresenter from '@/classes/presenters/PhpConstructorPresenter';
+import PhpClassFromJsonMethodPresenter from '@/classes/presenters/PhpClassFromJsonMethodPresenter';
+import PhpPropertyPresenter from '@/classes/presenters/PhpPropertyPresenter';
 import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 
 export default class PhpClassPresenter {

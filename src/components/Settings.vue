@@ -1,4 +1,3 @@
-import {PhpDocblock} from "@/classes/enums/PhpDocblock";
 <template>
     <div>
         <div class="flex flex-wrap -mx-3 mb-3">
@@ -124,16 +123,16 @@ import {PhpDocblock} from "@/classes/enums/PhpDocblock";
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {default as SettingsModel} from "@/classes/dto/Settings";
-    import Checkbox from "@/components/form/Checkbox.vue";
-    import Select from "@/components/form/Select.vue";
-    import SelectOption from "@/classes/dto/SelectOption";
-    import EnumSelect from "@/classes/support/EnumSelect";
-    import {PhpVersion} from "@/classes/enums/PhpVersion";
-    import {StringCase} from "@/classes/enums/StringCase";
-    import {PhpVisibility} from "@/classes/enums/PhpVisibility";
-    import {PhpDocblock} from "@/classes/enums/PhpDocblock";
-    import {PropertyDocblockType} from "@/classes/enums/PropertyDocblockType";
+    import {default as SettingsModel} from '@/classes/dto/Settings';
+    import Checkbox from '@/components/form/Checkbox.vue';
+    import Select from '@/components/form/Select.vue';
+    import SelectOption from '@/classes/dto/SelectOption';
+    import EnumSelect from '@/classes/support/EnumSelect';
+    import {PhpVersion} from '@/classes/enums/PhpVersion';
+    import {StringCase} from '@/classes/enums/StringCase';
+    import {PhpVisibility} from '@/classes/enums/PhpVisibility';
+    import {PhpDocblock} from '@/classes/enums/PhpDocblock';
+    import {PropertyDocblockType} from '@/classes/enums/PropertyDocblockType';
 
     @Component({
         components: {
@@ -142,30 +141,29 @@ import {PhpDocblock} from "@/classes/enums/PhpDocblock";
         }
     })
     export default class Settings extends Vue {
-        @Prop(Object)
-        private settings!: SettingsModel;
+        @Prop(Object) private readonly settings!: SettingsModel;
 
-        get phpVersionOptions(): SelectOption[] {
+        private get phpVersionOptions(): SelectOption[] {
             return EnumSelect.getOptions(PhpVersion);
         }
 
-        get caseOptions(): SelectOption[] {
+        private get caseOptions(): SelectOption[] {
             return EnumSelect.getOptions(StringCase);
         }
 
-        get phpVisibilityOptions(): SelectOption[] {
+        private get phpVisibilityOptions(): SelectOption[] {
             return EnumSelect.getOptions(PhpVisibility);
         }
 
-        get docblockOptions(): SelectOption[] {
+        private get docblockOptions(): SelectOption[] {
             return EnumSelect.getOptions(PhpDocblock);
         }
 
-        get propertyDocblockTypeOptions(): SelectOption[] {
+        private get propertyDocblockTypeOptions(): SelectOption[] {
             return EnumSelect.getOptions(PropertyDocblockType);
         }
 
-        get propertyDocblockVisible(): boolean {
+        private get propertyDocblockVisible(): boolean {
             return this.settings.propertyDocblock !== PhpDocblock.None;
         }
     }

@@ -1,5 +1,5 @@
-import {StringCase} from "@/classes/enums/StringCase";
-import {camelCase, pascalCase, snakeCase} from "change-case";
+import {StringCase} from '@/classes/enums/StringCase';
+import {camelCase, pascalCase, snakeCase} from 'change-case';
 
 export default class Str {
     public static changeCase(value: string, stringCase: StringCase): string {

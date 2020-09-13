@@ -1,6 +1,6 @@
-import Settings from "@/classes/dto/Settings";
-import {PhpDocblock} from "@/classes/enums/PhpDocblock";
-import {PropertyDocblockType} from "@/classes/enums/PropertyDocblockType";
+import Settings from '@/classes/dto/Settings';
+import {PhpDocblock} from '@/classes/enums/PhpDocblock';
+import {PropertyDocblockType} from '@/classes/enums/PropertyDocblockType';
 import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 
 export default class PhpPropertyPresenter {

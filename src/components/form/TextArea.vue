@@ -12,14 +12,9 @@
 
     @Component
     export default class TextArea extends Vue {
-        @Prop(String)
-        public id!: string;
-
-        @Prop(String)
-        public defaultValue!: string;
-
-        @Prop(String)
-        public label!: string;
+        @Prop(String) private readonly id!: string;
+        @Prop(String) private readonly defaultValue!: string;
+        @Prop(String) private readonly label!: string;
 
         private value: string | null = null;
 

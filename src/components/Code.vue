@@ -19,7 +19,6 @@
         }
     })
     export default class Code extends Vue {
-        @Prop(String)
-        public code!: string;
+        @Prop(String) private readonly code!: string;
     }
 </script>

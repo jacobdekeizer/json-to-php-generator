@@ -1,6 +1,6 @@
-import PhpType from "@/classes/php-types/PhpType";
-import PhpClass from "@/classes/dto/PhpClass";
-import PhpClassPresenter from "@/classes/presenters/PhpClassPresenter";
+import PhpType from '@/classes/php-types/PhpType';
+import PhpClass from '@/classes/dto/PhpClass';
+import PhpClassPresenter from '@/classes/presenters/PhpClassPresenter';
 
 export default class PhpClassType extends PhpType {
     private readonly phpClass: PhpClass;

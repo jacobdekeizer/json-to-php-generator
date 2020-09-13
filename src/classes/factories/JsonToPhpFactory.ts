@@ -1,5 +1,5 @@
-import PhpClassFactory from "@/classes/factories/PhpClassFactory";
-import PhpClass from "@/classes/dto/PhpClass";
+import PhpClassFactory from '@/classes/factories/PhpClassFactory';
+import PhpClass from '@/classes/dto/PhpClass';
 
 export default class JsonToPhpFactory {
     public static make(content: string): PhpClass {

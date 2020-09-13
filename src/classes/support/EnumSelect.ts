@@ -1,4 +1,4 @@
-import SelectOption from "@/classes/dto/SelectOption";
+import SelectOption from '@/classes/dto/SelectOption';
 
 export default class EnumSelect {
     /* eslint-disable @typescript-eslint/no-explicit-any */

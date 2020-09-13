@@ -10,14 +10,9 @@
 
     @Component
     export default class Checkbox extends Vue {
-        @Prop(String)
-        public id!: string;
-
-        @Prop(Boolean)
-        public defaultValue!: boolean;
-
-        @Prop(String)
-        public label!: string;
+        @Prop(String) private readonly id!: string;
+        @Prop(Boolean) private readonly defaultValue!: boolean;
+        @Prop(String) private readonly label!: string;
 
         private value = false;
 

@@ -1,5 +1,5 @@
-import PhpSetterPresenter from "@/classes/presenters/PhpSetterPresenter";
-import PhpDocblockPresenter from "@/classes/presenters/PhpDocblockPresenter";
+import PhpSetterPresenter from '@/classes/presenters/PhpSetterPresenter';
+import PhpDocblockPresenter from '@/classes/presenters/PhpDocblockPresenter';
 
 export default class PhpFluentSetterPresenter extends PhpSetterPresenter{
     public toString(): string {

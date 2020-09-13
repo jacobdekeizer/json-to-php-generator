@@ -22,21 +22,14 @@
 
 <script lang="ts">
     import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
-    import SelectOption from "@/classes/dto/SelectOption";
+    import SelectOption from '@/classes/dto/SelectOption';
 
     @Component
     export default class Select extends Vue {
-        @Prop(String)
-        public id!: string;
-
-        @Prop(String)
-        public label!: string;
-
-        @Prop(String)
-        public defaultValue!: string;
-
-        @Prop(Array)
-        public options!: SelectOption[];
+        @Prop(String) private readonly id!: string;
+        @Prop(String) private readonly label!: string;
+        @Prop(String) private readonly defaultValue!: string;
+        @Prop(Array) private readonly options!: SelectOption[];
 
         private value: string | null = null;
 

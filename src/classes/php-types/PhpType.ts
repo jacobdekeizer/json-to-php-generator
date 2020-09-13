@@ -1,4 +1,4 @@
-import Settings from "@/classes/dto/Settings";
+import Settings from '@/classes/dto/Settings';
 
 export default abstract class PhpType {
     protected settings: Settings | null = null;

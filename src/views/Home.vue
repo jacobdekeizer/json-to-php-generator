@@ -25,16 +25,16 @@
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
 
-    import Alert from "@/components/Alert.vue";
+    import Alert from '@/components/Alert.vue';
     import Card from '@/components/Card.vue';
     import Code from '@/components/Code.vue';
-    import Settings from "@/components/Settings.vue";
-    import TextArea from "@/components/form/TextArea.vue";
+    import Settings from '@/components/Settings.vue';
+    import TextArea from '@/components/form/TextArea.vue';
 
-    import {default as SettingsModel} from "@/classes/dto/Settings";
-    import JsonToPhpFactory from "@/classes/factories/JsonToPhpFactory";
-    import PhpClass from "@/classes/dto/PhpClass";
-    import PhpClassPresenter from "@/classes/presenters/PhpClassPresenter";
+    import {default as SettingsModel} from '@/classes/dto/Settings';
+    import JsonToPhpFactory from '@/classes/factories/JsonToPhpFactory';
+    import PhpClass from '@/classes/dto/PhpClass';
+    import PhpClassPresenter from '@/classes/presenters/PhpClassPresenter';
 
     @Component({
         components: {
@@ -47,11 +47,11 @@
     })
     export default class Home extends Vue {
         private jsonContent = '';
+        private errorMessage = '';
         private class: PhpClass | null = null;
         private settings = new SettingsModel();
-        private errorMessage = '';
 
-        get code(): string | null {
+        private get code(): string | null {
             this.errorMessage = '';
 
             if (!this.jsonContent) {

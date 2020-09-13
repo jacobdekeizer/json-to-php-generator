@@ -1,4 +1,4 @@
-import PhpType from "@/classes/php-types/PhpType";
+import PhpType from '@/classes/php-types/PhpType';
 import Settings from '@/classes/dto/Settings';
 import NullType from '@/classes/php-types/NullType';
 

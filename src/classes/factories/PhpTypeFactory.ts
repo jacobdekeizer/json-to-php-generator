@@ -1,12 +1,12 @@
-import PhpType from "@/classes/php-types/PhpType";
-import StringType from "@/classes/php-types/StringType";
-import ArrayType from "@/classes/php-types/ArrayType";
-import PhpClass from "@/classes/dto/PhpClass";
-import PhpClassType from "@/classes/php-types/PhpClassType";
-import IntType from "@/classes/php-types/IntType";
-import BooleanType from "@/classes/php-types/BooleanType";
-import UnknownType from "@/classes/php-types/UnknownType";
-import FloatType from "@/classes/php-types/FloatType";
+import PhpType from '@/classes/php-types/PhpType';
+import StringType from '@/classes/php-types/StringType';
+import ArrayType from '@/classes/php-types/ArrayType';
+import PhpClass from '@/classes/dto/PhpClass';
+import PhpClassType from '@/classes/php-types/PhpClassType';
+import IntType from '@/classes/php-types/IntType';
+import BooleanType from '@/classes/php-types/BooleanType';
+import UnknownType from '@/classes/php-types/UnknownType';
+import FloatType from '@/classes/php-types/FloatType';
 import NullType from '@/classes/php-types/NullType';
 
 export default class PhpTypeFactory {

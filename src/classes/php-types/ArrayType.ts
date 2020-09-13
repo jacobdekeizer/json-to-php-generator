@@ -1,7 +1,7 @@
-import PhpType from "@/classes/php-types/PhpType";
-import Settings from "@/classes/dto/Settings";
-import PhpClassType from "@/classes/php-types/PhpClassType";
-import UnknownType from "@/classes/php-types/UnknownType";
+import PhpType from '@/classes/php-types/PhpType';
+import Settings from '@/classes/dto/Settings';
+import PhpClassType from '@/classes/php-types/PhpClassType';
+import UnknownType from '@/classes/php-types/UnknownType';
 import NullType from '@/classes/php-types/NullType';
 
 export default class ArrayType extends PhpType {

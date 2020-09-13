@@ -1,5 +1,5 @@
-import Settings from "@/classes/dto/Settings";
-import {PhpDocblock} from "@/classes/enums/PhpDocblock";
+import Settings from '@/classes/dto/Settings';
+import {PhpDocblock} from '@/classes/enums/PhpDocblock';
 import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 
 export default class PhpDocblockPresenter {
@@ -19,7 +19,7 @@ export default class PhpDocblockPresenter {
 
     public toString(): string {
         if (this.settings.docblock === PhpDocblock.None) {
-            return "";
+            return '';
         }
 
         const filteredTypePresenters = this.propertyTypePresenters.filter(presenter => {
@@ -35,7 +35,7 @@ export default class PhpDocblockPresenter {
         });
 
         if (filteredTypePresenters.length === 0 && (this.returnType === null || this.settings.docblock === PhpDocblock.Necessary)) {
-            return "";
+            return '';
         }
 
         let content = '\t/**\n';

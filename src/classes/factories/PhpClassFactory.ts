@@ -1,5 +1,5 @@
-import PhpTypeFactory from "@/classes/factories/PhpTypeFactory";
-import PhpClass from "@/classes/dto/PhpClass";
+import PhpTypeFactory from '@/classes/factories/PhpTypeFactory';
+import PhpClass from '@/classes/dto/PhpClass';
 import PhpProperty from '@/classes/dto/PhpProperty';
 import ArrayType from '@/classes/php-types/ArrayType';
 import NullType from '@/classes/php-types/NullType';
