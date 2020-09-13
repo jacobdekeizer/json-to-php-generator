@@ -127,6 +127,7 @@ export default class PhpClassFactory {
     private static mergeProperties(phpClasses: PhpClass[]): PhpProperty[] {
         const properties: PhpProperty[] = [];
 
+        // combine all properties
         for (const phpClass of phpClasses) {
             for (const property of phpClass.getProperties()) {
                 const currentProperty = properties.find(p => p.getName() === property.getName());
@@ -138,6 +139,13 @@ export default class PhpClassFactory {
 
                 properties.push(property);
             }
+        }
+
+        // make properties nullable which are in one object but not the other
+        for (const phpClass of phpClasses) {
+            properties
+                .filter(curProp => !phpClass.getProperties().some(prop => prop.getName() === curProp.getName()))
+                .forEach(nullableProperty => nullableProperty.makeNullable());
         }
 
         return properties;

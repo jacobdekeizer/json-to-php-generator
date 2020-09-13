@@ -15,7 +15,14 @@ export default class PhpGetterPresenter {
     public toString(): string {
         let content = '';
 
-        content += (new PhpDocblockPresenter(this.settings, [], this.propertyTypePresenter.getPhpTypeNotation())).toString();
+        const docblock = new PhpDocblockPresenter(
+            this.settings,
+            [],
+            this.propertyTypePresenter.getDocblockContent(),
+            this.propertyTypePresenter.getProperty().isDocblockRequired()
+        );
+
+        content += docblock.toString();
 
         const returnType = this.propertyTypePresenter.getPhpTypeNotation() ? ': ' + this.propertyTypePresenter.getPhpTypeNotation() : '';
 
