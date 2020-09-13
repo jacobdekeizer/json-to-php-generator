@@ -1,6 +1,7 @@
 import PhpType from '@/classes/php-types/PhpType';
 import Settings from '@/classes/dto/Settings';
 import NullType from '@/classes/php-types/NullType';
+import ArrayType from '@/classes/php-types/ArrayType';
 
 export default class PhpProperty {
     private readonly name: string;
@@ -24,6 +25,15 @@ export default class PhpProperty {
         if (type instanceof NullType) {
             this.nullable = true;
             return this;
+        }
+
+        if (type instanceof ArrayType) {
+            const currentArrayType = this.types.find(t => t instanceof ArrayType) as ArrayType | undefined;
+
+            if (currentArrayType) {
+                currentArrayType.merge(type);
+                return this;
+            }
         }
 
         if (this.types.some(t => t.constructor === type.constructor)) {

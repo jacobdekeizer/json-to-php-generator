@@ -24,7 +24,7 @@ export default class ArrayType extends PhpType {
     }
 
     public isDocblockRequired(): boolean {
-        return true;
+        return this.isTyped();
     }
 
     public setSettings(settings: Settings | null): void {
@@ -45,6 +45,16 @@ export default class ArrayType extends PhpType {
 
         this.types.push(type);
         return this;
+    }
+
+    public getTypes(): PhpType[] {
+        return this.types;
+    }
+
+    public merge(arrayType: ArrayType): void {
+        for (const type of arrayType.getTypes()) {
+            this.addType(type);
+        }
     }
 
     private isTyped(): boolean {
