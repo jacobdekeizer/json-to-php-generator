@@ -4,7 +4,7 @@
             {{ this.label }}
         </label>
         <div class="relative">
-            <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            <select class="block appearance-none w-full bg-blue-gray border-2 border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     v-model="value"
                     :id="this.id">
                 <option v-for="option in this.options" :value="option.value" :key="option.value">

@@ -141,7 +141,7 @@ export default class PhpClassFactory {
             }
         }
 
-        // make properties nullable which are in one object but not the other
+        // make properties nullable which are in one object but not in the other
         for (const phpClass of phpClasses) {
             properties
                 .filter(curProp => !phpClass.getProperties().some(prop => prop.getName() === curProp.getName()))

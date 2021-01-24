@@ -2,7 +2,6 @@ import Settings from '@/classes/dto/Settings';
 import ArrayType from '@/classes/php-types/ArrayType';
 import PhpSetterPresenter from '@/classes/presenters/PhpSetterPresenter';
 import PhpDocblockPresenter from '@/classes/presenters/PhpDocblockPresenter';
-import UnknownType from '@/classes/php-types/UnknownType';
 import PhpPropertyTypePresenter from '@/classes/presenters/PhpPropertyTypePresenter';
 import PhpProperty from '@/classes/dto/PhpProperty';
 
