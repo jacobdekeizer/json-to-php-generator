@@ -123,16 +123,16 @@
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {default as SettingsModel} from '@/classes/dto/Settings';
+    import {default as SettingsModel} from '@/dto/Settings';
     import Checkbox from '@/components/form/Checkbox.vue';
     import Select from '@/components/form/Select.vue';
-    import SelectOption from '@/classes/dto/SelectOption';
-    import EnumSelect from '@/classes/support/EnumSelect';
-    import {PhpVersion} from '@/classes/enums/PhpVersion';
-    import {StringCase} from '@/classes/enums/StringCase';
-    import {PhpVisibility} from '@/classes/enums/PhpVisibility';
-    import {PhpDocblock} from '@/classes/enums/PhpDocblock';
-    import {PropertyDocblockType} from '@/classes/enums/PropertyDocblockType';
+    import SelectOption from '@/dto/SelectOption';
+    import EnumSelect from '@/support/EnumSelect';
+    import {PhpVersion} from '@/enums/PhpVersion';
+    import {StringCase} from '@/enums/StringCase';
+    import {PhpVisibility} from '@/enums/PhpVisibility';
+    import {PhpDocblock} from '@/enums/PhpDocblock';
+    import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 
     @Component({
         components: {

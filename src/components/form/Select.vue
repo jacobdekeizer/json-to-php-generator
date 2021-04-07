@@ -22,7 +22,7 @@
 
 <script lang="ts">
     import {Component, Emit, Prop, Vue, Watch} from 'vue-property-decorator';
-    import SelectOption from '@/classes/dto/SelectOption';
+    import SelectOption from '@/dto/SelectOption';
 
     @Component
     export default class Select extends Vue {

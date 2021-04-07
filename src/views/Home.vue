@@ -4,6 +4,7 @@
             <h1 class="text-gray-700 text-sm font-bold text-3xl">
                 JSON to PHP class converter
             </h1>
+
             <div class="mt-0 mb-6 text-gray-600">
                 Generate PHP classes from json
             </div>
@@ -31,10 +32,10 @@
     import Settings from '@/components/Settings.vue';
     import TextArea from '@/components/form/TextArea.vue';
 
-    import {default as SettingsModel} from '@/classes/dto/Settings';
-    import JsonToPhpFactory from '@/classes/factories/JsonToPhpFactory';
-    import PhpClass from '@/classes/dto/PhpClass';
-    import PhpClassPresenter from '@/classes/presenters/PhpClassPresenter';
+    import {default as SettingsModel} from '@/dto/Settings';
+    import JsonToPhpFactory from '@/factories/JsonToPhpFactory';
+    import PhpClass from '@/dto/PhpClass';
+    import PhpClassPresenter from '@/presenters/PhpClassPresenter';
 
     @Component({
         components: {
