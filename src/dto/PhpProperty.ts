@@ -71,7 +71,10 @@ export default class PhpProperty {
     }
 
     public isDocblockRequired(): boolean {
-        return this.types.length > 1
-            || this.types.some(type => type.isDocblockRequired());
+        if (this.types.some(type => type.isDocblockRequired())) {
+            return true;
+        }
+
+        return this.types.length > 1 && !this.settings.supportsUnionType();
     }
 }

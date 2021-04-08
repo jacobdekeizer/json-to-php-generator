@@ -14,7 +14,16 @@ export default class PhpPropertyTypePresenter {
     public getPhpTypeNotation(): string {
         if (this.property.getTypes().length === 1) {
             return (this.property.isNullable() ? '?' : '') + this.property.getTypes()[0].getType();
-            
+        }
+
+        if (this.settings.supportsUnionType()) {
+            const types = this.property.getTypes().map(t => t.getType());
+
+            if (this.property.isNullable()) {
+                types.push('null');
+            }
+
+            return types.join('|');
         }
 
         return '';

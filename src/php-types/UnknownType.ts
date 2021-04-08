@@ -10,6 +10,6 @@ export default class UnknownType extends PhpType {
     }
 
     public isDocblockRequired(): boolean {
-        return true;
+        return !this.settings?.supportsMixedType();
     }
 }

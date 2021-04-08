@@ -28,7 +28,18 @@ export default class Settings {
     public docblock = PhpDocblock.Necessary;
 
     public supportsTypedProperties(): boolean {
-        const supportedVersions = [PhpVersion.PHP74];
-        return supportedVersions.includes(this.phpVersion);
+        return this.supports([PhpVersion.PHP74, PhpVersion.PHP80]);
+    }
+
+    public supportsMixedType(): boolean {
+        return this.supports([PhpVersion.PHP80]);
+    }
+
+    public supportsUnionType(): boolean {
+        return this.supports([PhpVersion.PHP80]);
+    }
+
+    private supports(versions: PhpVersion[]): boolean {
+        return versions.includes(this.phpVersion);
     }
 }

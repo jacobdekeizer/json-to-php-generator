@@ -35,7 +35,7 @@ export default class ArrayType extends PhpType {
     }
 
     public isPhpClassArray(): boolean {
-        return this.types.some(type => type instanceof PhpClassType)
+        return this.types.some(type => type instanceof PhpClassType);
     }
     
     public getPhpClass(): PhpClassType | null {
