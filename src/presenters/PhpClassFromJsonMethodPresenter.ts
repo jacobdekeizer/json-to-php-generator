@@ -82,7 +82,7 @@ export default class PhpClassFromJsonMethodPresenter {
                 content += '$data;\n';
             }
 
-            content += indent + '}, ' + dataItem + (property.isNullable() ? ' : null' : '') + ')';
+            content += indent + '}, ' + dataItem + ')' + (property.isNullable() ? ' : null' : '');
 
             return content;
         }
