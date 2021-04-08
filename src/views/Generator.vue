@@ -9,16 +9,22 @@
                 Generate PHP classes from json
             </div>
 
-            <TextArea class="mb-4" id="json-input" label="Json input" @on-value-change="onJsonContentChange"/>
+            <Label for="json-input">
+                Json input
+            </Label>
+            <TextArea id="json-input" class="mb-4" v-model="jsonContent"/>
 
             <h2 class="text-gray-700 text-sm font-bold text-2xl mb-2">Settings</h2>
+
             <Settings :settings="settings"/>
         </Card>
-        <Card v-if="this.code">
+        <Card v-if="code">
             <Code :code="code"/>
         </Card>
-        <Card v-if="this.errorMessage">
-            <Alert :message="errorMessage"/>
+        <Card v-if="errorMessage">
+            <Alert>
+                {{ errorMessage }}
+            </Alert>
         </Card>
     </div>
 </template>
@@ -29,6 +35,7 @@
     import Alert from '@/components/Alert.vue';
     import Card from '@/components/Card.vue';
     import Code from '@/components/Code.vue';
+    import Label from '@/components/form/Label.vue';
     import Settings from '@/components/Settings.vue';
     import TextArea from '@/components/form/TextArea.vue';
 
@@ -39,6 +46,7 @@
 
     @Component({
         components: {
+            Label,
             Alert,
             Card,
             Code,
@@ -46,7 +54,7 @@
             TextArea
         }
     })
-    export default class Home extends Vue {
+    export default class Generator extends Vue {
         private jsonContent = '';
         private errorMessage = '';
         private class: PhpClass | null = null;
@@ -67,10 +75,6 @@
             }
 
             return (new PhpClassPresenter(this.class, this.settings)).toString();
-        }
-
-        private onJsonContentChange(content: string) {
-            this.jsonContent = content;
         }
     }
 </script>

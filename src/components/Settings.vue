@@ -2,122 +2,142 @@
     <div>
         <div class="flex flex-wrap -mx-3 mb-3">
             <div class="w-full md:w-1/3 px-3">
-                <Select id="php-version"
-                        label="Php version"
-                        :default-value="settings.phpVersion"
-                        :options="phpVersionOptions"
-                        @on-value-change="val => settings.phpVersion = val"/>
+                <FormGroup>
+                    <Label for="php-version">
+                        PHP version
+                    </Label>
+                    <Select id="php-version"
+                            v-model="settings.phpVersion"
+                            :options="phpVersionOptions"
+                    />
+                </FormGroup>
             </div>
             <div class="w-full md:w-1/3 px-3">
-                <Select id="class-case"
-                        label="Class case"
-                        :default-value="settings.classCase"
-                        :options="caseOptions"
-                        @on-value-change="val => settings.classCase = val"/>
+                <FormGroup>
+                    <Label for="class-case">
+                        Class case
+                    </Label>
+                    <Select id="class-case"
+                            v-model="settings.classCase"
+                            :options="caseOptions"
+                    />
+                </FormGroup>
             </div>
             <div class="w-full md:w-1/3 px-3">
-                <Select id="property-case"
-                        label="Property case"
-                        :default-value="settings.propertyCase"
-                        :options="caseOptions"
-                        @on-value-change="val => settings.propertyCase = val"/>
+                <FormGroup>
+                    <Label for="property-case">
+                        Property case
+                    </Label>
+                    <Select id="property-case"
+                            v-model="settings.propertyCase"
+                            :options="caseOptions"
+                    />
+                </FormGroup>
             </div>
         </div>
         <hr class="mb-3"/>
         <div class="flex flex-wrap -mx-3 mb-3">
             <div class="w-full md:w-1/3 px-3">
-                <Select id="property-visiblity"
-                        label="Property visibility"
-                        :default-value="settings.propertyVisibility"
-                        :options="phpVisibilityOptions"
-                        @on-value-change="val => settings.propertyVisibility = val"/>
+                <FormGroup>
+                    <Label for="property-visibility">
+                        Property visibility
+                    </Label>
+                    <Select id="property-visibility"
+                            v-model="settings.propertyVisibility"
+                            :options="phpVisibilityOptions"
+                    />
+                </FormGroup>
 
                 <Checkbox class="mt-3"
                           label="Add extra new line after property"
-                          :default-value="settings.propertyAddExtraNewLine"
-                          @on-value-change="val => settings.propertyAddExtraNewLine = val"/>
+                          v-model="settings.propertyAddExtraNewLine"
+                />
             </div>
             <div class="w-full md:w-1/3 px-3">
-                <Select id="property-docblock"
-                        label="Property docblock"
-                        :default-value="settings.propertyDocblock"
-                        :options="docblockOptions"
-                        @on-value-change="val => settings.propertyDocblock = val"/>
+                <FormGroup>
+                    <Label for="property-docblock">
+                        Property docblock
+                    </Label>
+                    <Select id="property-docblock"
+                            v-model="settings.propertyDocblock"
+                            :options="docblockOptions"
+                    />
+                </FormGroup>
             </div>
-            <div class="w-full md:w-1/3 px-3">
-                <Select v-if="propertyDocblockVisible"
-                        id="property-docblock"
-                        label="Property docblock type"
-                        :default-value="settings.propertyDocblockType"
-                        :options="propertyDocblockTypeOptions"
-                        @on-value-change="val => settings.propertyDocblockType = val"/>
+            <div class="w-full md:w-1/3 px-3" v-if="propertyDocblockVisible">
+                <FormGroup>
+                    <Label for="property-docblock">
+                        Property docblock type
+                    </Label>
+                    <Select id="property-docblock"
+                            v-model="settings.propertyDocblockType"
+                            :options="propertyDocblockTypeOptions"
+                    />
+                </FormGroup>
             </div>
         </div>
         <hr class="mb-3"/>
         <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/3 px-3">
-                <Checkbox class="mb-3"
-                          label="Add getters"
-                          :default-value="settings.addGetters"
-                          @on-value-change="val => settings.addGetters = val"/>
-                <Select v-if="settings.addGetters"
-                        class="mb-3"
-                        id="getter-case"
-                        label="Getter case"
-                        :default-value="settings.getterCase"
-                        :options="caseOptions"
-                        @on-value-change="val => settings.getterCase = val" />
+                <Checkbox class="mb-3" label="Add getters" v-model="settings.addGetters" />
+
+                <FormGroup v-if="settings.addGetters">
+                    <Label for="getter-case">
+                        Getter case
+                    </Label>
+                    <Select class="mb-3"
+                            id="getter-case"
+                            v-model="settings.getterCase"
+                            :options="caseOptions"
+                    />
+                </FormGroup>
             </div>
             <div class="w-full md:w-1/3 px-3">
                 <div class="flex flex-wrap">
                     <div class="w-full md:w-1/2">
-                        <Checkbox label="Add setters"
-                                  :default-value="settings.addSetters"
-                                  @on-value-change="val => settings.addSetters = val"/>
+                        <Checkbox label="Add setters" v-model="settings.addSetters" />
                     </div>
                     <div class="w-full md:w-1/2">
                         <Checkbox v-if="settings.addSetters"
                                   class="mb-3"
                                   label="Is fluent setter"
-                                  :default-value="settings.isFluentSetter"
-                                  @on-value-change="val => settings.isFluentSetter = val"/>
+                                  v-model="settings.isFluentSetter"
+                        />
                     </div>
                 </div>
 
-                <Select v-if="settings.addSetters"
-                        class="mb-3"
-                        id="setter-case"
-                        label="Setter case"
-                        :default-value="settings.setterCase"
-                        :options="caseOptions"
-                        @on-value-change="val => settings.setterCase = val" />
+                <FormGroup v-if="settings.addSetters">
+                    <Label for="setter-case">
+                        Setter case
+                    </Label>
+                    <Select class="mb-3"
+                            id="setter-case"
+                            v-model="settings.setterCase"
+                            :options="caseOptions"
+                    />
+                </FormGroup>
             </div>
         </div>
         <hr class="mb-3"/>
         <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/3 px-3">
-                <Checkbox label="Add constructor"
-                          :default-value="settings.addConstructor"
-                          @on-value-change="val => settings.addConstructor = val"/>
-                <Checkbox label="Final classes"
-                          :default-value="settings.finalClasses"
-                          @on-value-change="val => settings.finalClasses = val"/>
-                <Checkbox label="Add from json method"
-                          :default-value="settings.addFromJsonMethod"
-                          @on-value-change="val => settings.addFromJsonMethod = val"/>
-                <Checkbox label="All properties nullable"
-                          :default-value="settings.allPropertiesNullable"
-                          @on-value-change="val => settings.allPropertiesNullable = val"/>
+                <Checkbox label="Add constructor" v-model="settings.addConstructor" />
+                <Checkbox label="Final classes" v-model="settings.finalClasses" />
+                <Checkbox label="Add from json method" v-model="settings.addFromJsonMethod" />
+                <Checkbox label="All properties nullable" v-model="settings.allPropertiesNullable" />
             </div>
             <div class="w-full md:w-1/3 px-3">
-                <Select id="method-constructor-docblock"
-                        label="Method/Constructor Docblock"
-                        :default-value="settings.docblock"
-                        :options="docblockOptions"
-                        @on-value-change="val => settings.docblock = val"/>
+                <FormGroup v-if="settings.addSetters">
+                    <Label for="method-constructor-docblock">
+                        Method/Constructor Docblock
+                    </Label>
+                    <Select id="method-constructor-docblock"
+                            v-model="settings.docblock"
+                            :options="docblockOptions"
+                    />
+                </FormGroup>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -125,6 +145,8 @@
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import {default as SettingsModel} from '@/dto/Settings';
     import Checkbox from '@/components/form/Checkbox.vue';
+    import FormGroup from '@/components/form/FormGroup.vue';
+    import Label from '@/components/form/Label.vue';
     import Select from '@/components/form/Select.vue';
     import SelectOption from '@/dto/SelectOption';
     import EnumSelect from '@/support/EnumSelect';
@@ -134,8 +156,11 @@
     import {PhpDocblock} from '@/enums/PhpDocblock';
     import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 
+
     @Component({
         components: {
+            FormGroup,
+            Label,
             Checkbox,
             Select
         }
