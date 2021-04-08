@@ -37,6 +37,12 @@ export default class ArrayType extends PhpType {
     public isPhpClassArray(): boolean {
         return this.types.some(type => type instanceof PhpClassType)
     }
+    
+    public getPhpClass(): PhpClassType | null {
+        const phpClass = this.types.find(type => type instanceof PhpClassType) as PhpClassType | undefined;
+
+        return phpClass || null;
+    }
 
     public addType(type: PhpType): this {
         if (this.types.some(t => t.constructor === type.constructor)) {

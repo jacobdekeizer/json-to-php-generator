@@ -61,7 +61,8 @@ export default class PhpClassFromJsonMethodPresenter {
 
         const property = typePresenter.getProperty();
 
-        const classArrayType = property.getTypes().find(type => type instanceof ArrayType && type.isPhpClassArray()) as ArrayType | undefined;
+        const classArrayType = property.getTypes()
+            .find(type => type instanceof ArrayType && type.isPhpClassArray()) as ArrayType | undefined;
 
         if (classArrayType) {
             let content = '';
@@ -73,8 +74,10 @@ export default class PhpClassFromJsonMethodPresenter {
             content += 'array_map(static function($data) {\n';
             content += indent + '\treturn ';
 
-            if (classArrayType.isPhpClassArray()) {
-                content += classArrayType.getType() + '::fromJson($data);\n'
+            const phpClassType = classArrayType.getPhpClass();
+
+            if (classArrayType.isPhpClassArray() && phpClassType) {
+                content += phpClassType.getType() + '::fromJson($data);\n'
             } else {
                 content += '$data;\n';
             }
