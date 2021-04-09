@@ -2,6 +2,7 @@ import Settings from '@/dto/Settings';
 import {PhpDocblock} from '@/enums/PhpDocblock';
 import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
+import CodeWriter from '@/writers/CodeWriter';
 
 export default class PhpPropertyPresenter {
     private readonly propertyTypePresenter: PhpPropertyTypePresenter;
@@ -12,32 +13,29 @@ export default class PhpPropertyPresenter {
         this.settings = settings;
     }
 
-    public toString(): string {
-        let content = '';
+    public write(codeWriter: CodeWriter): void {
+        const mustAddDocblock = this.settings.propertyDocblock === PhpDocblock.All
+             || (
+                this.settings.propertyDocblock !== PhpDocblock.None
+                && this.propertyTypePresenter.getProperty().isDocblockRequired()
+            );
 
-        const mustAddDocblock = this.settings.propertyDocblock !== PhpDocblock.None
-            && this.propertyTypePresenter.getProperty().isDocblockRequired();
+        if (mustAddDocblock) {
+            const docblockContent = '@var ' + this.propertyTypePresenter.getDocblockContent();
 
-        if (mustAddDocblock || this.settings.propertyDocblock === PhpDocblock.All) {
-            if (this.settings.propertyDocblockType === PropertyDocblockType.Inline) {
-                content += '\t/** @var ' + this.propertyTypePresenter.getDocblockContent() + ' */\n';
-            } else {
-                content += '\t/**\n';
-                content += '\t * @var ' + this.propertyTypePresenter.getDocblockContent() + '\n';
-                content += '\t */\n';
-            }
+            this.settings.propertyDocblockType === PropertyDocblockType.Inline
+                ? codeWriter.writeInlineDocblock(docblockContent)
+                : codeWriter.writeMultilineDocblock([docblockContent]);
         }
 
-        content += '\t' + this.settings.propertyVisibility + ' ';
+        codeWriter.writeLine(this.settings.propertyVisibility + ' ' + (
+            this.settings.supportsTypedProperties()
+                ? this.propertyTypePresenter.getPhpVarWithType()
+                : this.propertyTypePresenter.getPhpVar()
+        ));
 
-        if (this.settings.supportsTypedProperties()) {
-            content += this.propertyTypePresenter.getPhpVarWithType();
-        } else {
-            content += this.propertyTypePresenter.getPhpVar();
+        if (this.settings.propertyAddExtraNewLine) {
+            codeWriter.insertNewLine();
         }
-
-        content += ';';
-
-        return content;
     }
 }

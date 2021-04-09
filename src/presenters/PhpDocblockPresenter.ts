@@ -1,6 +1,7 @@
 import Settings from '@/dto/Settings';
 import {PhpDocblock} from '@/enums/PhpDocblock';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
+import CodeWriter from '@/writers/CodeWriter';
 
 export default class PhpDocblockPresenter {
     private readonly propertyTypePresenters: PhpPropertyTypePresenter[];
@@ -20,9 +21,9 @@ export default class PhpDocblockPresenter {
         this.returnTypeNecessary = returnTypeNecessary;
     }
 
-    public toString(): string {
+    public write(codeWriter: CodeWriter): void {
         if (this.settings.docblock === PhpDocblock.None) {
-            return '';
+            return;
         }
 
         const filteredTypePresenters = this.propertyTypePresenters.filter(presenter => {
@@ -43,22 +44,21 @@ export default class PhpDocblockPresenter {
             );
 
         if (filteredTypePresenters.length === 0 && !addReturnTypeDocblock) {
-            return '';
+            return;
         }
 
-        let content = '\t/**\n';
+        const lines: string[] = [];
 
         if (filteredTypePresenters.length) {
-            content += filteredTypePresenters
-                .map(presenter => '\t * @param ' + presenter.getDocblockContent() + ' ' + presenter.getPhpVar()).join('\n') + '\n';
+            lines.push(...filteredTypePresenters.map(presenter => {
+                return `@param ${presenter.getDocblockContent()} ${presenter.getPhpVar()}`;
+            }));
         }
 
         if (addReturnTypeDocblock) {
-            content += '\t * @return ' + this.returnType + '\n';
+            lines.push('@return ' + this.returnType);
         }
 
-        content += '\t */\n';
-
-        return content;
+        codeWriter.writeMultilineDocblock(lines);
     }
 }

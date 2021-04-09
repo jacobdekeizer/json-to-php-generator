@@ -4,6 +4,8 @@ import PhpSetterPresenter from '@/presenters/PhpSetterPresenter';
 import PhpDocblockPresenter from '@/presenters/PhpDocblockPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import PhpProperty from '@/dto/PhpProperty';
+import CodeWriter from '@/writers/CodeWriter';
+import {PhpVisibility} from '@/enums/PhpVisibility';
 
 export default class PhpClassFromJsonMethodPresenter {
     private readonly propertyTypePresenter: PhpPropertyTypePresenter[];
@@ -14,49 +16,100 @@ export default class PhpClassFromJsonMethodPresenter {
         this.settings = settings;
     }
 
-    public toString(): string {
-        let content = '\n';
-
+    public write(codeWriter: CodeWriter): void {
         const arrayPresenter = new PhpPropertyTypePresenter(new PhpProperty('data').add(new ArrayType), this.settings);
 
-        content += (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).toString();
+        (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).write(codeWriter);
 
-        content += '\tpublic static function fromJson(array $data): self\n';
-        content += '\t{\n';
+        codeWriter.openMethod(PhpVisibility.Public, 'fromJson(array $data): self', true);
 
         if (this.settings.addConstructor) {
-            // add through constructor
-            content += this.getNewFromConstructor() + '\n';
+            this.writeWithConstructor(codeWriter);
         } else if (this.settings.addSetters) {
-            // add through setters
-            content += '\t\t$instance = new self();\n';
-            content += this.propertyTypePresenter.map(type => {
-                return  '\t\t$instance->' + (new PhpSetterPresenter(type, this.settings)).getMethodName() + '('
-                    + PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t') + ');'
-            }).join('\n') + '\n';
-            content += '\t\treturn $instance;\n';
+            this.writeWithoutConstructor(
+                codeWriter,
+                (type) => (new PhpSetterPresenter(type, this.settings)).getMethodName() + '(',
+                ');'
+            );
         } else {
-            // add through new instance creation
-            content += '\t\t$instance = new self();\n';
-            content += this.propertyTypePresenter
-                .map(type => '\t\t$instance->' + type.getPhpVarName() + ' = ' + PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t') + ';')
-                .join('\n') + '\n';
-            content += '\t\treturn $instance;\n';
+            this.writeWithoutConstructor(
+                codeWriter,
+                (type) => type.getPhpVarName() + ' = ',
+                ';'
+            );
         }
 
-        content += '\t}\n';
-
-        return content;
+        codeWriter.closeMethod();
     }
 
-    private getNewFromConstructor(): string {
-        return '\t\treturn new self(\n\t\t\t'
-            + this.propertyTypePresenter.map(type => PhpClassFromJsonMethodPresenter.getPropertyFromData(type, '\t\t\t'))
-                .join(',\n\t\t\t') + '\n'
-            + '\t\t);';
+    private writeWithConstructor(codeWriter: CodeWriter): void {
+
+        codeWriter.writeLine('return new self(');
+        codeWriter.indent();
+
+        for (let i = 0; i < this.propertyTypePresenter.length; i++) {
+            const presenter = this.propertyTypePresenter[i];
+
+            const lines = PhpClassFromJsonMethodPresenter.getPropertyFromData(presenter);
+
+            if (lines[lines.length - 1] && i !== this.propertyTypePresenter.length - 1) {
+                lines[lines.length - 1] += ',';
+            }
+
+            PhpClassFromJsonMethodPresenter.writeLines(codeWriter, lines);
+        }
+
+        codeWriter.outdent();
+        codeWriter.writeLine(');');
     }
 
-    private static getPropertyFromData(typePresenter: PhpPropertyTypePresenter, indent: string): string {
+    private writeWithoutConstructor(
+        codeWriter,
+        initCode: (type: PhpPropertyTypePresenter) => string,
+        closeCode: string
+    ): void {
+        codeWriter.writeLine('$instance = new self();');
+
+        this.propertyTypePresenter.forEach(type => {
+            const lines = PhpClassFromJsonMethodPresenter.getPropertyFromData(type);
+
+            const instancePropInitCode = `$instance->${initCode(type)}`;
+
+            // add instance property initialize code to first element;
+            // E.g. $lines[0] === $instance->setValue($data['value'];
+            lines[0] = lines[0] ? instancePropInitCode + lines[0] : instancePropInitCode;
+
+            // E.g. $lines[0] === $instance->setValue($data['value']);
+            lines[lines.length - 1] = lines[lines.length - 1] + closeCode;
+
+            PhpClassFromJsonMethodPresenter.writeLines(codeWriter, lines);
+        });
+
+        codeWriter.writeLine('return $instance;');
+    }
+
+    private static writeLines(codeWriter: CodeWriter, lines: string[]): void {
+        for (let i = 0; i < lines.length; i++) {
+            if (i === 0) {
+                codeWriter.writeLine(lines[i]);
+
+                if (lines.length > 1) {
+                    codeWriter.indent();
+                }
+                continue;
+            }
+
+            if (i === lines.length - 1) {
+                codeWriter.outdent();
+                codeWriter.writeLine(lines[i]);
+                continue;
+            }
+
+            codeWriter.writeLine(lines[i]);
+        }
+    }
+
+    private static getPropertyFromData(typePresenter: PhpPropertyTypePresenter): string[] {
         const dataItem = '$data[\'' + typePresenter.getProperty().getName() + '\']';
 
         const property = typePresenter.getProperty();
@@ -65,28 +118,28 @@ export default class PhpClassFromJsonMethodPresenter {
             .find(type => type instanceof ArrayType && type.isPhpClassArray()) as ArrayType | undefined;
 
         if (classArrayType) {
-            let content = '';
+            const lines: string[] = [];
 
-            if (property.isNullable()) {
-                content += '(' + dataItem + ' ?? null ) !== null ? '
-            }
+            lines.push(
+                `${property.isNullable() ? `(${dataItem}) ?? null !== null ? ` : ''}array_map(static function($data) {`
+            );
 
-            content += 'array_map(static function($data) {\n';
-            content += indent + '\treturn ';
+            let line ='return ';
 
             const phpClassType = classArrayType.getPhpClass();
 
             if (classArrayType.isPhpClassArray() && phpClassType) {
-                content += phpClassType.getType() + '::fromJson($data);\n'
+                line += phpClassType.getType() + '::fromJson($data);'
             } else {
-                content += '$data;\n';
+                line += '$data;';
             }
 
-            content += indent + '}, ' + dataItem + ')' + (property.isNullable() ? ' : null' : '');
+            lines.push(line);
+            lines.push(`}, ${dataItem})${property.isNullable() ? ' : null' : ''}`);
 
-            return content;
+            return lines;
         }
 
-        return dataItem + (property.isNullable() ? ' ?? null': '');
+        return [dataItem + (property.isNullable() ? ' ?? null': '')];
     }
 }

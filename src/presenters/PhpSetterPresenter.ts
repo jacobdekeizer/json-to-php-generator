@@ -2,6 +2,8 @@ import Settings from '@/dto/Settings';
 import Str from '@/support/Str';
 import PhpDocblockPresenter from '@/presenters/PhpDocblockPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
+import CodeWriter from '@/writers/CodeWriter';
+import {PhpVisibility} from '@/enums/PhpVisibility';
 
 export default class PhpSetterPresenter {
     protected readonly propertyTypePresenter: PhpPropertyTypePresenter;
@@ -16,17 +18,16 @@ export default class PhpSetterPresenter {
         return Str.changeCase('set_' + this.propertyTypePresenter.getPhpVarName(), this.settings.setterCase);
     }
 
-    public toString(): string {
-        let content = '';
+    public write(codeWriter: CodeWriter): void {
+        (new PhpDocblockPresenter(this.settings, [this.propertyTypePresenter], 'void')).write(codeWriter);
+        codeWriter.openMethod(PhpVisibility.Public, `${this.getMethodSignature()}: void`);
+        codeWriter.writeLine(
+            `$this->${this.propertyTypePresenter.getPhpVarName()} = ${this.propertyTypePresenter.getPhpVar()};`
+        );
+        codeWriter.closeMethod();
+    }
 
-        content += (new PhpDocblockPresenter(this.settings, [this.propertyTypePresenter], 'void')).toString();
-
-        content += '\tpublic function ' + this.getMethodName() + '(' + this.propertyTypePresenter.getPhpVarWithType() + '): void\n';
-
-        content += '\t{\n';
-        content += '\t\t$this->' + this.propertyTypePresenter.getPhpVarName() + ' = ' + this.propertyTypePresenter.getPhpVar() +';\n';
-        content += '\t}\n';
-
-        return content;
+    protected getMethodSignature(): string {
+        return `${this.getMethodName()}(${this.propertyTypePresenter.getPhpVarWithType()})`;
     }
 }

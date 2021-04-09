@@ -1,6 +1,8 @@
 import Settings from '@/dto/Settings';
 import PhpDocblockPresenter from '@/presenters/PhpDocblockPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
+import CodeWriter from '@/writers/CodeWriter';
+import {PhpVisibility} from '@/enums/PhpVisibility';
 
 export default class PhpConstructorPresenter {
     private readonly propertyTypePresenters: PhpPropertyTypePresenter[];
@@ -11,16 +13,18 @@ export default class PhpConstructorPresenter {
         this.settings = settings;
     }
 
-    public toString(): string {
-        let content = '\n';
+    public write(codeWriter: CodeWriter): void {
+        (new PhpDocblockPresenter(this.settings, this.propertyTypePresenters)).write(codeWriter);
 
-        content += (new PhpDocblockPresenter(this.settings, this.propertyTypePresenters)).toString();
+        codeWriter.openMethod(
+            PhpVisibility.Public,
+            '__construct(' + this.propertyTypePresenters.map(property => property.getPhpVarWithType()).join(', ') +')'
+        );
 
-        content += '\tpublic function __construct(' + this.propertyTypePresenters.map(property => property.getPhpVarWithType()).join(', ') +') \n';
-        content +='\t{\n';
-        content += this.propertyTypePresenters.map(item => '\t\t$this->' + item.getPhpVarName() + ' = ' + item.getPhpVar()).join(';\n') + ';\n';
-        content += '\t}\n';
+        codeWriter.writeLines(this.propertyTypePresenters.map(item => {
+            return `$this->${item.getPhpVarName()} = ${item.getPhpVar()};`
+        }));
 
-        return content;
+        codeWriter.closeMethod();
     }
 }

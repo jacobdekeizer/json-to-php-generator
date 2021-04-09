@@ -8,6 +8,7 @@ import PhpConstructorPresenter from '@/presenters/PhpConstructorPresenter';
 import PhpClassFromJsonMethodPresenter from '@/presenters/PhpClassFromJsonMethodPresenter';
 import PhpPropertyPresenter from '@/presenters/PhpPropertyPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
+import CodeWriter from '@/writers/CodeWriter';
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -32,46 +33,62 @@ export default class PhpClassPresenter {
             this.phpClass.getProperties().forEach(item => item.makeNullable());
         }
 
-        const propertyTypePresenters = this.phpClass.getProperties().map(property => new PhpPropertyTypePresenter(property, this.settings));
+        const propertyTypePresenters = this.phpClass.getProperties().map(property => {
+            return new PhpPropertyTypePresenter(property, this.settings);
+        });
 
-        // open current class
-        let content = '\n';
+        const codeWriter = new CodeWriter();
 
-        content += (this.settings.finalClasses ? 'final ' : '') + 'class ' + this.getClassName() + '\n';
-        content += '{\n';
+        // open new class
+        codeWriter.openClass(this.getClassName(), this.settings.finalClasses);
 
         // properties
-        content += propertyTypePresenters.map(property => (new PhpPropertyPresenter(property, this.settings)).toString())
-            .join('\n' + (this.settings.propertyAddExtraNewLine ? '\n' : '')) + '\n';
+        propertyTypePresenters.forEach(property => {
+            (new PhpPropertyPresenter(property, this.settings)).write(codeWriter);
+        });
+
+        if (!this.settings.propertyAddExtraNewLine) {
+            // new line after last property
+            codeWriter.insertNewLine();
+        }
 
         // constructor
         if (this.settings.addConstructor) {
-            content += (new PhpConstructorPresenter(propertyTypePresenters, this.settings)).toString();
+            (new PhpConstructorPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
+            codeWriter.insertNewLine();
         }
 
         // getters
         if (this.settings.addGetters) {
-            content += '\n';
-            content += propertyTypePresenters.map(property => (new PhpGetterPresenter(property, this.settings)).toString()).join('\n');
+            propertyTypePresenters.forEach(property => {
+                (new PhpGetterPresenter(property, this.settings)).write(codeWriter);
+                codeWriter.insertNewLine();
+            });
         }
 
         // setters
         if (this.settings.addSetters) {
-            content += '\n';
-            if (this.settings.isFluentSetter) {
-                content += propertyTypePresenters.map(property => (new PhpFluentSetterPresenter(property, this.settings)).toString()).join('\n');
-            } else {
-                content += propertyTypePresenters.map(property => (new PhpSetterPresenter(property, this.settings)).toString()).join('\n');
-            }
+            propertyTypePresenters.forEach(property => {
+                if (this.settings.isFluentSetter) {
+                    (new PhpFluentSetterPresenter(property, this.settings)).write(codeWriter);
+                } else {
+                    (new PhpSetterPresenter(property, this.settings)).write(codeWriter);
+                }
+
+                codeWriter.insertNewLine();
+            });
         }
 
         // from json method
         if (this.settings.addFromJsonMethod) {
-            content += (new PhpClassFromJsonMethodPresenter(propertyTypePresenters, this.settings)).toString();
+            (new PhpClassFromJsonMethodPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
         }
 
         // close current class
-        content += '}';
+        codeWriter.closeClass();
+
+        // get php class content
+        let content = codeWriter.getContent();
 
         // print other used classes
         if (this.phpClass.getChildren().length > 0) {
