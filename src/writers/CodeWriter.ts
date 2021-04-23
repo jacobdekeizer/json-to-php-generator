@@ -15,6 +15,7 @@ export default class CodeWriter {
 
     public closeClass(): void {
         this.outdent();
+        this.writeLine('}');
     }
 
     public writeInlineDocblock(line: string): void {
