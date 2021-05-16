@@ -1,5 +1,5 @@
 <template>
-    <div class="relative inline-block w-full">
+    <div class="relative inline-block w-full mb-3">
         <select class="w-full px-3 py-2 border-2 border-gray-200 text-gray-700 rounded-md appearance-none bg-blue-gray focus:bg-white focus:outline-none focus:border-cyan-400 transition-colors "
                 :id="id"
                 :value="value"

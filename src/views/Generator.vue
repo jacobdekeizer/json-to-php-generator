@@ -1,7 +1,7 @@
 <template>
     <div>
         <Card>
-            <h1 class="text-gray-700 text-sm font-bold text-3xl">
+            <h1 class="text-gray-700 font-bold text-3xl">
                 JSON to PHP class converter
             </h1>
 
@@ -14,7 +14,7 @@
             </Label>
             <TextArea id="json-input" class="mb-4" v-model="jsonContent"/>
 
-            <h2 class="text-gray-700 text-sm font-bold text-2xl mb-2">Settings</h2>
+            <h2 class="text-gray-700 font-bold text-2xl mb-2">Settings</h2>
 
             <Settings :settings="settings"/>
         </Card>
