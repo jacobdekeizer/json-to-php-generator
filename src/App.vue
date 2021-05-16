@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="container mx-auto">
+    <div class="container max-w-screen-xl mx-auto">
       <router-view/>
-      <Footer/>
+      <Footer />
     </div>
   </div>
 </template>

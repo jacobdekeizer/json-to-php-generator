@@ -1,9 +1,7 @@
 <template>
-    <div class="w-full max-w-screen-xl mx-auto px-4 mt-5">
-        <div class="w-full">
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <slot></slot>
-            </div>
+    <div class="w-full px-4 mt-5">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <slot></slot>
         </div>
     </div>
 </template>
