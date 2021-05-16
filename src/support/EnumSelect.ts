@@ -1,8 +1,7 @@
 import SelectOption from '@/dto/SelectOption';
 
 export default class EnumSelect {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    public static getOptions(enumObject: any): SelectOption[] {
+    public static getOptions(enumObject: Record<string, string | number>): SelectOption[] {
         const options: SelectOption[] = [];
         const keys = Object.keys(enumObject);
 
