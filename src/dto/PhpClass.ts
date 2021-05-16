@@ -1,4 +1,5 @@
 import PhpProperty from '@/dto/PhpProperty';
+import ReservedKeywords from '@/php/ReservedKeywords';
 
 export default class PhpClass {
     private name: string;
@@ -12,6 +13,10 @@ export default class PhpClass {
     }
 
     public getName(): string {
+        if (ReservedKeywords.isReserved(this.name)) {
+            return this.name + 'Object';
+        }
+
         return this.name;
     }
 
