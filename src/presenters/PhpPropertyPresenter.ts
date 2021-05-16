@@ -33,9 +33,5 @@ export default class PhpPropertyPresenter {
                 ? this.propertyTypePresenter.getPhpVarWithType()
                 : this.propertyTypePresenter.getPhpVar()
         ) + ';');
-
-        if (this.settings.propertyAddExtraNewLine) {
-            codeWriter.insertNewLine();
-        }
     }
 }

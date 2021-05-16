@@ -43,44 +43,45 @@ export default class PhpClassPresenter {
         codeWriter.openClass(this.getClassName(), this.settings.finalClasses);
 
         // properties
-        propertyTypePresenters.forEach(property => {
-            (new PhpPropertyPresenter(property, this.settings)).write(codeWriter);
-        });
-
-        if (!this.settings.propertyAddExtraNewLine) {
-            // new line after last property
-            codeWriter.insertNewLine();
+        if (propertyTypePresenters.length) {
+            propertyTypePresenters.forEach((property, index) => {
+                (new PhpPropertyPresenter(property, this.settings)).write(codeWriter);
+                if (this.settings.propertyAddExtraNewLine && index !== propertyTypePresenters.length - 1) {
+                    codeWriter.insertNewLine();
+                }
+            });
         }
 
         // constructor
         if (this.settings.addConstructor) {
-            (new PhpConstructorPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
             codeWriter.insertNewLine();
+            (new PhpConstructorPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
         }
 
         // getters
         if (this.settings.addGetters) {
             propertyTypePresenters.forEach(property => {
-                (new PhpGetterPresenter(property, this.settings)).write(codeWriter);
                 codeWriter.insertNewLine();
+                (new PhpGetterPresenter(property, this.settings)).write(codeWriter);
             });
         }
 
         // setters
         if (this.settings.addSetters) {
             propertyTypePresenters.forEach(property => {
+                codeWriter.insertNewLine();
+
                 if (this.settings.isFluentSetter) {
                     (new PhpFluentSetterPresenter(property, this.settings)).write(codeWriter);
                 } else {
                     (new PhpSetterPresenter(property, this.settings)).write(codeWriter);
                 }
-
-                codeWriter.insertNewLine();
             });
         }
 
         // from json method
         if (this.settings.addFromJsonMethod) {
+            codeWriter.insertNewLine();
             (new PhpClassFromJsonMethodPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
         }
 
