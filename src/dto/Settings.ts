@@ -5,11 +5,11 @@ import {PhpDocblock} from '@/enums/PhpDocblock';
 import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 
 export default class Settings {
-    public phpVersion = PhpVersion.PHP74;
+    public phpVersion = PhpVersion.PHP80;
     public classCase = StringCase.PascalCase;
     public propertyCase = StringCase.CamelCase;
 
-    public propertyVisibility = PhpVisibility.Private;
+    public propertyVisibility = PhpVisibility.Public;
     public propertyDocblock = PhpDocblock.Necessary;
     public propertyDocblockType = PropertyDocblockType.Inline;
     public propertyAddExtraNewLine = false;
