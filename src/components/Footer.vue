@@ -1,6 +1,6 @@
 <template>
-    <div class="px-4 text-gray-500 font-bold">
-        <div class="bg-gray-100 items-center leading-none rounded inline-flex float-right mb-2">
+    <div class="w-full pb-8">
+        <div class="text-gray-500 items-center leading-none rounded font-bold inline-flex float-right">
             <span class="font-semibold mr-2 text-left flex-auto">
                 Made by Jacob de Keizer
             </span>

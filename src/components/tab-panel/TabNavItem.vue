@@ -1,7 +1,8 @@
 <template>
     <li>
         <a href="javascript:void(0)"
-           :class="['block px-2 py-1 rounded-md bg-blue-gray-200', { 'bg-light-blue-200 text-light-blue-800': isActive, }]"
+           class="block px-2 py-1 rounded-md bg-blue-gray-200 dark:bg-gray-400"
+           :class="{ 'bg-light-blue-200 text-light-blue-800 dark:bg-light-blue-300': isActive, }"
            @click="$emit('click', $event)">
             <slot></slot>
         </a>

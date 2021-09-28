@@ -1,8 +1,10 @@
 <template>
     <textarea :id="id"
               :value="value"
+              :placeholder="placeholder"
               @input="onValueChanged($event.target.value)"
-              class="resize-y border-solid border-2 border-gray-200 rounded w-full min-height" />
+              class="resize-y rounded w-full min-height border-solid border-2 p-2
+              border-gray-200 dark:bg-black dark:border-blue-gray-600 dark:text-white" />
 </template>
 
 <script lang="ts">
@@ -12,6 +14,7 @@
     export default class TextArea extends Vue {
         @Prop({type: String, required: true}) private readonly id!: string;
         @Prop({type: String, required: true}) private readonly value!: string;
+        @Prop({type: String, required: false}) private readonly placeholder!: string;
 
         private onValueChanged(value: string): void {
             this.$emit('input', value)

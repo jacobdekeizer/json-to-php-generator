@@ -1,20 +1,20 @@
 <template>
     <div>
         <Card>
-            <h1 class="text-gray-700 font-bold text-3xl">
+            <h1 class="text-gray-700 dark:text-gray-300 font-bold text-3xl">
                 JSON to PHP class converter
             </h1>
 
-            <div class="mt-0 mb-6 text-gray-600">
+            <div class=" text-gray-600 dark:text-gray-400 mt-0 mb-6">
                 Generate PHP classes from JSON
             </div>
 
             <Label for="json-input">
                 Json input
             </Label>
-            <TextArea id="json-input" class="mb-4" v-model="jsonContent"/>
+            <TextArea id="json-input" class="mb-4" v-model="jsonContent" placeholder="Paste JSON contents here..."/>
 
-            <h2 class="text-gray-700 font-bold text-2xl mb-2">Settings</h2>
+            <h2 class="text-gray-700 dark:text-gray-300 font-bold text-2xl mb-2">Settings</h2>
 
             <Settings :settings="settings"/>
         </Card>

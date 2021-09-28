@@ -1,7 +1,5 @@
 <template>
-    <div class="text-sm">
-        <VueCodeHighlight>{{this.code}}</VueCodeHighlight>
-    </div>
+    <VueCodeHighlight language="php" class="text-sm">{{ this.code }}</VueCodeHighlight>
 </template>
 
 <script lang="ts">
@@ -9,7 +7,6 @@
     // noinspection TypeScriptCheckImport
     import { component as VueCodeHighlight } from 'vue-code-highlight';
 
-    import 'vue-code-highlight/themes/prism-okaidia.css';
     import 'prism-es6/components/prism-markup-templating';
     import 'prism-es6/components/prism-php';
 
