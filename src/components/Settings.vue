@@ -10,6 +10,9 @@
             <TabNavItem :isActive="isActive('docblock')" @click="setActive('docblock')">
                 Docblock
             </TabNavItem>
+            <TabNavItem :isActive="isActive('from-json')" @click="setActive('from-json')">
+                From JSON
+            </TabNavItem>
         </TabNav>
 
         <TabContent :isActive="isActive('general')">
@@ -57,8 +60,6 @@
                 />
          
             </div>
-
-            <Checkbox label="Add from json method" v-model="settings.addFromJsonMethod" />
         </TabContent>
 
         <TabContent :isActive="isActive('letter-case')">
@@ -148,6 +149,12 @@
                     />
                 </FormGroup>
             </div>
+        </TabContent>
+
+        <TabContent :isActive="isActive('from-json')">
+            <Checkbox label="Add from json method" v-model="settings.addFromJsonMethod" />
+
+            <Checkbox label="JSON response is an array" v-model="settings.jsonIsArray" />
         </TabContent>
     </TabPanel>
 </template>

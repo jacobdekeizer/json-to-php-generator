@@ -6,7 +6,7 @@
             </h1>
 
             <div class="mt-0 mb-6 text-gray-600">
-                Generate PHP classes from json
+                Generate PHP classes from JSON
             </div>
 
             <Label for="json-input">

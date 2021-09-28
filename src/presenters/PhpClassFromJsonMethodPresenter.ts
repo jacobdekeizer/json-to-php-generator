@@ -7,8 +7,11 @@ import PhpProperty from '@/dto/PhpProperty';
 import CodeWriter from '@/writers/CodeWriter';
 import {PhpVisibility} from '@/enums/PhpVisibility';
 import PhpClassType from '@/php-types/PhpClassType';
+import StdClassType from '@/php-types/StdClassType';
 
 export default class PhpClassFromJsonMethodPresenter {
+    private readonly paramName = 'data';
+    private readonly paramVar = `$${this.paramName}`;
     private readonly propertyTypePresenter: PhpPropertyTypePresenter[];
     private readonly settings: Settings;
 
@@ -18,11 +21,16 @@ export default class PhpClassFromJsonMethodPresenter {
     }
 
     public write(codeWriter: CodeWriter): void {
-        const arrayPresenter = new PhpPropertyTypePresenter(new PhpProperty('data').add(new ArrayType), this.settings);
+        const paramType = this.settings.jsonIsArray ? new ArrayType() : new StdClassType();
+
+        const arrayPresenter = new PhpPropertyTypePresenter(
+            new PhpProperty(this.paramName).add(paramType),
+            this.settings
+        );
 
         (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).write(codeWriter);
 
-        codeWriter.openMethod(PhpVisibility.Public, 'fromJson(array $data): self', true);
+        codeWriter.openMethod(PhpVisibility.Public, `fromJson(${paramType.getType()} ${this.paramVar}): self`, true);
 
         if (this.settings.addConstructor) {
             this.writeWithConstructor(codeWriter);
@@ -44,14 +52,13 @@ export default class PhpClassFromJsonMethodPresenter {
     }
 
     private writeWithConstructor(codeWriter: CodeWriter): void {
-
         codeWriter.writeLine('return new self(');
         codeWriter.indent();
 
         for (let i = 0; i < this.propertyTypePresenter.length; i++) {
             const presenter = this.propertyTypePresenter[i];
 
-            const lines = PhpClassFromJsonMethodPresenter.getPropertyFromData(presenter);
+            const lines = this.getPropertyFromData(presenter);
 
             if (lines[lines.length - 1] && i !== this.propertyTypePresenter.length - 1) {
                 lines[lines.length - 1] += ',';
@@ -72,7 +79,7 @@ export default class PhpClassFromJsonMethodPresenter {
         codeWriter.writeLine('$instance = new self();');
 
         this.propertyTypePresenter.forEach(type => {
-            const lines = PhpClassFromJsonMethodPresenter.getPropertyFromData(type);
+            const lines = this.getPropertyFromData(type);
 
             const instancePropInitCode = `$instance->${initCode(type)}`;
 
@@ -110,19 +117,23 @@ export default class PhpClassFromJsonMethodPresenter {
         }
     }
 
-    private static getPropertyFromData(typePresenter: PhpPropertyTypePresenter): string[] {
-        const dataItem = '$data[\'' + typePresenter.getProperty().getName() + '\']';
+    private getPropertyFromData(typePresenter: PhpPropertyTypePresenter): string[] {
+        const dataItem = this.settings.jsonIsArray
+            ? `${this.paramVar}['${typePresenter.getProperty().getName()}']`
+            : `${this.paramVar}->${typePresenter.getProperty().getName()}`
 
         const property = typePresenter.getProperty();
 
         const classArrayType = property.getTypes()
             .find(type => type instanceof ArrayType && type.isPhpClassArray()) as ArrayType | undefined;
 
+        const dataItemNullCheck = `(${dataItem} ?? null) !== null`;
+
         if (classArrayType) {
             const lines: string[] = [];
 
             lines.push(
-                `${property.isNullable() ? `(${dataItem}) ?? null !== null ? ` : ''}array_map(static function($data) {`
+                `${property.isNullable() ? `${dataItemNullCheck} ? ` : ''}array_map(static function($data) {`
             );
 
             let line ='return ';
@@ -147,7 +158,7 @@ export default class PhpClassFromJsonMethodPresenter {
             const classFromJsonCode = `${phpClass.getType()}::fromJson(${dataItem})`;
 
             if (property.isNullable()) {
-                return [`(${dataItem} ?? null) !== null ? ${classFromJsonCode} : null`];
+                return [`${dataItemNullCheck} ? ${classFromJsonCode} : null`];
             }
 
             return [classFromJsonCode];

@@ -22,8 +22,10 @@ export default class Settings {
 
     public addConstructor = true;
     public finalClasses = false;
-    public addFromJsonMethod = false;
     public allPropertiesNullable = false;
+
+    public addFromJsonMethod = false;
+    public jsonIsArray = true;
 
     public docblock = PhpDocblock.Necessary;
 
