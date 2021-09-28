@@ -6,6 +6,7 @@ import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import PhpProperty from '@/dto/PhpProperty';
 import CodeWriter from '@/writers/CodeWriter';
 import {PhpVisibility} from '@/enums/PhpVisibility';
+import PhpClassType from '@/php-types/PhpClassType';
 
 export default class PhpClassFromJsonMethodPresenter {
     private readonly propertyTypePresenter: PhpPropertyTypePresenter[];
@@ -138,6 +139,18 @@ export default class PhpClassFromJsonMethodPresenter {
             lines.push(`}, ${dataItem})${property.isNullable() ? ' : null' : ''}`);
 
             return lines;
+        }
+
+        const phpClass = property.getTypes().find(t => t instanceof PhpClassType) as PhpClassType | undefined;
+
+        if (phpClass) {
+            const classFromJsonCode = `${phpClass.getType()}::fromJson(${dataItem})`;
+
+            if (property.isNullable()) {
+                return [`(${dataItem} ?? null) !== null ? ${classFromJsonCode} : null`];
+            }
+
+            return [classFromJsonCode];
         }
 
         return [dataItem + (property.isNullable() ? ' ?? null': '')];
