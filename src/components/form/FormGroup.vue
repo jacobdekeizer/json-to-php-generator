@@ -1,7 +1,7 @@
 <template>
-    <label class="form-group">
+    <div class="space-y-1">
         <slot></slot>
-    </label>
+    </div>
 </template>
 
 <script lang="ts">

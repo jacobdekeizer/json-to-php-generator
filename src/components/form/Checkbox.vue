@@ -1,6 +1,6 @@
 <template>
-    <label class="block text-gray-500 font-bold">
-        <input class="mt-2 mb-2 mr-2 leading-tight"
+    <label class="block text-gray-500 dark:text-gray-400 font-bold">
+        <input class="mr-2 last:mb-0 leading-tight"
                type="checkbox"
                :checked="value"
                @change="onValueChanged($event.target.checked)"

@@ -16,103 +16,99 @@
         </TabNav>
 
         <TabContent :isActive="isActive('general')">
-             <div class="flex flex-wrap md:space-x-3">
-                <div class="w-full md:w-1/3">
-                    <FormGroup>
-                        <Label for="php-version">
-                            PHP version
-                        </Label>
-                        <Select id="php-version"
-                                v-model="settings.phpVersion"
-                                :options="phpVersionOptions"
-                        />
-                    </FormGroup>
-                </div>
-                 <div class="w-full md:w-1/3">
-                    <FormGroup>
-                        <Label for="property-visibility">
-                            Property visibility
-                        </Label>
-                        <Select id="property-visibility"
-                                v-model="settings.propertyVisibility"
-                                :options="phpVisibilityOptions"
-                        />
-                    </FormGroup>
-                </div>
+             <div class="flex flex-wrap md:space-x-3 mb-2">
+                  <div class="w-full md:w-1/3">
+                      <FormGroup>
+                          <Label for="php-version">
+                              PHP version
+                          </Label>
+                          <Select id="php-version"
+                                  v-model="settings.phpVersion"
+                                  :options="phpVersionOptions"
+                          />
+                      </FormGroup>
+                  </div>
+                   <div class="w-full md:w-1/3">
+                        <FormGroup>
+                            <Label for="property-visibility">
+                                Property visibility
+                            </Label>
+                            <Select id="property-visibility"
+                                    v-model="settings.propertyVisibility"
+                                    :options="phpVisibilityOptions"
+                            />
+                        </FormGroup>
+                  </div>
             </div>
 
-            <Checkbox label="Final classes" v-model="settings.finalClasses" />
+            <FormGroup>
+                <Checkbox label="Final classes" v-model="settings.finalClasses" />
 
-            <Checkbox label="All properties nullable" v-model="settings.allPropertiesNullable" />
+                <Checkbox label="All properties nullable" v-model="settings.allPropertiesNullable" />
 
-            <Checkbox label="Add extra new line after property" v-model="settings.propertyAddExtraNewLine" />
+                <Checkbox label="Add extra new line after property" v-model="settings.propertyAddExtraNewLine" />
 
-            <Checkbox label="Add constructor" v-model="settings.addConstructor" />
+                <Checkbox label="Add constructor" v-model="settings.addConstructor" />
 
-            <Checkbox label="Add getters" v-model="settings.addGetters" />
+                <Checkbox label="Add getters" v-model="settings.addGetters" />
 
-            <div class="flex">
-                <Checkbox label="Add setters" v-model="settings.addSetters" class="mr-4" />
-          
-                <Checkbox v-if="settings.addSetters"
-                          label="Is fluent setter"
-                          v-model="settings.isFluentSetter"
+                <div class="flex">
+                  <Checkbox label="Add setters" v-model="settings.addSetters" class="mr-4" />
+
+                  <Checkbox v-if="settings.addSetters"
+                            label="Is fluent setter"
+                            v-model="settings.isFluentSetter"
+                  />
+
+                </div>
+            </FormGroup>
+        </TabContent>
+
+        <TabContent :isActive="isActive('letter-case')" class="space-y-2">
+            <FormGroup class="w-full md:w-1/3">
+                <Label for="class-case">
+                    Class case
+                </Label>
+                <Select id="class-case"
+                        v-model="settings.classCase"
+                        :options="caseOptions"
                 />
-         
-            </div>
+            </FormGroup>
+
+            <FormGroup class="w-full md:w-1/3">
+                <Label for="property-case">
+                    Property case
+                </Label>
+                <Select id="property-case"
+                        v-model="settings.propertyCase"
+                        :options="caseOptions"
+                />
+            </FormGroup>
+
+
+            <FormGroup class="w-full md:w-1/3">
+                <Label for="getter-case">
+                    Getter case
+                </Label>
+                <Select id="getter-case"
+                        v-model="settings.getterCase"
+                        :options="caseOptions"
+                />
+            </FormGroup>
+
+
+            <FormGroup class="w-full md:w-1/3">
+                <Label for="setter-case">
+                    Setter case
+                </Label>
+                <Select id="setter-case"
+                        v-model="settings.setterCase"
+                        :options="caseOptions"
+                />
+            </FormGroup>
         </TabContent>
 
-        <TabContent :isActive="isActive('letter-case')">
-            <div class="flex">
-                <FormGroup class="w-full md:w-1/3">
-                    <Label for="class-case">
-                        Class case
-                    </Label>
-                    <Select id="class-case"
-                            v-model="settings.classCase"
-                            :options="caseOptions"
-                    />
-                </FormGroup>
-            </div>
-            
-            <div class="flex">
-                <FormGroup class="w-full md:w-1/3">
-                    <Label for="property-case">
-                        Property case
-                    </Label>
-                    <Select id="property-case"
-                            v-model="settings.propertyCase"
-                            :options="caseOptions"
-                    />
-                </FormGroup>
-            </div>
-
-            <div class="flex">
-                <FormGroup class="w-full md:w-1/3">
-                    <Label for="getter-case">
-                        Getter case
-                    </Label>
-                    <Select id="getter-case"
-                            v-model="settings.getterCase"
-                            :options="caseOptions"
-                    />
-                </FormGroup>
-            </div>
-
-             <div class="flex">
-                <FormGroup class="w-full md:w-1/3">
-                    <Label for="setter-case">
-                        Setter case
-                    </Label>
-                    <Select id="setter-case"
-                            v-model="settings.setterCase"
-                            :options="caseOptions"
-                    />
-                </FormGroup>
-            </div>
-        </TabContent>
-
-        <TabContent :isActive="isActive('docblock')">
+        <TabContent :isActive="isActive('docblock')" class="space-y-2">
             <div class="flex flex-wrap md:space-x-3">
                 <div class="w-full md:w-1/3">
                     <FormGroup>
@@ -152,9 +148,11 @@
         </TabContent>
 
         <TabContent :isActive="isActive('from-json')">
-            <Checkbox label="Add from json method" v-model="settings.addFromJsonMethod" />
+            <FormGroup>
+                <Checkbox label="Add from json method" v-model="settings.addFromJsonMethod" />
 
-            <Checkbox label="JSON response is an array" v-model="settings.jsonIsArray" />
+                <Checkbox label="JSON response is an array" v-model="settings.jsonIsArray" />
+            </FormGroup>
         </TabContent>
     </TabPanel>
 </template>
