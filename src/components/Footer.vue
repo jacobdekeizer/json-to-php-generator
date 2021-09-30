@@ -6,7 +6,7 @@
             </span>
             <span class="flex rounded-full">
                 <a href="https://github.com/jacobdekeizer/json-to-php-generator" target="_blank">
-                    <GithubIcon />
+                    <GithubIcon class="h-8 w-8" />
                 </a>
             </span>
         </div>
