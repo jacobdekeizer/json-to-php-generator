@@ -1,12 +1,12 @@
 <template>
-    <div class="px-4 text-gray-500 font-bold">
-        <div class="bg-gray-100 items-center leading-none rounded inline-flex float-right mb-2">
-            <span class="font-semibold mr-2 text-left flex-auto">
+    <div class="w-full pb-8">
+        <div class="text-dark-500 dark:text-dark-400 inline-flex float-right">
+            <span class="font-semibold mr-2">
                 Made by Jacob de Keizer
             </span>
             <span class="flex rounded-full">
                 <a href="https://github.com/jacobdekeizer/json-to-php-generator" target="_blank">
-                    <GithubIcon />
+                    <GithubIcon class="h-8 w-8" />
                 </a>
             </span>
         </div>

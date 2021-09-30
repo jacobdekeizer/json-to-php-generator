@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+    <div class="bg-danger-100 border-l-4 border-danger-500 text-danger-700 p-4 dark:bg-danger-300" role="alert">
         <slot></slot>
     </div>
 </template>

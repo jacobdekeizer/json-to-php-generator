@@ -1,6 +1,7 @@
 <template>
-    <div class="relative inline-block w-full mb-3">
-        <select class="w-full px-3 py-2 border-2 border-gray-200 text-gray-700 rounded-md appearance-none bg-blue-gray focus:bg-white focus:outline-none focus:border-cyan-400 transition-colors "
+    <div class="relative inline-block w-full">
+        <select class="w-full px-3 py-2 border-2 rounded-md appearance-none focus:border-primary-400 transition-colors outline-none
+        border-dark-200 text-dark-700 dark:bg-black dark:border-dark-600 dark:focus:border-primary-400 dark:text-white"
                 :id="id"
                 :value="value"
                 @input="onValueChanged($event.target.value)">

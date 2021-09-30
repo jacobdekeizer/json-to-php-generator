@@ -1,0 +1,99 @@
+code[class*="language-"],
+pre[class*="language-"] {
+  @apply text-white whitespace-pre leading-normal;
+
+  -moz-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre[class*="language-"],
+:not(pre) > code[class*="language-"] {
+  @apply bg-dark-800 dark:bg-black;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  @apply whitespace-normal p-3 overflow-auto;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  @apply whitespace-normal p-4;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-green-400;
+}
+
+.token.punctuation {
+  @apply opacity-70;
+}
+
+.namespace {
+  @apply opacity-70;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  @apply text-primary-300;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-green-200;
+}
+
+.token.operator {
+  @apply text-white;
+}
+
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+  @apply text-primary-300;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-yellow-500;
+}
+
+.token.regex,
+.token.important {
+  @apply text-yellow-400;
+}
+
+.token.important,
+.token.bold {
+  @apply font-black;
+}
+.token.italic {
+  font-style: italic;
+}
+
+.token.entity {
+  @apply cursor-help;
+}
+
+.token.deleted {
+  @apply text-danger-800;
+}
