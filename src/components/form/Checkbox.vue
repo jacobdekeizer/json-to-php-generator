@@ -1,5 +1,5 @@
 <template>
-    <label class="block text-gray-500 dark:text-gray-400 font-bold">
+    <label class="block text-dark-500 dark:text-dark-400 font-bold">
         <input class="mr-2 last:mb-0 leading-tight"
                type="checkbox"
                :checked="value"

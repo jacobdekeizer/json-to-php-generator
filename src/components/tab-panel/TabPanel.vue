@@ -1,5 +1,5 @@
 <template>
-    <div class="divide-y divide-gray-100 dark:divide-gray-400">
+    <div class="divide-y divide-dark-100 dark:divide-dark-400">
         <slot></slot>
     </div>
 </template>

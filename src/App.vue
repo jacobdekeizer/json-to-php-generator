@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen bg-gray-100 dark:bg-black p-4">
+  <div id="app" class="min-h-screen bg-dark-100 dark:bg-black p-4">
     <div class="container max-w-screen-xl mx-auto">
       <router-view/>
       <Footer />

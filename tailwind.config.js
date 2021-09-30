@@ -5,7 +5,6 @@ module.exports = {
   purge: [
     './public/**/*.html',
     './src/**/*.vue',
-    './src/**/*.scss',
   ],
   theme: {
     fontFamily: {
@@ -14,8 +13,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        'blue-gray': colors.blueGray,
-        'light-blue': colors.lightBlue
+        primary: colors.lightBlue,
+        dark: colors.gray,
+        danger: colors.red,
       }
     }
   }

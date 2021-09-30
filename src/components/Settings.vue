@@ -16,8 +16,8 @@
         </TabNav>
 
         <TabContent :isActive="isActive('general')">
-             <div class="flex flex-wrap md:space-x-3 mb-2">
-                  <div class="w-full md:w-1/3">
+             <div class="flex flex-wrap md:space-x-3">
+                  <div class="w-full md:w-1/3 mb-2">
                       <FormGroup>
                           <Label for="php-version">
                               PHP version
@@ -28,7 +28,7 @@
                           />
                       </FormGroup>
                   </div>
-                   <div class="w-full md:w-1/3">
+                   <div class="w-full md:w-1/3 mb-2">
                         <FormGroup>
                             <Label for="property-visibility">
                                 Property visibility
@@ -108,9 +108,9 @@
             </FormGroup>
         </TabContent>
 
-        <TabContent :isActive="isActive('docblock')" class="space-y-2">
+        <TabContent :isActive="isActive('docblock')">
             <div class="flex flex-wrap md:space-x-3">
-                <div class="w-full md:w-1/3">
+                <div class="w-full md:w-1/3 mb-2">
                     <FormGroup>
                         <Label for="property-docblock">
                             Property docblock
@@ -121,7 +121,7 @@
                         />
                     </FormGroup>  
                 </div>
-                <div class="w-full md:w-1/3">
+                <div class="w-full md:w-1/3 mb-2">
                     <FormGroup>
                         <Label for="property-docblock">
                             Property docblock type

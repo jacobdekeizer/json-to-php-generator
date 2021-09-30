@@ -1,8 +1,11 @@
 <template>
-    <li>
+    <li class="flex-col">
         <a href="javascript:void(0)"
-           class="block px-2 py-1 rounded-md bg-blue-gray-200 dark:bg-gray-400"
-           :class="{ 'bg-light-blue-200 text-light-blue-800 dark:bg-light-blue-300': isActive, }"
+           class="flex items-center px-2 py-1 rounded-md h-full"
+           :class="{
+              'text-primary-800 dark:text-primary-800 bg-primary-200 dark:bg-primary-300': isActive,
+              'dark:text-dark-800 bg-dark-200 dark:bg-dark-400': !isActive
+           }"
            @click="$emit('click', $event)">
             <slot></slot>
         </a>

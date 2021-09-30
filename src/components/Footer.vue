@@ -1,7 +1,7 @@
 <template>
     <div class="w-full pb-8">
-        <div class="text-gray-500 items-center leading-none rounded font-bold inline-flex float-right">
-            <span class="font-semibold mr-2 text-left flex-auto">
+        <div class="text-dark-500 dark:text-dark-400 inline-flex float-right">
+            <span class="font-semibold mr-2">
                 Made by Jacob de Keizer
             </span>
             <span class="flex rounded-full">
