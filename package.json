@@ -31,7 +31,7 @@
     "autoprefixer": "^9.8.6",
     "eslint": "^7.23.0",
     "eslint-plugin-vue": "^7.8.0",
-    "node-sass": "^5.0.0",
+    "node-sass": "^7.0.0",
     "postcss": "^7.0.36",
     "sass-loader": "^10.1.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
