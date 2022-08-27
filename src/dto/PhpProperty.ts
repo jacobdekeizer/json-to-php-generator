@@ -1,5 +1,5 @@
 import PhpType from '@/php-types/PhpType';
-import Settings from '@/dto/Settings';
+import Settings, {createDefaultSettings, supportsUnionType} from '@/dto/Settings';
 import NullType from '@/php-types/NullType';
 import ArrayType from '@/php-types/ArrayType';
 
@@ -7,10 +7,11 @@ export default class PhpProperty {
     private readonly name: string;
     private types: PhpType[] = [];
     private nullable = false;
-    private settings: Settings = new Settings;
+    private settings: Settings;
 
     public constructor(name: string) {
         this.name = name;
+        this.settings = createDefaultSettings();
     }
 
     public getName(): string {
@@ -75,6 +76,6 @@ export default class PhpProperty {
             return true;
         }
 
-        return this.types.length > 1 && !this.settings.supportsUnionType();
+        return this.types.length > 1 && !supportsUnionType(this.settings);
     }
 }

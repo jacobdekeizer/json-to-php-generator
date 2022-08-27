@@ -4,44 +4,70 @@ import {PhpVisibility} from '@/enums/PhpVisibility';
 import {PhpDocblock} from '@/enums/PhpDocblock';
 import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 
-export default class Settings {
-    public phpVersion = PhpVersion.PHP80;
-    public classCase = StringCase.PascalCase;
-    public propertyCase = StringCase.CamelCase;
+export default interface Settings {
+    phpVersion: PhpVersion;
+    classCase: StringCase;
+    propertyCase: StringCase;
 
-    public propertyVisibility = PhpVisibility.Public;
-    public propertyDocblock = PhpDocblock.Necessary;
-    public propertyDocblockType = PropertyDocblockType.Inline;
-    public propertyAddExtraNewLine = false;
+    propertyVisibility: PhpVisibility;
+    propertyDocblock: PhpDocblock;
+    propertyDocblockType: PropertyDocblockType;
+    propertyAddExtraNewLine: boolean;
 
-    public addGetters = false;
-    public getterCase = StringCase.CamelCase;
-    public addSetters = false;
-    public setterCase = StringCase.CamelCase;
-    public isFluentSetter = true;
+    addGetters: boolean;
+    getterCase: StringCase;
+    addSetters: boolean;
+    setterCase: StringCase;
+    isFluentSetter: boolean;
 
-    public addConstructor = true;
-    public finalClasses = false;
-    public allPropertiesNullable = false;
+    addConstructor: boolean;
+    finalClasses: boolean;
+    allPropertiesNullable: boolean;
 
-    public addFromJsonMethod = false;
-    public jsonIsArray = true;
+    addFromJsonMethod: boolean;
+    jsonIsArray: boolean;
 
-    public docblock = PhpDocblock.Necessary;
+    docblock: PhpDocblock;
+}
 
-    public supportsTypedProperties(): boolean {
-        return this.supports([PhpVersion.PHP74, PhpVersion.PHP80]);
-    }
+export const supports = (settings: Settings, versions: PhpVersion[]): boolean => versions.includes(settings.phpVersion);
 
-    public supportsMixedType(): boolean {
-        return this.supports([PhpVersion.PHP80]);
-    }
+export const supportsTypedProperties = (settings: Settings): boolean => {
+    return supports(settings, [PhpVersion.PHP74, PhpVersion.PHP80]);
+}
 
-    public supportsUnionType(): boolean {
-        return this.supports([PhpVersion.PHP80]);
-    }
+export const supportsUnionType = (settings: Settings): boolean => {
+    return supports(settings, [PhpVersion.PHP80]);
+}
 
-    private supports(versions: PhpVersion[]): boolean {
-        return versions.includes(this.phpVersion);
+export const supportsMixedType = (settings: Settings): boolean => {
+    return supports(settings, [PhpVersion.PHP80]);
+}
+
+export const createDefaultSettings = (): Settings => {
+    return {
+        phpVersion: PhpVersion.PHP80,
+        classCase: StringCase.PascalCase,
+        propertyCase: StringCase.CamelCase,
+
+        propertyVisibility: PhpVisibility.Public,
+        propertyDocblock: PhpDocblock.Necessary,
+        propertyDocblockType: PropertyDocblockType.Inline,
+        propertyAddExtraNewLine: false,
+
+        addGetters: false,
+        getterCase: StringCase.CamelCase,
+        addSetters: false,
+        setterCase: StringCase.CamelCase,
+        isFluentSetter: true,
+
+        addConstructor: true,
+        finalClasses: false,
+        allPropertiesNullable: false,
+
+        addFromJsonMethod: false,
+        jsonIsArray: true,
+
+        docblock: PhpDocblock.Necessary,
     }
 }

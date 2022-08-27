@@ -2,23 +2,16 @@
     <label class="block text-dark-500 dark:text-dark-400 font-bold">
         <input class="mr-2 last:mb-0 leading-tight"
                type="checkbox"
-               :checked="value"
-               @change="onValueChanged($event.target.checked)"
+               :checked="props.modelValue"
+               @change="emit('update:modelValue', $event.target.checked)"
         />
         <span class="text-sm">{{ this.label }}</span>
     </label>
 </template>
 
-<script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+<script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
 
-    @Component
-    export default class Checkbox extends Vue {
-        @Prop({type: String, required: true}) private readonly label!: string;
-        @Prop({type: Boolean, required: true}) private readonly value!: boolean;
-
-        private onValueChanged(value: boolean): void {
-            this.$emit('input', value);
-        }
-    }
+const props = defineProps<{ label: string, modelValue: boolean}>();
+const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
 </script>

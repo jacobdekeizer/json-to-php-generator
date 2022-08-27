@@ -13,13 +13,6 @@
     </div>
 </template>
 
-<script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator';
-    import GithubIcon from '@/components/icons/GithubIcon.vue';
-
-    @Component({
-        components: {GithubIcon}
-    })
-    export default class Footer extends Vue {
-    }
+<script lang="ts" setup>
+import GithubIcon from '@/components/icons/GithubIcon.vue';
 </script>

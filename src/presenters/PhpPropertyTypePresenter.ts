@@ -1,4 +1,4 @@
-import Settings from '@/dto/Settings';
+import Settings, {supportsUnionType} from '@/dto/Settings';
 import Str from '@/support/Str';
 import PhpProperty from '@/dto/PhpProperty';
 
@@ -16,7 +16,7 @@ export default class PhpPropertyTypePresenter {
             return (this.property.isNullable() ? '?' : '') + this.property.getTypes()[0].getType();
         }
 
-        if (this.settings.supportsUnionType()) {
+        if (supportsUnionType(this.settings)) {
             const types = this.property.getTypes().map(t => t.getType());
 
             if (this.property.isNullable()) {

@@ -19,68 +19,35 @@
 
             <h2 class="text-dark-700 dark:text-dark-300 font-bold text-2xl mb-2">Settings</h2>
 
-            <Settings :settings="settings"/>
+            <Settings v-model="settings" />
         </Card>
         <Card v-if="code">
-            <Code :code="code"/>
+            <Code :code="code" language="php" />
         </Card>
-        <Card v-if="errorMessage">
+        <Card v-if="error">
             <Alert>
-                {{ errorMessage }}
+                {{ error }}
             </Alert>
         </Card>
     </div>
 </template>
 
-<script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import Alert from '@/components/Alert.vue';
+import Card from '@/components/Card.vue';
+import Code from '@/components/Code.vue';
+import Label from '@/components/form/Label.vue';
+import Settings from '@/components/Settings.vue';
+import TextArea from '@/components/form/TextArea.vue';
+import ThemeColorSwitch from '@/components/ThemeColorSwitch.vue';
 
-    import Alert from '@/components/Alert.vue';
-    import Card from '@/components/Card.vue';
-    import Code from '@/components/Code.vue';
-    import Label from '@/components/form/Label.vue';
-    import Settings from '@/components/Settings.vue';
-    import TextArea from '@/components/form/TextArea.vue';
+import {createDefaultSettings, default as SettingsModel} from '@/dto/Settings';
+import {useJsonConverter} from '@/hooks/use-json-converter';
+import {Ref, ref} from 'vue';
 
-    import {default as SettingsModel} from '@/dto/Settings';
-    import JsonToPhpFactory from '@/factories/JsonToPhpFactory';
-    import PhpClass from '@/dto/PhpClass';
-    import PhpClassPresenter from '@/presenters/PhpClassPresenter';
-    import ThemeColorSwitch from '@/components/ThemeColorSwitch.vue';
+const jsonContent = ref('');
+const settings = ref(createDefaultSettings()) as Ref<SettingsModel>;
 
-    @Component({
-        components: {
-          ThemeColorSwitch,
-            Label,
-            Alert,
-            Card,
-            Code,
-            Settings,
-            TextArea
-        }
-    })
-    export default class Generator extends Vue {
-        private jsonContent = '';
-        private errorMessage = '';
-        private class: PhpClass | null = null;
-        private settings = new SettingsModel();
-
-        private get code(): string | null {
-            this.errorMessage = '';
-
-            if (!this.jsonContent) {
-                return null;
-            }
-
-            try {
-                this.class = JsonToPhpFactory.make(this.jsonContent);
-            } catch (e) {
-                this.errorMessage = e.message;
-                return null;
-            }
-
-            return (new PhpClassPresenter(this.class, this.settings)).toString();
-        }
-    }
+const { error, code } = useJsonConverter({ jsonContent, settings })
 </script>
 

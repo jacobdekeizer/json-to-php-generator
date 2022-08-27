@@ -3,8 +3,8 @@
         <a href="javascript:void(0)"
            class="flex items-center px-2 py-1 rounded-md h-full"
            :class="{
-              'text-primary-800 dark:text-primary-800 bg-primary-200 dark:bg-primary-300': isActive,
-              'dark:text-dark-800 bg-dark-200 dark:bg-dark-400': !isActive
+              'text-primary-800 dark:text-primary-800 bg-primary-200 dark:bg-primary-300': props.isActive,
+              'dark:text-dark-800 bg-dark-200 dark:bg-dark-400': !props.isActive
            }"
            @click="$emit('click', $event)">
             <slot></slot>
@@ -12,11 +12,8 @@
     </li>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 
-    @Component
-    export default class TabNavItem extends Vue {
-        @Prop({ type: Boolean, default: false }) private readonly isActive!: boolean;
-    }
+const props = withDefaults(defineProps<{ isActive?: boolean }>(), { isActive: false });
 </script>

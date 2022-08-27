@@ -9,12 +9,3 @@
               2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
     </svg>
 </template>
-
-<script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
-
-    @Component
-    export default class GithubIcon extends Vue {
-
-    }
-</script>

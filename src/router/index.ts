@@ -1,8 +1,5 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Generator from '../views/Generator.vue';
-
-Vue.use(VueRouter);
+import {createRouter, createWebHashHistory} from 'vue-router';
+import Generator from '@/views/Generator.vue';
 
 const routes = [
   {
@@ -12,10 +9,9 @@ const routes = [
   }
 ];
 
-const router = new VueRouter({
-  mode: 'hash',
-  base: process.env.BASE_URL,
-  routes
-});
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+})
 
 export default router

@@ -1,14 +1,11 @@
 <template>
-    <div class="mt-2 pt-2 bt-2" :class="{ 'hidden' : !isActive }">
+    <div class="mt-2 pt-2 bt-2" :class="{ 'hidden' : !props.isActive }">
         <slot></slot>
     </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 
-    @Component
-    export default class TabContent extends Vue {
-        @Prop({ type: Boolean, default: false }) private readonly isActive!: boolean;
-    }
+const props = withDefaults(defineProps<{ isActive?: boolean }>(), { isActive: false });
 </script>

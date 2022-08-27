@@ -6,74 +6,69 @@
   </div>
 </template>
 
-<script lang="ts">
-import {Component, Vue, Watch} from 'vue-property-decorator';
-import {ThemeColor} from '@/enums/ThemeColor';
+<script lang="ts" setup>
+import {computed, ref, watch} from 'vue';
 import MoonIcon from '@/components/icons/MoonIcon.vue';
 import SunIcon from '@/components/icons/SunIcon.vue';
 import HalfFilledCircleIcon from '@/components/icons/HalfFilledCircleIcon.vue';
+import {ThemeColor} from '@/enums/ThemeColor';
 
-export const themeColorModeKey = 'theme-color-mode';
+const themeColorModeKey = 'theme-color-mode';
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-@Component({
-  components: { HalfFilledCircleIcon, SunIcon, MoonIcon }
-})
-export default class ThemeColorSwitch extends Vue {
-  private color = (localStorage.getItem(themeColorModeKey) as ThemeColor | null) || ThemeColor.SYSTEM;
-  private prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  private index = this.options.findIndex(o => o === this.color) || 0;
+const color = ref<ThemeColor>((localStorage.getItem(themeColorModeKey) as ThemeColor | null) || ThemeColor.SYSTEM);
 
-  @Watch('color', { immediate: true })
-  private onModeChanged(color: ThemeColor): void {
-    localStorage.setItem(themeColorModeKey, color);
+const options = computed(() => {
+  const options = [ThemeColor.SYSTEM];
 
-    switch (color) {
-      case ThemeColor.SYSTEM:
-        if (this.prefersDark) {
-          this.enableDarkMode();
-        } else {
-          this.enableLightMode();
-        }
-        break;
-      case ThemeColor.DARK:
-        this.enableDarkMode();
-        break;
-      case ThemeColor.LIGHT:
-        this.enableLightMode();
-        break;
-    }
+  if (prefersDark) {
+    options.push(ThemeColor.LIGHT);
+    options.push(ThemeColor.DARK);
+  } else {
+    options.push(ThemeColor.DARK);
+    options.push(ThemeColor.LIGHT);
   }
 
-  private get options(): ThemeColor[] {
-    const options = [ThemeColor.SYSTEM];
+  return options;
+});
 
-    if (this.prefersDark) {
-      options.push(ThemeColor.LIGHT);
-      options.push(ThemeColor.DARK);
-    } else {
-      options.push(ThemeColor.DARK);
-      options.push(ThemeColor.LIGHT);
-    }
+const index = ref(options.value.findIndex(o => o === color.value) || 0);
 
-    return options;
+const enableDarkMode = (): void => {
+  document.documentElement.classList.add('dark');
+};
+
+const enableLightMode = (): void => {
+  document.documentElement.classList.remove('dark');
+};
+
+const next = (): void => {
+  index.value++;
+
+  if (index.value >= options.value.length) {
+    index.value = 0;
   }
 
-  private next(): void {
-    this.index++;
-
-    if (this.index >= this.options.length) {
-      this.index = 0;
-    }
-
-    this.color = this.options[this.index];
-  }
-
-  private enableDarkMode(): void {
-    document.documentElement.classList.add('dark');
-  }
-
-  private enableLightMode(): void {
-    document.documentElement.classList.remove('dark');
-  }
+  color.value = options.value[index.value];
 }
+
+watch(color, () => {
+  localStorage.setItem(themeColorModeKey, color.value);
+
+  switch (color.value) {
+    case ThemeColor.SYSTEM:
+      if (prefersDark) {
+        enableDarkMode();
+      } else {
+        enableLightMode();
+      }
+      break;
+    case ThemeColor.DARK:
+      enableDarkMode();
+      break;
+    case ThemeColor.LIGHT:
+      enableLightMode();
+      break;
+  }
+}, { immediate: true })
 </script>

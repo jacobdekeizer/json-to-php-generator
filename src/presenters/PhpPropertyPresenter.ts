@@ -1,4 +1,4 @@
-import Settings from '@/dto/Settings';
+import Settings, {supportsTypedProperties} from '@/dto/Settings';
 import {PhpDocblock} from '@/enums/PhpDocblock';
 import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
@@ -29,7 +29,7 @@ export default class PhpPropertyPresenter {
         }
 
         codeWriter.writeLine(this.settings.propertyVisibility + ' ' + (
-            this.settings.supportsTypedProperties()
+            supportsTypedProperties(this.settings)
                 ? this.propertyTypePresenter.getPhpVarWithType()
                 : this.propertyTypePresenter.getPhpVar()
         ) + ';');

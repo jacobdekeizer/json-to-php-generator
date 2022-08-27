@@ -2,10 +2,10 @@
     <div class="relative inline-block w-full">
         <select class="w-full px-3 py-2 border-2 rounded-md appearance-none focus:border-primary-400 transition-colors outline-none
         border-dark-200 text-dark-700 dark:bg-black dark:border-dark-600 dark:focus:border-primary-400 dark:text-white"
-                :id="id"
-                :value="value"
-                @input="onValueChanged($event.target.value)">
-            <option v-for="option in this.options" :value="option.value" :key="option.value">
+                :id="props.id"
+                :value="props.modelValue"
+                @input="emit('update:modelValue', $event.target.value)">
+            <option v-for="option in props.options" :value="option.value" :key="option.value">
                 {{ option.text }}
             </option>
         </select>
@@ -20,18 +20,10 @@
     </div>
 </template>
 
-<script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import SelectOption from '@/dto/SelectOption';
+<script lang="ts" setup>
+import { defineProps, defineEmits } from 'vue';
+import SelectOption from '@/dto/SelectOption';
 
-    @Component
-    export default class Select extends Vue {
-        @Prop({type: String, required: true}) private readonly id!: string;
-        @Prop({type: String, required: true}) private readonly value!: string;
-        @Prop({type: Array, required: true}) private readonly options!: SelectOption[];
-
-        private onValueChanged(value: string): void {
-            this.$emit('input', value);
-        }
-    }
+const props = defineProps<{ id: string, modelValue: string, options: SelectOption[] }>();
+const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
 </script>
