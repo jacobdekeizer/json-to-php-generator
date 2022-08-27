@@ -5,7 +5,7 @@
                :checked="props.modelValue"
                @change="emit('update:modelValue', $event.target.checked)"
         />
-        <span class="text-sm">{{ this.label }}</span>
+        <span class="text-sm">{{ props.label }}</span>
     </label>
 </template>
 
