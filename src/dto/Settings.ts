@@ -46,7 +46,7 @@ export const supportsMixedType = (settings: Settings): boolean => {
 
 export const createDefaultSettings = (): Settings => {
     return {
-        phpVersion: PhpVersion.PHP80,
+        phpVersion: PhpVersion.PHP81,
         classCase: StringCase.PascalCase,
         propertyCase: StringCase.CamelCase,
 
