@@ -33,15 +33,15 @@ export default interface Settings {
 export const supports = (settings: Settings, versions: PhpVersion[]): boolean => versions.includes(settings.phpVersion);
 
 export const supportsTypedProperties = (settings: Settings): boolean => {
-    return supports(settings, [PhpVersion.PHP74, PhpVersion.PHP80]);
+    return supports(settings, [PhpVersion.PHP74, PhpVersion.PHP80, PhpVersion.PHP81]);
 }
 
 export const supportsUnionType = (settings: Settings): boolean => {
-    return supports(settings, [PhpVersion.PHP80]);
+    return supports(settings, [PhpVersion.PHP80, PhpVersion.PHP81]);
 }
 
 export const supportsMixedType = (settings: Settings): boolean => {
-    return supports(settings, [PhpVersion.PHP80]);
+    return supports(settings, [PhpVersion.PHP80, PhpVersion.PHP81]);
 }
 
 export const createDefaultSettings = (): Settings => {
