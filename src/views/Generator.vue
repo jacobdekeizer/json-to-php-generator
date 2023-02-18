@@ -43,6 +43,8 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 import Alert from '@/components/Alert.vue';
 import Card from '@/components/Card.vue';
 import Code from '@/components/Code.vue';
@@ -50,14 +52,12 @@ import Label from '@/components/form/Label.vue';
 import Settings from '@/components/Settings.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import ThemeColorSwitch from '@/components/ThemeColorSwitch.vue';
-
-import {createDefaultSettings, default as SettingsModel} from '@/dto/Settings';
-import {useJsonConverter} from '@/hooks/use-json-converter';
-import {Ref, ref} from 'vue';
+import { useJsonConverter } from '@/hooks/use-json-converter';
+import { useSettings } from '@/hooks/use-settings';
 
 const jsonContent = ref('');
-const settings = ref(createDefaultSettings()) as Ref<SettingsModel>;
 
+const { settings } = useSettings();
 const { error, code } = useJsonConverter({ jsonContent, settings })
 </script>
 

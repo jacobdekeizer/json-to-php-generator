@@ -28,9 +28,35 @@ export default class CodeWriter {
         this.writeLine(' */');
     }
 
-    public openMethod(visibility: PhpVisibility, method: string, isStatic = false): void {
-        this.writeLine(`${visibility}${isStatic ? ' static': ''} function ${method}`);
+    public openMethod(
+        visibility: PhpVisibility,
+        name: string,
+        returnType: string | null,
+        parameters: string[],
+        options?: { isStatic?: boolean, isMultiline?: boolean}
+    ): void {
+        let method = `${visibility}${options?.isStatic ? ' static': ''} function ${name}(`;
+        const methodClose = ')' + (returnType ? ': ' + returnType : '');
+
+        if (options?.isMultiline && parameters.length > 0) {
+            this.writeLine(method);
+            this.indent();
+
+            for (let i = 0; i < parameters.length; i++) {
+                this.writeLine(parameters[i] + (i < parameters.length - 1 ? ',' : ''));
+            }
+
+            this.outdent();
+            this.writeLine(`${methodClose} {`)
+            this.indent();
+
+            return;
+        }
+
+        method += parameters.join(', ') + methodClose;
+        this.writeLine(method);
         this.writeLine('{');
+
         this.indent();
     }
 

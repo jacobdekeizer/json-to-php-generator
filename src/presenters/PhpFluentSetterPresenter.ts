@@ -6,7 +6,12 @@ import {PhpVisibility} from '@/enums/PhpVisibility';
 export default class PhpFluentSetterPresenter extends PhpSetterPresenter{
     public write(codeWriter: CodeWriter): void {
         (new PhpDocblockPresenter(this.settings, [this.propertyTypePresenter], 'self')).write(codeWriter);
-        codeWriter.openMethod(PhpVisibility.Public, `${this.getMethodSignature()}: self`);
+        codeWriter.openMethod(
+            PhpVisibility.Public,
+            this.getMethodName(),
+            'self',
+            [this.getMethodParameter()]
+        );
         codeWriter.writeLine(
             `$this->${this.propertyTypePresenter.getPhpVarName()} = ${this.propertyTypePresenter.getPhpVar()};`
         );

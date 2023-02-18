@@ -20,14 +20,19 @@ export default class PhpSetterPresenter {
 
     public write(codeWriter: CodeWriter): void {
         (new PhpDocblockPresenter(this.settings, [this.propertyTypePresenter], 'void')).write(codeWriter);
-        codeWriter.openMethod(PhpVisibility.Public, `${this.getMethodSignature()}: void`);
+        codeWriter.openMethod(
+            PhpVisibility.Public,
+            this.getMethodName(),
+            'void',
+            [this.getMethodParameter()]
+        );
         codeWriter.writeLine(
             `$this->${this.propertyTypePresenter.getPhpVarName()} = ${this.propertyTypePresenter.getPhpVar()};`
         );
         codeWriter.closeMethod();
     }
 
-    protected getMethodSignature(): string {
-        return `${this.getMethodName()}(${this.propertyTypePresenter.getPhpVarWithType()})`;
+    protected getMethodParameter(): string {
+        return this.propertyTypePresenter.getPhpVarWithType();
     }
 }

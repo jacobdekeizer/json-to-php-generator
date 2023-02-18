@@ -3,6 +3,7 @@ import PhpDocblockPresenter from '@/presenters/PhpDocblockPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import CodeWriter from '@/writers/CodeWriter';
 import {PhpVisibility} from '@/enums/PhpVisibility';
+import PhpPropertyPresenter from '@/presenters/PhpPropertyPresenter';
 
 export default class PhpConstructorPresenter {
     private readonly propertyTypePresenters: PhpPropertyTypePresenter[];
@@ -16,15 +17,38 @@ export default class PhpConstructorPresenter {
     public write(codeWriter: CodeWriter): void {
         (new PhpDocblockPresenter(this.settings, this.propertyTypePresenters)).write(codeWriter);
 
+        const constructorContent = this.getConstructorContent();
+
         codeWriter.openMethod(
             PhpVisibility.Public,
-            '__construct(' + this.propertyTypePresenters.map(property => property.getPhpVarWithType()).join(', ') +')'
+            '__construct',
+            null,
+            constructorContent,
+            {
+                isMultiline: constructorContent.length > 2
+            }
         );
 
-        codeWriter.writeLines(this.propertyTypePresenters.map(item => {
-            return `$this->${item.getPhpVarName()} = ${item.getPhpVar()};`
-        }));
+        if (!this.settings.constructorPropertyPromotion) {
+            codeWriter.writeLines(this.propertyTypePresenters.map(item => {
+                return `$this->${item.getPhpVarName()} = ${item.getPhpVar()};`
+            }));
+        }
 
         codeWriter.closeMethod();
+    }
+
+    private getConstructorContent(): string[] {
+        if (this.propertyTypePresenters.length === 0) {
+            return [];
+        }
+
+        if (this.settings.constructorPropertyPromotion) {
+            return this.propertyTypePresenters.map(property => {
+                return (new PhpPropertyPresenter(property, this.settings)).getPropertyString()
+            });
+        }
+
+        return this.propertyTypePresenters.map(property => property.getPhpVarWithType());
     }
 }

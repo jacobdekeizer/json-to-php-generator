@@ -13,6 +13,14 @@ export default class PhpPropertyPresenter {
         this.settings = settings;
     }
 
+    public getPropertyString(): string {
+        return this.settings.propertyVisibility + ' ' + (
+            supportsTypedProperties(this.settings)
+                ? this.propertyTypePresenter.getPhpVarWithType()
+                : this.propertyTypePresenter.getPhpVar()
+        );
+    }
+
     public write(codeWriter: CodeWriter): void {
         const mustAddDocblock = this.settings.propertyDocblock === PhpDocblock.All
              || (
@@ -28,10 +36,6 @@ export default class PhpPropertyPresenter {
                 : codeWriter.writeMultilineDocblock([docblockContent]);
         }
 
-        codeWriter.writeLine(this.settings.propertyVisibility + ' ' + (
-            supportsTypedProperties(this.settings)
-                ? this.propertyTypePresenter.getPhpVarWithType()
-                : this.propertyTypePresenter.getPhpVar()
-        ) + ';');
+        codeWriter.writeLine(this.getPropertyString() + ';');
     }
 }

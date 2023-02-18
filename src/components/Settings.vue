@@ -28,11 +28,11 @@
     </TabNav>
 
     <TabContent :is-active="activeTab === 'general'">
-      <div class="flex flex-wrap md:space-x-3">
-        <div class="w-full md:w-1/3 mb-2">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
           <FormGroup>
             <Label for="php-version">
-              PHP version
+              Class
             </Label>
             <Select
               id="php-version"
@@ -41,11 +41,30 @@
               @update:model-value="(val) => updateSettings({ phpVersion: val })"
             />
           </FormGroup>
+
+          <Checkbox
+            label="Final classes"
+            :model-value="props.modelValue.finalClasses"
+            @update:model-value="(val) => updateSettings({ finalClasses: val })"
+          />
+
+          <Checkbox
+            label="Add constructor"
+            :model-value="props.modelValue.addConstructor"
+            @update:model-value="(val) => updateSettings({ addConstructor: val })"
+          />
+
+          <Checkbox
+            label="Constructor property promotion"
+            v-if="supportsConstructorPropertyPromotion(props.modelValue)"
+            :model-value="props.modelValue.constructorPropertyPromotion"
+            @update:model-value="(val) => updateSettings({ constructorPropertyPromotion: val })"
+          />
         </div>
-        <div class="w-full md:w-1/3 mb-2">
+        <div>
           <FormGroup>
             <Label for="property-visibility">
-              Property visibility
+              Properties
             </Label>
             <Select
               id="property-visibility"
@@ -54,41 +73,30 @@
               @update:model-value="(val) => updateSettings({ propertyVisibility: val })"
             />
           </FormGroup>
+
+          <Checkbox
+            label="All properties nullable"
+            :model-value="props.modelValue.allPropertiesNullable"
+            @update:model-value="(val) => updateSettings({ allPropertiesNullable: val })"
+          />
+
+          <Checkbox
+            label="Add extra new line after property"
+            :model-value="props.modelValue.propertyAddExtraNewLine"
+            @update:model-value="(val) => updateSettings({ propertyAddExtraNewLine: val })"
+          />
         </div>
-      </div>
+        <div>
+          <Label>
+            Methods
+          </Label>
 
-      <FormGroup>
-        <Checkbox
-          label="Final classes"
-          :model-value="props.modelValue.finalClasses"
-          @update:model-value="(val) => updateSettings({ finalClasses: val })"
-        />
+          <Checkbox
+            label="Add getters"
+            :model-value="props.modelValue.addGetters"
+            @update:model-value="(val) => updateSettings({ addGetters: val })"
+          />
 
-        <Checkbox
-          label="All properties nullable"
-          :model-value="props.modelValue.allPropertiesNullable"
-          @update:model-value="(val) => updateSettings({ allPropertiesNullable: val })"
-        />
-
-        <Checkbox
-          label="Add extra new line after property"
-          :model-value="props.modelValue.propertyAddExtraNewLine"
-          @update:model-value="(val) => updateSettings({ propertyAddExtraNewLine: val })"
-        />
-
-        <Checkbox
-          label="Add constructor"
-          :model-value="props.modelValue.addConstructor"
-          @update:model-value="(val) => updateSettings({ addConstructor: val })"
-        />
-
-        <Checkbox
-          label="Add getters"
-          :model-value="props.modelValue.addGetters"
-          @update:model-value="(val) => updateSettings({ addGetters: val })"
-        />
-
-        <div class="flex">
           <Checkbox
             label="Add setters"
             class="mr-4"
@@ -103,67 +111,71 @@
             @update:model-value="(val) => updateSettings({ isFluentSetter: val })"
           />
         </div>
-      </FormGroup>
+      </div>
     </TabContent>
 
     <TabContent
       :is-active="activeTab === 'letter-case'"
       class="space-y-2"
     >
-      <FormGroup class="w-full md:w-1/3">
-        <Label for="class-case">
-          Class case
-        </Label>
-        <Select
-          id="class-case"
-          :model-value="props.modelValue.classCase"
-          :options="caseOptions"
-          @update:model-value="(val) => updateSettings({ classCase: val })"
-        />
-      </FormGroup>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <FormGroup>
+            <Label for="class-case">
+              Class case
+            </Label>
+            <Select
+              id="class-case"
+              :model-value="props.modelValue.classCase"
+              :options="caseOptions"
+              @update:model-value="(val) => updateSettings({ classCase: val })"
+            />
+          </FormGroup>
 
-      <FormGroup class="w-full md:w-1/3">
-        <Label for="property-case">
-          Property case
-        </Label>
-        <Select
-          id="property-case"
-          :model-value="props.modelValue.propertyCase"
-          :options="caseOptions"
-          @update:model-value="(val) => updateSettings({ propertyCase: val })"
-        />
-      </FormGroup>
-
-
-      <FormGroup class="w-full md:w-1/3">
-        <Label for="getter-case">
-          Getter case
-        </Label>
-        <Select
-          id="getter-case"
-          :model-value="props.modelValue.getterCase"
-          :options="caseOptions"
-          @update:model-value="(val) => updateSettings({ getterCase: val })"
-        />
-      </FormGroup>
+          <FormGroup>
+            <Label for="property-case">
+              Property case
+            </Label>
+            <Select
+              id="property-case"
+              :model-value="props.modelValue.propertyCase"
+              :options="caseOptions"
+              @update:model-value="(val) => updateSettings({ propertyCase: val })"
+            />
+          </FormGroup>
 
 
-      <FormGroup class="w-full md:w-1/3">
-        <Label for="setter-case">
-          Setter case
-        </Label>
-        <Select
-          id="setter-case"
-          :model-value="props.modelValue.setterCase"
-          :options="caseOptions"
-          @update:model-value="(val) => updateSettings({ setterCase: val })"
-        />
-      </FormGroup>
+          <FormGroup>
+            <Label for="getter-case">
+              Getter case
+            </Label>
+            <Select
+              id="getter-case"
+              :model-value="props.modelValue.getterCase"
+              :options="caseOptions"
+              @update:model-value="(val) => updateSettings({ getterCase: val })"
+            />
+          </FormGroup>
+
+
+          <FormGroup>
+            <Label for="setter-case">
+              Setter case
+            </Label>
+            <Select
+              id="setter-case"
+              :model-value="props.modelValue.setterCase"
+              :options="caseOptions"
+              @update:model-value="(val) => updateSettings({ setterCase: val })"
+            />
+          </FormGroup>
+        </div>
+      </div>
     </TabContent>
 
     <TabContent :is-active="activeTab === 'docblock'">
-      <div class="flex flex-wrap md:space-x-3">
-        <div class="w-full md:w-1/3 mb-2">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
           <FormGroup>
             <Label for="property-docblock">
               Property docblock
@@ -174,9 +186,7 @@
               :options="docblockOptions"
               @update:model-value="(val) => updateSettings({ propertyDocblock: val })"
             />
-          </FormGroup>  
-        </div>
-        <div class="w-full md:w-1/3 mb-2">
+          </FormGroup>
           <FormGroup>
             <Label for="property-docblock">
               Property docblock type
@@ -188,21 +198,18 @@
               @update:model-value="(val) => updateSettings({ propertyDocblockType: val })"
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="method-constructor-docblock">
+              Method/Constructor docblock
+            </Label>
+            <Select
+              id="method-constructor-docblock"
+              :model-value="props.modelValue.docblock"
+              :options="docblockOptions"
+              @update:model-value="(val) => updateSettings({ docblock: val })"
+            />
+          </FormGroup>
         </div>
-      </div>
-            
-      <div class="flex">
-        <FormGroup class="w-full md:w-1/3">
-          <Label for="method-constructor-docblock">
-            Method/Constructor docblock
-          </Label>
-          <Select
-            id="method-constructor-docblock"
-            :model-value="props.modelValue.docblock"
-            :options="docblockOptions"
-            @update:model-value="(val) => updateSettings({ docblock: val })"
-          />
-        </FormGroup>
       </div>
     </TabContent>
 
@@ -236,7 +243,7 @@ import TabNav from '@/components/tab-panel/TabNav.vue';
 import TabNavItem from '@/components/tab-panel/TabNavItem.vue';
 import TabPanel from '@/components/tab-panel/TabPanel.vue';
 
-import {default as SettingsModel} from '@/dto/Settings';
+import {default as SettingsModel, supportsConstructorPropertyPromotion} from '@/dto/Settings';
 import EnumSelect from '@/support/EnumSelect';
 import {PhpVersion} from '@/enums/PhpVersion';
 import {StringCase} from '@/enums/StringCase';

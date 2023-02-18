@@ -30,7 +30,13 @@ export default class PhpClassFromJsonMethodPresenter {
 
         (new PhpDocblockPresenter(this.settings, [arrayPresenter], 'self')).write(codeWriter);
 
-        codeWriter.openMethod(PhpVisibility.Public, `fromJson(${paramType.getType()} ${this.paramVar}): self`, true);
+        codeWriter.openMethod(
+            PhpVisibility.Public,
+            'fromJson',
+            'self',
+            [`${paramType.getType()} ${this.paramVar}`],
+            {isStatic: true}
+        );
 
         if (this.settings.addConstructor) {
             this.writeWithConstructor(codeWriter);

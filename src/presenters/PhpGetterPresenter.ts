@@ -22,15 +22,15 @@ export default class PhpGetterPresenter {
             this.propertyTypePresenter.getProperty().isDocblockRequired()
         );
 
-        const returnType = this.propertyTypePresenter.getPhpTypeNotation()
-            ? ': ' + this.propertyTypePresenter.getPhpTypeNotation()
-            : '';
-
-        const methodSignature = Str.changeCase('get_' + this.propertyTypePresenter.getPhpVarName(), this.settings.getterCase)
-            + '()' + returnType;
+        const methodName = Str.changeCase('get_' + this.propertyTypePresenter.getPhpVarName(), this.settings.getterCase);
 
         docblock.write(codeWriter);
-        codeWriter.openMethod(PhpVisibility.Public, methodSignature);
+        codeWriter.openMethod(
+            PhpVisibility.Public,
+            methodName,
+            this.propertyTypePresenter.getPhpTypeNotation(),
+            []
+        );
         codeWriter.writeLine(`return $this->${this.propertyTypePresenter.getPhpVarName()};`);
         codeWriter.closeMethod();
     }

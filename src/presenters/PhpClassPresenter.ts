@@ -43,18 +43,19 @@ export default class PhpClassPresenter {
         codeWriter.openClass(this.getClassName(), this.settings.finalClasses);
 
         // properties
-        if (propertyTypePresenters.length) {
+        if (propertyTypePresenters.length && !this.settings.constructorPropertyPromotion) {
             propertyTypePresenters.forEach((property, index) => {
                 (new PhpPropertyPresenter(property, this.settings)).write(codeWriter);
                 if (this.settings.propertyAddExtraNewLine && index !== propertyTypePresenters.length - 1) {
                     codeWriter.insertNewLine();
                 }
             });
+
+            codeWriter.insertNewLine();
         }
 
         // constructor
         if (this.settings.addConstructor) {
-            codeWriter.insertNewLine();
             (new PhpConstructorPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
         }
 

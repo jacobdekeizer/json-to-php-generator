@@ -11,38 +11,33 @@ interface UseJsonConverterProps {
 
 interface UseJsonConverter {
     error: Ref<string | null>;
-    result: ComputedRef<PhpClass | null>;
     code: ComputedRef<string | null>;
 }
 
 export const useJsonConverter = ({ jsonContent, settings }: UseJsonConverterProps): UseJsonConverter => {
     const error = ref<string | null>(null);
 
-    const result = computed(() => {
+    const code = computed(() => {
         error.value = null;
+
         if (!jsonContent.value) {
             return null;
         }
 
+        let result: PhpClass;
+
         try {
-            return JsonToPhpFactory.make(jsonContent.value);
+            result = JsonToPhpFactory.make(jsonContent.value);
         } catch (e) {
             error.value = (e as Error).message;
             return null;
         }
-    });
 
-    const code = computed(() => {
-        if (!result.value) {
-            return null;
-        }
-
-        return (new PhpClassPresenter(result.value, settings.value)).toString();
+        return (new PhpClassPresenter(result, settings.value)).toString();
     });
 
     return {
         error,
-        result,
         code
     }
 }
