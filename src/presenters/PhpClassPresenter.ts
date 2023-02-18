@@ -40,7 +40,10 @@ export default class PhpClassPresenter {
         const codeWriter = new CodeWriter();
 
         // open new class
-        codeWriter.openClass(this.getClassName(), this.settings.finalClasses);
+        codeWriter.openClass(this.getClassName(), {
+            isFinal: this.settings.finalClasses,
+            isReadonly: this.settings.readonlyClasses
+        });
 
         // properties
         if (propertyTypePresenters.length && !this.settings.constructorPropertyPromotion) {

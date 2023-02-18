@@ -26,6 +26,7 @@ export default interface Settings {
     constructorPropertyPromotion: boolean;
 
     finalClasses: boolean;
+    readonlyClasses: boolean;
     allPropertiesNullable: boolean;
 
     addFromJsonMethod: boolean;
@@ -40,6 +41,7 @@ const getPhpVersionNumber = (version: PhpVersion): number => {
         version.toString()
             .replace('PHP', '')
             .replace(' ', '')
+            .replace('.', '')
     );
 }
 
@@ -67,6 +69,10 @@ export const supportsReadonlyProperties = (settings: Settings): boolean => {
     return isVersionSupported(settings.phpVersion, PhpVersion.PHP81);
 }
 
+export const supportsReadonlyClasses = (settings: Settings): boolean => {
+    return isVersionSupported(settings.phpVersion, PhpVersion.PHP82);
+}
+
 export const createDefaultSettings = (): Settings => {
     return {
         phpVersion: PhpVersion.PHP82,
@@ -90,6 +96,7 @@ export const createDefaultSettings = (): Settings => {
         constructorPropertyPromotion: false,
 
         finalClasses: false,
+        readonlyClasses: false,
         allPropertiesNullable: false,
 
         addFromJsonMethod: false,

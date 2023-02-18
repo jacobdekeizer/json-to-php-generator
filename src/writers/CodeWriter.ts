@@ -7,8 +7,8 @@ export default class CodeWriter {
     private content = '';
     private indentation = '';
 
-    public openClass(name: string, final: boolean): void {
-        this.writeLine(`${(final ? 'final ' : '')}class ${name}`);
+    public openClass(name: string, options?: { isFinal?: boolean; isReadonly?: boolean }): void {
+        this.writeLine(`${(options?.isFinal ? 'final ' : '')}${(options?.isReadonly ? 'readonly ' : '')}class ${name}`);
         this.writeLine('{');
         this.indent();
     }

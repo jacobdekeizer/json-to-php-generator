@@ -1,6 +1,6 @@
 import Settings, {
     createDefaultSettings,
-    supportsConstructorPropertyPromotion,
+    supportsConstructorPropertyPromotion, supportsReadonlyClasses,
     supportsReadonlyProperties
 } from '@/dto/Settings';
 import { ref, Ref, watch } from 'vue';
@@ -28,6 +28,16 @@ export const useSettings = (): UseSettings => {
 
         if (settings.value.readonlyProperties) {
             settings.value.addSetters = false;
+        }
+
+        // Readonly classes checks
+        if (settings.value.readonlyClasses && !supportsReadonlyClasses(settings.value)) {
+            settings.value.readonlyClasses = false;
+        }
+
+        if (settings.value.readonlyClasses) {
+            settings.value.addSetters = false;
+            settings.value.readonlyProperties = false;
         }
     });
 

@@ -49,6 +49,13 @@
           />
 
           <Checkbox
+            v-if="supportsReadonlyClasses(props.modelValue)"
+            label="Readonly classes"
+            :model-value="props.modelValue.readonlyClasses"
+            @update:model-value="(val) => updateSettings({ readonlyClasses: val })"
+          />
+
+          <Checkbox
             label="Add constructor"
             :model-value="props.modelValue.addConstructor"
             @update:model-value="(val) => updateSettings({ addConstructor: val })"
@@ -87,7 +94,7 @@
           />
 
           <Checkbox
-            v-if="supportsReadonlyProperties(props.modelValue)"
+            v-if="supportsReadonlyProperties(props.modelValue) && !props.modelValue.readonlyClasses"
             label="Readonly properties"
             :model-value="props.modelValue.readonlyProperties"
             @update:model-value="(val) => updateSettings({ readonlyProperties: val })"
@@ -105,7 +112,7 @@
           />
 
           <Checkbox
-            v-if="!props.modelValue.readonlyProperties"
+            v-if="!hasReadonlyProperties"
             label="Add setters"
             class="mr-4"
             :model-value="props.modelValue.addSetters"
@@ -240,7 +247,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref } from 'vue';
+import {defineProps, defineEmits, ref, computed} from 'vue';
 
 import Checkbox from '@/components/form/Checkbox.vue';
 import FormGroup from '@/components/form/FormGroup.vue';
@@ -254,6 +261,7 @@ import TabPanel from '@/components/tab-panel/TabPanel.vue';
 import {
   default as SettingsModel,
   supportsConstructorPropertyPromotion,
+  supportsReadonlyClasses,
   supportsReadonlyProperties
 } from '@/dto/Settings';
 import EnumSelect from '@/support/EnumSelect';
@@ -273,6 +281,8 @@ const propertyDocblockTypeOptions = EnumSelect.getOptions(PropertyDocblockType);
 const docblockOptions = EnumSelect.getOptions(PhpDocblock);
 
 const activeTab = ref('general');
+
+const hasReadonlyProperties = computed(() => props.modelValue.readonlyProperties || props.modelValue.readonlyClasses);
 
 const updateSettings = (newProps: Partial<SettingsModel>): void => {
   emit('update:modelValue', { ...props.modelValue, ...newProps });
