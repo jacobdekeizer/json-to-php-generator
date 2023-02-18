@@ -3,15 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
     "change-case": "^4.1.2",
-    "core-js": "^3.25.0",
     "postcss-import": "^14.1.0",
-    "prism-es6": "^1.2.0",
+    "prismjs": "^1.29.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.5"
   },
@@ -19,21 +19,16 @@
     "@types/prismjs": "^1.26.0",
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
-    "@vue/cli-plugin-babel": "^5.0.8",
-    "@vue/cli-plugin-eslint": "^5.0.8",
-    "@vue/cli-plugin-router": "^5.0.8",
-    "@vue/cli-plugin-typescript": "^5.0.8",
-    "@vue/cli-service": "^5.0.8",
-    "@vue/eslint-config-typescript": "^11.0.0",
-    "autoprefixer": "^9.8.8",
+    "@vitejs/plugin-vue": "4.0.0",
+    "@vue/eslint-config-typescript": "^11.0.2",
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.16",
-    "sass-loader": "^10.3.1",
+    "sass": "^1.58.3",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.8.2",
-    "vue-cli-plugin-tailwind": "^3.0.0",
-    "vue-template-compiler": "^2.7.10"
+    "vite": "^4.1.2",
+    "vue-cli-plugin-tailwind": "^3.0.0"
   }
 }

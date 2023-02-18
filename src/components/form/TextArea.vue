@@ -1,10 +1,12 @@
 <template>
-    <textarea :id="props.id"
-              :value="props.modelValue"
-              :placeholder="props.placeholder"
-              @input="emit('update:modelValue', $event.target.value)"
-              class="resize-y rounded w-full min-height border-solid border-2 p-2 transition-colors outline-none
-              border-dark-200 focus:border-primary-400 dark:bg-black dark:border-dark-600 dark:focus:border-primary-400 dark:text-white" />
+  <textarea
+    :id="props.id"
+    :value="props.modelValue"
+    :placeholder="props.placeholder"
+    class="resize-y rounded w-full min-height border-solid border-2 p-2 transition-colors outline-none
+              border-dark-200 focus:border-primary-400 dark:bg-black dark:border-dark-600 dark:focus:border-primary-400 dark:text-white"
+    @input="emit('update:modelValue', $event.target.value)"
+  />
 </template>
 
 <script lang="ts" setup>

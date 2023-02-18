@@ -1,16 +1,16 @@
 <template>
-  <div ref="codeBlockWrapper">
-    <pre :class="languageClass">
-      <code>{{ props.code.replace(/^[\r\n\s]*|[\r\n\s]*$/g, '') }}</code>
-    </pre>
-  </div>
+  <pre>
+    <code
+ref="codeBlockWrapper"
+:class="languageClass"
+>{{ props.code.replace(/^[\r\n\s]*|[\r\n\s]*$/g, '') }}</code>
+  </pre>
 </template>
 
 <script lang="ts" setup>
-// noinspection TypeScriptCheckImport
-import Prism from 'prism-es6';
-import 'prism-es6/components/prism-markup-templating';
-import 'prism-es6/components/prism-php';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-markup-templating';
+import 'prismjs/components/prism-php';
 import { computed, onMounted, onUpdated, Ref, ref } from 'vue';
 
 const props = defineProps<{ language: string; code: string }>();
@@ -21,11 +21,8 @@ const languageClass = computed(() => {
   return `language-${props.language}`;
 });
 
-const highlight = (): void => Prism.highlightAll(codeBlockWrapper);
+const highlight = (): void => Prism.highlightElement(codeBlockWrapper.value);
 
 onMounted((): void => highlight());
-
-onUpdated((): void => {
-  highlight();
-})
+onUpdated((): void => highlight());
 </script>

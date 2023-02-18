@@ -1,8 +1,20 @@
 <template>
-  <div @click="next" class="cursor-pointer">
-    <HalfFilledCircleIcon class="w-full h-full" v-if="color === 'system'" />
-    <SunIcon class="w-full h-full" v-if="color === 'light'" />
-    <MoonIcon class="w-full h-full" v-if="color === 'dark'" />
+  <div
+    class="cursor-pointer"
+    @click="next"
+  >
+    <HalfFilledCircleIcon
+      v-if="color === 'system'"
+      class="w-full h-full"
+    />
+    <SunIcon
+      v-if="color === 'light'"
+      class="w-full h-full"
+    />
+    <MoonIcon
+      v-if="color === 'dark'"
+      class="w-full h-full"
+    />
   </div>
 </template>
 

@@ -1,7 +1,10 @@
 <template>
-    <div class="mt-2 pt-2 bt-2" :class="{ 'hidden' : !props.isActive }">
-        <slot></slot>
-    </div>
+  <div
+    class="mt-2 pt-2 bt-2"
+    :class="{ 'hidden' : !props.isActive }"
+  >
+    <slot />
+  </div>
 </template>
 
 <script lang="ts" setup>

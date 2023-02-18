@@ -72,7 +72,7 @@ export default class PhpClassFromJsonMethodPresenter {
     }
 
     private writeWithoutConstructor(
-        codeWriter,
+        codeWriter: CodeWriter,
         initCode: (type: PhpPropertyTypePresenter) => string,
         closeCode: string
     ): void {
