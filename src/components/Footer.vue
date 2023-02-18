@@ -1,17 +1,17 @@
 <template>
-  <div class="w-full pb-8">
-    <div class="text-dark-500 dark:text-dark-400 inline-flex float-right">
-      <span class="font-semibold mr-2">
-        Made by Jacob de Keizer
-      </span>
-      <span class="flex rounded-full">
+  <div class="w-full pb-8 flex flex-row-reverse">
+    <div class="text-dark-500 dark:text-dark-400 inline-flex">
+      <div class="flex items-center mr-2">
+        <span class="font-semibold">Made by Jacob de Keizer</span>
+      </div>
+      <div class="flex rounded-full">
         <a
           href="https://github.com/jacobdekeizer/json-to-php-generator"
           target="_blank"
         >
           <GithubIcon class="h-8 w-8" />
         </a>
-      </span>
+      </div>
     </div>
   </div>
 </template>
