@@ -14,6 +14,7 @@ export default interface Settings {
     propertyDocblock: PhpDocblock;
     propertyDocblockType: PropertyDocblockType;
     propertyAddExtraNewLine: boolean;
+    readonlyProperties: boolean;
 
     addGetters: boolean;
     getterCase: StringCase;
@@ -62,6 +63,10 @@ export const supportsConstructorPropertyPromotion = (settings: Settings): boolea
     return isVersionSupported(settings.phpVersion, PhpVersion.PHP80);
 }
 
+export const supportsReadonlyProperties = (settings: Settings): boolean => {
+    return isVersionSupported(settings.phpVersion, PhpVersion.PHP81);
+}
+
 export const createDefaultSettings = (): Settings => {
     return {
         phpVersion: PhpVersion.PHP82,
@@ -73,6 +78,7 @@ export const createDefaultSettings = (): Settings => {
         propertyDocblock: PhpDocblock.Necessary,
         propertyDocblockType: PropertyDocblockType.Inline,
         propertyAddExtraNewLine: false,
+        readonlyProperties: false,
 
         addGetters: false,
         getterCase: StringCase.CamelCase,

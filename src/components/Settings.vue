@@ -55,8 +55,8 @@
           />
 
           <Checkbox
-            label="Constructor property promotion"
             v-if="supportsConstructorPropertyPromotion(props.modelValue)"
+            label="Constructor property promotion"
             :model-value="props.modelValue.constructorPropertyPromotion"
             @update:model-value="(val) => updateSettings({ constructorPropertyPromotion: val })"
           />
@@ -85,6 +85,13 @@
             :model-value="props.modelValue.propertyAddExtraNewLine"
             @update:model-value="(val) => updateSettings({ propertyAddExtraNewLine: val })"
           />
+
+          <Checkbox
+            v-if="supportsReadonlyProperties(props.modelValue)"
+            label="Readonly properties"
+            :model-value="props.modelValue.readonlyProperties"
+            @update:model-value="(val) => updateSettings({ readonlyProperties: val })"
+          />
         </div>
         <div>
           <Label>
@@ -98,6 +105,7 @@
           />
 
           <Checkbox
+            v-if="!props.modelValue.readonlyProperties"
             label="Add setters"
             class="mr-4"
             :model-value="props.modelValue.addSetters"
@@ -243,7 +251,11 @@ import TabNav from '@/components/tab-panel/TabNav.vue';
 import TabNavItem from '@/components/tab-panel/TabNavItem.vue';
 import TabPanel from '@/components/tab-panel/TabPanel.vue';
 
-import {default as SettingsModel, supportsConstructorPropertyPromotion} from '@/dto/Settings';
+import {
+  default as SettingsModel,
+  supportsConstructorPropertyPromotion,
+  supportsReadonlyProperties
+} from '@/dto/Settings';
 import EnumSelect from '@/support/EnumSelect';
 import {PhpVersion} from '@/enums/PhpVersion';
 import {StringCase} from '@/enums/StringCase';

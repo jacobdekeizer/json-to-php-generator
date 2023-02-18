@@ -14,11 +14,17 @@ export default class PhpPropertyPresenter {
     }
 
     public getPropertyString(): string {
-        return this.settings.propertyVisibility + ' ' + (
-            supportsTypedProperties(this.settings)
-                ? this.propertyTypePresenter.getPhpVarWithType()
-                : this.propertyTypePresenter.getPhpVar()
-        );
+        let property = this.settings.propertyVisibility + ' ';
+
+        if (this.settings.readonlyProperties) {
+            property += 'readonly ';
+        }
+
+        property += supportsTypedProperties(this.settings)
+            ? this.propertyTypePresenter.getPhpVarWithType()
+            : this.propertyTypePresenter.getPhpVar();
+
+        return property;
     }
 
     public write(codeWriter: CodeWriter): void {
