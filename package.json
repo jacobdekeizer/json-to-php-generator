@@ -30,7 +30,6 @@
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
     "happy-dom": "^9.10.9",
-    "jsdom": "^22.0.0",
     "node-sass": "^8.0.0",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
