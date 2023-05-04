@@ -452,7 +452,7 @@ describe('JsonToPhpFactory tests', () => {
 
         const resultPath = path.resolve(__dirname, `./fixtures/results/${snakeCase(name)}.txt`, )
 
-        fs.writeFileSync(resultPath, code.value ?? ''); // uncomment this line when you want to save fixtures for a new case
+        // fs.writeFileSync(resultPath, code.value ?? ''); // uncomment this line when you want to save fixtures for a new case
 
         const expectedResult = fs.readFileSync(resultPath, 'utf8');
 
