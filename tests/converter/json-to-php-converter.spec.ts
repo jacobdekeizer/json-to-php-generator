@@ -363,7 +363,7 @@ const settingCases = versions.map(version => {
             }
         ],
         [
-            version + ' with constructor, setters and from json method',
+            version + ' with setters and from json method',
             {
                 phpVersion: version,
 
@@ -396,7 +396,7 @@ const settingCases = versions.map(version => {
             }
         ],
         [
-            version + ' with constructor, setters and from json array method',
+            version + ' with setters and from json array method',
             {
                 phpVersion: version,
 
@@ -424,6 +424,72 @@ const settingCases = versions.map(version => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+
+                docblock: PhpDocblock.Necessary,
+            }
+        ],
+        [
+            version + ' with getters, fluent setters, all docblocks, extra new lines for properties and from json method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.All,
+                propertyDocblockType: PropertyDocblockType.Multiline,
+                propertyAddExtraNewLine: true,
+                readonlyProperties: false,
+
+                addGetters: true,
+                getterCase: StringCase.CamelCase,
+                addSetters: true,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: true,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: true,
+
+                docblock: PhpDocblock.All,
+            }
+        ],
+        [
+            version + ' with final classes and all properties nullable',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: true,
+                readonlyClasses: false,
+                allPropertiesNullable: true,
+
+                addFromJsonMethod: false,
+                jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
             }

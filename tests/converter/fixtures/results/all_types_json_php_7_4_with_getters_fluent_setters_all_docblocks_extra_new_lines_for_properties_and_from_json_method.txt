@@ -1,0 +1,289 @@
+class RootObject
+{
+	/**
+	 * @var string[]
+	 */
+	public array $stringArray;
+
+	/**
+	 * @var (string|int|null)[]
+	 */
+	public array $mixedArray;
+
+	/**
+	 * @var array
+	 */
+	public array $nullArray;
+
+	/**
+	 * @var array
+	 */
+	public array $unknownArray;
+
+	/**
+	 * @var bool
+	 */
+	public bool $boolean;
+
+	/**
+	 * @var float
+	 */
+	public float $float;
+
+	/**
+	 * @var int
+	 */
+	public int $int;
+
+	/**
+	 * @var |null
+	 */
+	public $null;
+
+	/**
+	 * @var NestedClass
+	 */
+	public NestedClass $nestedClass;
+
+	/**
+	 * @var string
+	 */
+	public string $string;
+
+	/**
+	 * @return string[]
+	 */
+	public function getStringArray(): array
+	{
+		return $this->stringArray;
+	}
+
+	/**
+	 * @return (string|int|null)[]
+	 */
+	public function getMixedArray(): array
+	{
+		return $this->mixedArray;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getNullArray(): array
+	{
+		return $this->nullArray;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getUnknownArray(): array
+	{
+		return $this->unknownArray;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getBoolean(): bool
+	{
+		return $this->boolean;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getFloat(): float
+	{
+		return $this->float;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getInt(): int
+	{
+		return $this->int;
+	}
+
+	/**
+	 * @return |null
+	 */
+	public function getNull()
+	{
+		return $this->null;
+	}
+
+	/**
+	 * @return NestedClass
+	 */
+	public function getNestedClass(): NestedClass
+	{
+		return $this->nestedClass;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getString(): string
+	{
+		return $this->string;
+	}
+
+	/**
+	 * @param string[] $stringArray
+	 * @return self
+	 */
+	public function setStringArray(array $stringArray): self
+	{
+		$this->stringArray = $stringArray;
+		return $this;
+	}
+
+	/**
+	 * @param (string|int|null)[] $mixedArray
+	 * @return self
+	 */
+	public function setMixedArray(array $mixedArray): self
+	{
+		$this->mixedArray = $mixedArray;
+		return $this;
+	}
+
+	/**
+	 * @param array $nullArray
+	 * @return self
+	 */
+	public function setNullArray(array $nullArray): self
+	{
+		$this->nullArray = $nullArray;
+		return $this;
+	}
+
+	/**
+	 * @param array $unknownArray
+	 * @return self
+	 */
+	public function setUnknownArray(array $unknownArray): self
+	{
+		$this->unknownArray = $unknownArray;
+		return $this;
+	}
+
+	/**
+	 * @param bool $boolean
+	 * @return self
+	 */
+	public function setBoolean(bool $boolean): self
+	{
+		$this->boolean = $boolean;
+		return $this;
+	}
+
+	/**
+	 * @param float $float
+	 * @return self
+	 */
+	public function setFloat(float $float): self
+	{
+		$this->float = $float;
+		return $this;
+	}
+
+	/**
+	 * @param int $int
+	 * @return self
+	 */
+	public function setInt(int $int): self
+	{
+		$this->int = $int;
+		return $this;
+	}
+
+	/**
+	 * @param |null $null
+	 * @return self
+	 */
+	public function setNull($null): self
+	{
+		$this->null = $null;
+		return $this;
+	}
+
+	/**
+	 * @param NestedClass $nestedClass
+	 * @return self
+	 */
+	public function setNestedClass(NestedClass $nestedClass): self
+	{
+		$this->nestedClass = $nestedClass;
+		return $this;
+	}
+
+	/**
+	 * @param string $string
+	 * @return self
+	 */
+	public function setString(string $string): self
+	{
+		$this->string = $string;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return self
+	 */
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setStringArray($data['string_array']);
+		$instance->setMixedArray($data['mixed_array']);
+		$instance->setNullArray($data['null_array']);
+		$instance->setUnknownArray($data['unknown_array']);
+		$instance->setBoolean($data['boolean']);
+		$instance->setFloat($data['float']);
+		$instance->setInt($data['int']);
+		$instance->setNull($data['null'] ?? null);
+		$instance->setNestedClass(NestedClass::fromJson($data['nested_class']));
+		$instance->setString($data['string']);
+		return $instance;
+	}
+}
+
+class NestedClass
+{
+	/**
+	 * @var int
+	 */
+	public int $var;
+
+	/**
+	 * @return int
+	 */
+	public function getVar(): int
+	{
+		return $this->var;
+	}
+
+	/**
+	 * @param int $var
+	 * @return self
+	 */
+	public function setVar(int $var): self
+	{
+		$this->var = $var;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return self
+	 */
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setVar($data['var']);
+		return $instance;
+	}
+}
