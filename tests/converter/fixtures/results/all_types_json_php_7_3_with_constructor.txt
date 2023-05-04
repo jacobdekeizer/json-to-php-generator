@@ -1,0 +1,42 @@
+class RootObject
+{
+	/** @var string[] */
+	public $stringArray;
+	public $boolean;
+	public $float;
+	public $int;
+	public $null;
+	public $nestedClass;
+	public $string;
+
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function __construct(
+		array $stringArray,
+		bool $boolean,
+		float $float,
+		int $int,
+		$null,
+		NestedClass $nestedClass,
+		string $string
+	) {
+		$this->stringArray = $stringArray;
+		$this->boolean = $boolean;
+		$this->float = $float;
+		$this->int = $int;
+		$this->null = $null;
+		$this->nestedClass = $nestedClass;
+		$this->string = $string;
+	}
+}
+
+class NestedClass
+{
+	public $var;
+
+	public function __construct(int $var)
+	{
+		$this->var = $var;
+	}
+}

@@ -1,0 +1,45 @@
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public $simpleNesting;
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(array $simpleNesting)
+	{
+		$this->simpleNesting = $simpleNesting;
+	}
+}
+
+class SimpleNesting
+{
+	public $alwaysPresent;
+	public $string;
+	public $object;
+	public $number;
+
+	public function __construct(
+		float $alwaysPresent,
+		?string $string,
+		?Object $object,
+		?int $number
+	) {
+		$this->alwaysPresent = $alwaysPresent;
+		$this->string = $string;
+		$this->object = $object;
+		$this->number = $number;
+	}
+}
+
+class Object
+{
+	public $test;
+	public $anotherTest;
+
+	public function __construct(?int $test, ?int $anotherTest)
+	{
+		$this->test = $test;
+		$this->anotherTest = $anotherTest;
+	}
+}

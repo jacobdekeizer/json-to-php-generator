@@ -1,0 +1,19 @@
+readonly class RootObject
+{
+	/** @var SimpleNesting[] */
+	public array $simpleNesting;
+}
+
+readonly class SimpleNesting
+{
+	public float $alwaysPresent;
+	public ?string $string;
+	public ?Object $object;
+	public ?int $number;
+}
+
+readonly class Object
+{
+	public ?int $test;
+	public ?int $anotherTest;
+}

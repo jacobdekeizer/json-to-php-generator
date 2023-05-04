@@ -1,0 +1,14 @@
+{
+    "string_array": [
+        "test",
+        "test"
+    ],
+    "boolean": false,
+    "float": 0.5,
+    "int": 1,
+    "null": null,
+    "nested_class": {
+        "var": 2
+    },
+    "string": "test"
+}

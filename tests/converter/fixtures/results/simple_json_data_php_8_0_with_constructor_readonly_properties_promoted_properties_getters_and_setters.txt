@@ -1,0 +1,16 @@
+class RootObject
+{
+	public function __construct(public int $test)
+	{
+	}
+
+	public function getTest(): int
+	{
+		return $this->test;
+	}
+
+	public function setTest(int $test): void
+	{
+		$this->test = $test;
+	}
+}

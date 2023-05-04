@@ -1,0 +1,23 @@
+{
+    "simple_nesting": [
+        {
+             "always_present": 0.5,
+             "string": "string",
+             "object": {
+                "test": 2
+             }
+        },
+        {
+            "always_present": 0.5,
+            "number": 1,
+            "object": null
+        },
+        {
+            "always_present": 0.5,
+            "number": 1,
+            "object": {
+                "another_test": 3
+            }
+        }
+    ]
+}

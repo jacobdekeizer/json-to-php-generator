@@ -1,0 +1,16 @@
+readonly class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public null $null;
+	public NestedClass $nestedClass;
+	public string $string;
+}
+
+readonly class NestedClass
+{
+	public int $var;
+}

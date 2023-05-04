@@ -1,0 +1,19 @@
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public $simpleNesting;
+}
+
+class SimpleNesting
+{
+	public $alwaysPresent;
+	public $string;
+	public $object;
+	public $number;
+}
+
+class Object
+{
+	public $test;
+	public $anotherTest;
+}

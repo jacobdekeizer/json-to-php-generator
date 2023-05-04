@@ -1,0 +1,109 @@
+class RootObject
+{
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function __construct(
+		public array $stringArray,
+		public bool $boolean,
+		public float $float,
+		public int $int,
+		public null $null,
+		public NestedClass $nestedClass,
+		public string $string
+	) {
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getStringArray(): array
+	{
+		return $this->stringArray;
+	}
+
+	public function getBoolean(): bool
+	{
+		return $this->boolean;
+	}
+
+	public function getFloat(): float
+	{
+		return $this->float;
+	}
+
+	public function getInt(): int
+	{
+		return $this->int;
+	}
+
+	public function getNull(): null
+	{
+		return $this->null;
+	}
+
+	public function getNestedClass(): NestedClass
+	{
+		return $this->nestedClass;
+	}
+
+	public function getString(): string
+	{
+		return $this->string;
+	}
+
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function setStringArray(array $stringArray): void
+	{
+		$this->stringArray = $stringArray;
+	}
+
+	public function setBoolean(bool $boolean): void
+	{
+		$this->boolean = $boolean;
+	}
+
+	public function setFloat(float $float): void
+	{
+		$this->float = $float;
+	}
+
+	public function setInt(int $int): void
+	{
+		$this->int = $int;
+	}
+
+	public function setNull(null $null): void
+	{
+		$this->null = $null;
+	}
+
+	public function setNestedClass(NestedClass $nestedClass): void
+	{
+		$this->nestedClass = $nestedClass;
+	}
+
+	public function setString(string $string): void
+	{
+		$this->string = $string;
+	}
+}
+
+class NestedClass
+{
+	public function __construct(public int $var)
+	{
+	}
+
+	public function getVar(): int
+	{
+		return $this->var;
+	}
+
+	public function setVar(int $var): void
+	{
+		$this->var = $var;
+	}
+}

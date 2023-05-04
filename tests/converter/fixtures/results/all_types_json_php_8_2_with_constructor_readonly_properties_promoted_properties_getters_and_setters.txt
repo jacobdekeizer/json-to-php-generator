@@ -1,0 +1,66 @@
+class RootObject
+{
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function __construct(
+		public readonly array $stringArray,
+		public readonly bool $boolean,
+		public readonly float $float,
+		public readonly int $int,
+		public readonly null $null,
+		public readonly NestedClass $nestedClass,
+		public readonly string $string
+	) {
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getStringArray(): array
+	{
+		return $this->stringArray;
+	}
+
+	public function getBoolean(): bool
+	{
+		return $this->boolean;
+	}
+
+	public function getFloat(): float
+	{
+		return $this->float;
+	}
+
+	public function getInt(): int
+	{
+		return $this->int;
+	}
+
+	public function getNull(): null
+	{
+		return $this->null;
+	}
+
+	public function getNestedClass(): NestedClass
+	{
+		return $this->nestedClass;
+	}
+
+	public function getString(): string
+	{
+		return $this->string;
+	}
+}
+
+class NestedClass
+{
+	public function __construct(public readonly int $var)
+	{
+	}
+
+	public function getVar(): int
+	{
+		return $this->var;
+	}
+}

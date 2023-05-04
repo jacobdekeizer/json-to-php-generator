@@ -1,0 +1,23 @@
+class RootObject
+{
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function __construct(
+		public readonly array $stringArray,
+		public readonly bool $boolean,
+		public readonly float $float,
+		public readonly int $int,
+		public readonly null $null,
+		public readonly NestedClass $nestedClass,
+		public readonly string $string
+	) {
+	}
+}
+
+class NestedClass
+{
+	public function __construct(public readonly int $var)
+	{
+	}
+}

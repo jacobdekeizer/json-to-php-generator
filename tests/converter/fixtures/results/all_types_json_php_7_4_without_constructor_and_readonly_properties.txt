@@ -1,0 +1,16 @@
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public $null;
+	public NestedClass $nestedClass;
+	public string $string;
+}
+
+class NestedClass
+{
+	public int $var;
+}

@@ -1,0 +1,121 @@
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public $simpleNesting;
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(array $simpleNesting)
+	{
+		$this->simpleNesting = $simpleNesting;
+	}
+
+	/**
+	 * @return SimpleNesting[]
+	 */
+	public function getSimpleNesting(): array
+	{
+		return $this->simpleNesting;
+	}
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function setSimpleNesting(array $simpleNesting): void
+	{
+		$this->simpleNesting = $simpleNesting;
+	}
+}
+
+class SimpleNesting
+{
+	public $alwaysPresent;
+	public $string;
+	public $object;
+	public $number;
+
+	public function __construct(
+		float $alwaysPresent,
+		?string $string,
+		?Object $object,
+		?int $number
+	) {
+		$this->alwaysPresent = $alwaysPresent;
+		$this->string = $string;
+		$this->object = $object;
+		$this->number = $number;
+	}
+
+	public function getAlwaysPresent(): float
+	{
+		return $this->alwaysPresent;
+	}
+
+	public function getString(): ?string
+	{
+		return $this->string;
+	}
+
+	public function getObject(): ?Object
+	{
+		return $this->object;
+	}
+
+	public function getNumber(): ?int
+	{
+		return $this->number;
+	}
+
+	public function setAlwaysPresent(float $alwaysPresent): void
+	{
+		$this->alwaysPresent = $alwaysPresent;
+	}
+
+	public function setString(?string $string): void
+	{
+		$this->string = $string;
+	}
+
+	public function setObject(?Object $object): void
+	{
+		$this->object = $object;
+	}
+
+	public function setNumber(?int $number): void
+	{
+		$this->number = $number;
+	}
+}
+
+class Object
+{
+	public $test;
+	public $anotherTest;
+
+	public function __construct(?int $test, ?int $anotherTest)
+	{
+		$this->test = $test;
+		$this->anotherTest = $anotherTest;
+	}
+
+	public function getTest(): ?int
+	{
+		return $this->test;
+	}
+
+	public function getAnotherTest(): ?int
+	{
+		return $this->anotherTest;
+	}
+
+	public function setTest(?int $test): void
+	{
+		$this->test = $test;
+	}
+
+	public function setAnotherTest(?int $anotherTest): void
+	{
+		$this->anotherTest = $anotherTest;
+	}
+}

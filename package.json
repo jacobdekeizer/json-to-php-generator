@@ -7,7 +7,10 @@
     "build": "vite build",
     "serve": "vite serve",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src"
+    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore --fix src",
+    "test": "vitest",
+    "test-ci": "vitest run --coverage.enabled --coverage.reporter='text-summary'",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "change-case": "^4.1.2",
@@ -21,15 +24,19 @@
     "@typescript-eslint/eslint-plugin": "^5.35.1",
     "@typescript-eslint/parser": "^5.35.1",
     "@vitejs/plugin-vue": "^4.2.1",
+    "@vitest/coverage-c8": "^0.31.0",
     "@vue/eslint-config-typescript": "^11.0.2",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.23.0",
     "eslint-plugin-vue": "^9.4.0",
+    "happy-dom": "^9.10.9",
+    "jsdom": "^22.0.0",
     "node-sass": "^8.0.0",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
     "sass": "^1.58.3",
     "typescript": "^5.0.4",
-    "vite": "^4.1.2"
+    "vite": "^4.1.2",
+    "vitest": "^0.31.0"
   }
 }
