@@ -1,0 +1,79 @@
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public $null;
+	public NestedClass $nestedClass;
+	public string $string;
+
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function setStringArray(array $stringArray): void
+	{
+		$this->stringArray = $stringArray;
+	}
+
+	public function setBoolean(bool $boolean): void
+	{
+		$this->boolean = $boolean;
+	}
+
+	public function setFloat(float $float): void
+	{
+		$this->float = $float;
+	}
+
+	public function setInt(int $int): void
+	{
+		$this->int = $int;
+	}
+
+	public function setNull($null): void
+	{
+		$this->null = $null;
+	}
+
+	public function setNestedClass(NestedClass $nestedClass): void
+	{
+		$this->nestedClass = $nestedClass;
+	}
+
+	public function setString(string $string): void
+	{
+		$this->string = $string;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->setStringArray($data->string_array);
+		$instance->setBoolean($data->boolean);
+		$instance->setFloat($data->float);
+		$instance->setInt($data->int);
+		$instance->setNull($data->null ?? null);
+		$instance->setNestedClass(NestedClass::fromJson($data->nested_class));
+		$instance->setString($data->string);
+		return $instance;
+	}
+}
+
+class NestedClass
+{
+	public int $var;
+
+	public function setVar(int $var): void
+	{
+		$this->var = $var;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->setVar($data->var);
+		return $instance;
+	}
+}

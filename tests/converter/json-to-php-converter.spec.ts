@@ -296,6 +296,138 @@ const settingCases = versions.map(version => {
                 docblock: PhpDocblock.Necessary,
             }
         ],
+        [
+            version + ' with constructor, readonly properties, promoted properties and from json method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: true,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: true,
+                constructorPropertyPromotion: true,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: false,
+
+                docblock: PhpDocblock.Necessary,
+            }
+        ],
+        [
+            version + ' with constructor, readonly properties, promoted properties and from json array method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: true,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: true,
+                constructorPropertyPromotion: true,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: true,
+
+                docblock: PhpDocblock.Necessary,
+            }
+        ],
+        [
+            version + ' with constructor, setters and from json method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: true,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: false,
+
+                docblock: PhpDocblock.Necessary,
+            }
+        ],
+        [
+            version + ' with constructor, setters and from json array method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: true,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: true,
+
+                docblock: PhpDocblock.Necessary,
+            }
+        ],
     ];
 }).flat() as Array<[string, Settings]>;
 
@@ -320,7 +452,7 @@ describe('JsonToPhpFactory tests', () => {
 
         const resultPath = path.resolve(__dirname, `./fixtures/results/${snakeCase(name)}.txt`, )
 
-        // fs.writeFileSync(resultPath, code.value ?? ''); // uncomment this line when you want to save fixtures for a new case
+        fs.writeFileSync(resultPath, code.value ?? ''); // uncomment this line when you want to save fixtures for a new case
 
         const expectedResult = fs.readFileSync(resultPath, 'utf8');
 

@@ -1,0 +1,13 @@
+class RootObject
+{
+	public function __construct(public readonly int $test)
+	{
+	}
+
+	public static function fromJson(array $data): self
+	{
+		return new self(
+			$data['test']
+		);
+	}
+}

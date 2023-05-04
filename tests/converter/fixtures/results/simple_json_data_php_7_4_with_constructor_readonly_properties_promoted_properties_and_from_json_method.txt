@@ -1,0 +1,16 @@
+class RootObject
+{
+	public int $test;
+
+	public function __construct(int $test)
+	{
+		$this->test = $test;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		return new self(
+			$data->test
+		);
+	}
+}

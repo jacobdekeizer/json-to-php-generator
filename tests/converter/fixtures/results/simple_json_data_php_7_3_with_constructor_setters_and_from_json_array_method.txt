@@ -1,0 +1,16 @@
+class RootObject
+{
+	public $test;
+
+	public function setTest(int $test): void
+	{
+		$this->test = $test;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setTest($data['test']);
+		return $instance;
+	}
+}

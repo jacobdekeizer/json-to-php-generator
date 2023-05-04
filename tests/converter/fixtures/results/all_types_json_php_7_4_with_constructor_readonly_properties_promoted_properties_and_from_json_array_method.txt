@@ -1,0 +1,62 @@
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public $null;
+	public NestedClass $nestedClass;
+	public string $string;
+
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function __construct(
+		array $stringArray,
+		bool $boolean,
+		float $float,
+		int $int,
+		$null,
+		NestedClass $nestedClass,
+		string $string
+	) {
+		$this->stringArray = $stringArray;
+		$this->boolean = $boolean;
+		$this->float = $float;
+		$this->int = $int;
+		$this->null = $null;
+		$this->nestedClass = $nestedClass;
+		$this->string = $string;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		return new self(
+			$data['string_array'],
+			$data['boolean'],
+			$data['float'],
+			$data['int'],
+			$data['null'] ?? null,
+			NestedClass::fromJson($data['nested_class']),
+			$data['string']
+		);
+	}
+}
+
+class NestedClass
+{
+	public int $var;
+
+	public function __construct(int $var)
+	{
+		$this->var = $var;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		return new self(
+			$data['var']
+		);
+	}
+}
