@@ -50,6 +50,8 @@ import Card from '@/components/Card.vue';
 import Label from '@/components/form/Label.vue';
 import TextArea from '@/components/form/TextArea.vue';
 import ThemeColorSwitch from '@/components/ThemeColorSwitch.vue';
+import Settings from '@/components/Settings.vue';
+import Code from '@/components/Code.vue'
 import { useJsonConverter } from '@/hooks/use-json-converter';
 import { useSettings } from '@/hooks/use-settings';
 
