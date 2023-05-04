@@ -1,0 +1,27 @@
+class RootObject
+{
+	/**
+	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function __construct(
+		public array $stringArray,
+		public array $mixedArray,
+		public array $nullArray,
+		public array $unknownArray,
+		public bool $boolean,
+		public float $float,
+		public int $int,
+		public null $null,
+		public NestedClass $nestedClass,
+		public string $string
+	) {
+	}
+}
+
+class NestedClass
+{
+	public function __construct(public int $var)
+	{
+	}
+}

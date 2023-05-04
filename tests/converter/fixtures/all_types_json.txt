@@ -1,0 +1,21 @@
+{
+    "string_array": [
+        "test",
+        "test"
+    ],
+    "mixed_array": [
+        "test",
+        1,
+        null
+    ],
+    "null_array": [null],
+    "unknown_array": [],
+    "boolean": false,
+    "float": 0.5,
+    "int": 1,
+    "null": null,
+    "nested_class": {
+        "var": 2
+    },
+    "string": "test"
+}

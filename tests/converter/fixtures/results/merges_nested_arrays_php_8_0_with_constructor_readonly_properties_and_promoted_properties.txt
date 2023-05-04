@@ -1,0 +1,27 @@
+class RootObject
+{
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(public array $simpleNesting)
+	{
+	}
+}
+
+class SimpleNesting
+{
+	public function __construct(
+		public float $alwaysPresent,
+		public ?string $string,
+		public ?Object $object,
+		public ?int $number
+	) {
+	}
+}
+
+class Object
+{
+	public function __construct(public ?int $test, public ?int $anotherTest)
+	{
+	}
+}

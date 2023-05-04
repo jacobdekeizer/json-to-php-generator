@@ -1,0 +1,65 @@
+class RootObject
+{
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(public readonly array $simpleNesting)
+	{
+	}
+
+	/**
+	 * @return SimpleNesting[]
+	 */
+	public function getSimpleNesting(): array
+	{
+		return $this->simpleNesting;
+	}
+}
+
+class SimpleNesting
+{
+	public function __construct(
+		public readonly float $alwaysPresent,
+		public readonly ?string $string,
+		public readonly ?Object $object,
+		public readonly ?int $number
+	) {
+	}
+
+	public function getAlwaysPresent(): float
+	{
+		return $this->alwaysPresent;
+	}
+
+	public function getString(): ?string
+	{
+		return $this->string;
+	}
+
+	public function getObject(): ?Object
+	{
+		return $this->object;
+	}
+
+	public function getNumber(): ?int
+	{
+		return $this->number;
+	}
+}
+
+class Object
+{
+	public function __construct(public readonly ?int $test, public readonly ?int $anotherTest)
+	{
+	}
+
+	public function getTest(): ?int
+	{
+		return $this->test;
+	}
+
+	public function getAnotherTest(): ?int
+	{
+		return $this->anotherTest;
+	}
+}

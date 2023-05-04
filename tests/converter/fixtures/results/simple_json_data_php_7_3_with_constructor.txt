@@ -1,0 +1,9 @@
+class RootObject
+{
+	public $test;
+
+	public function __construct(int $test)
+	{
+		$this->test = $test;
+	}
+}

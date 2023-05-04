@@ -46,14 +46,17 @@ export default class PhpClassPresenter {
         });
 
         // properties
-        if (propertyTypePresenters.length && !this.settings.constructorPropertyPromotion) {
+        const propertiesEnabled = propertyTypePresenters.length && !this.settings.constructorPropertyPromotion;
+        if (propertiesEnabled) {
             propertyTypePresenters.forEach((property, index) => {
                 (new PhpPropertyPresenter(property, this.settings)).write(codeWriter);
                 if (this.settings.propertyAddExtraNewLine && index !== propertyTypePresenters.length - 1) {
                     codeWriter.insertNewLine();
                 }
             });
+        }
 
+        if (this.settings.addConstructor && propertiesEnabled) {
             codeWriter.insertNewLine();
         }
 

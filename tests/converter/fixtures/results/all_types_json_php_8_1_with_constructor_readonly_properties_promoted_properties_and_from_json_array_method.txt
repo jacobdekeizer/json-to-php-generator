@@ -1,0 +1,50 @@
+class RootObject
+{
+	/**
+	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function __construct(
+		public readonly array $stringArray,
+		public readonly array $mixedArray,
+		public readonly array $nullArray,
+		public readonly array $unknownArray,
+		public readonly bool $boolean,
+		public readonly float $float,
+		public readonly int $int,
+		public readonly null $null,
+		public readonly NestedClass $nestedClass,
+		public readonly string $string
+	) {
+	}
+
+	public static function fromJson(array $data): self
+	{
+		return new self(
+			$data['string_array'],
+			$data['mixed_array'],
+			$data['null_array'],
+			$data['unknown_array'],
+			$data['boolean'],
+			$data['float'],
+			$data['int'],
+			$data['null'] ?? null,
+			NestedClass::fromJson($data['nested_class']),
+			$data['string']
+		);
+	}
+}
+
+class NestedClass
+{
+	public function __construct(public readonly int $var)
+	{
+	}
+
+	public static function fromJson(array $data): self
+	{
+		return new self(
+			$data['var']
+		);
+	}
+}

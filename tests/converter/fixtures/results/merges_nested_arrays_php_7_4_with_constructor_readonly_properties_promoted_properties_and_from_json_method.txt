@@ -1,0 +1,72 @@
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public array $simpleNesting;
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(array $simpleNesting)
+	{
+		$this->simpleNesting = $simpleNesting;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		return new self(
+			array_map(static function($data) {
+				return SimpleNesting::fromJson($data);
+			}, $data->simple_nesting)
+		);
+	}
+}
+
+class SimpleNesting
+{
+	public float $alwaysPresent;
+	public ?string $string;
+	public ?Object $object;
+	public ?int $number;
+
+	public function __construct(
+		float $alwaysPresent,
+		?string $string,
+		?Object $object,
+		?int $number
+	) {
+		$this->alwaysPresent = $alwaysPresent;
+		$this->string = $string;
+		$this->object = $object;
+		$this->number = $number;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		return new self(
+			$data->always_present,
+			$data->string ?? null,
+			($data->object ?? null) !== null ? Object::fromJson($data->object) : null,
+			$data->number ?? null
+		);
+	}
+}
+
+class Object
+{
+	public ?int $test;
+	public ?int $anotherTest;
+
+	public function __construct(?int $test, ?int $anotherTest)
+	{
+		$this->test = $test;
+		$this->anotherTest = $anotherTest;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		return new self(
+			$data->test ?? null,
+			$data->another_test ?? null
+		);
+	}
+}

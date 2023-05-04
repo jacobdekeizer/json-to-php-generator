@@ -1,0 +1,20 @@
+class RootObject
+{
+	/** @var string[] */
+	public $stringArray;
+	/** @var (string|int|null)[] */
+	public $mixedArray;
+	public $nullArray;
+	public $unknownArray;
+	public $boolean;
+	public $float;
+	public $int;
+	public $null;
+	public $nestedClass;
+	public $string;
+}
+
+class NestedClass
+{
+	public $var;
+}

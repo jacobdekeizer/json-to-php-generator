@@ -1,0 +1,19 @@
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public readonly array $simpleNesting;
+}
+
+class SimpleNesting
+{
+	public readonly float $alwaysPresent;
+	public readonly ?string $string;
+	public readonly ?Object $object;
+	public readonly ?int $number;
+}
+
+class Object
+{
+	public readonly ?int $test;
+	public readonly ?int $anotherTest;
+}

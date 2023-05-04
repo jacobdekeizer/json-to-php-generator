@@ -1,0 +1,84 @@
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public array $simpleNesting;
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function setSimpleNesting(array $simpleNesting): void
+	{
+		$this->simpleNesting = $simpleNesting;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setSimpleNesting(array_map(static function($data) {
+			return SimpleNesting::fromJson($data);
+		}, $data['simple_nesting']));
+		return $instance;
+	}
+}
+
+class SimpleNesting
+{
+	public float $alwaysPresent;
+	public ?string $string;
+	public ?Object $object;
+	public ?int $number;
+
+	public function setAlwaysPresent(float $alwaysPresent): void
+	{
+		$this->alwaysPresent = $alwaysPresent;
+	}
+
+	public function setString(?string $string): void
+	{
+		$this->string = $string;
+	}
+
+	public function setObject(?Object $object): void
+	{
+		$this->object = $object;
+	}
+
+	public function setNumber(?int $number): void
+	{
+		$this->number = $number;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setAlwaysPresent($data['always_present']);
+		$instance->setString($data['string'] ?? null);
+		$instance->setObject(($data['object'] ?? null) !== null ? Object::fromJson($data['object']) : null);
+		$instance->setNumber($data['number'] ?? null);
+		return $instance;
+	}
+}
+
+class Object
+{
+	public ?int $test;
+	public ?int $anotherTest;
+
+	public function setTest(?int $test): void
+	{
+		$this->test = $test;
+	}
+
+	public function setAnotherTest(?int $anotherTest): void
+	{
+		$this->anotherTest = $anotherTest;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setTest($data['test'] ?? null);
+		$instance->setAnotherTest($data['another_test'] ?? null);
+		return $instance;
+	}
+}

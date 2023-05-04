@@ -1,0 +1,175 @@
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	/** @var (string|int|null)[] */
+	public array $mixedArray;
+	public array $nullArray;
+	public array $unknownArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public $null;
+	public NestedClass $nestedClass;
+	public string $string;
+
+	/**
+	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function __construct(
+		array $stringArray,
+		array $mixedArray,
+		array $nullArray,
+		array $unknownArray,
+		bool $boolean,
+		float $float,
+		int $int,
+		$null,
+		NestedClass $nestedClass,
+		string $string
+	) {
+		$this->stringArray = $stringArray;
+		$this->mixedArray = $mixedArray;
+		$this->nullArray = $nullArray;
+		$this->unknownArray = $unknownArray;
+		$this->boolean = $boolean;
+		$this->float = $float;
+		$this->int = $int;
+		$this->null = $null;
+		$this->nestedClass = $nestedClass;
+		$this->string = $string;
+	}
+
+	/**
+	 * @return string[]
+	 */
+	public function getStringArray(): array
+	{
+		return $this->stringArray;
+	}
+
+	/**
+	 * @return (string|int|null)[]
+	 */
+	public function getMixedArray(): array
+	{
+		return $this->mixedArray;
+	}
+
+	public function getNullArray(): array
+	{
+		return $this->nullArray;
+	}
+
+	public function getUnknownArray(): array
+	{
+		return $this->unknownArray;
+	}
+
+	public function getBoolean(): bool
+	{
+		return $this->boolean;
+	}
+
+	public function getFloat(): float
+	{
+		return $this->float;
+	}
+
+	public function getInt(): int
+	{
+		return $this->int;
+	}
+
+	public function getNull()
+	{
+		return $this->null;
+	}
+
+	public function getNestedClass(): NestedClass
+	{
+		return $this->nestedClass;
+	}
+
+	public function getString(): string
+	{
+		return $this->string;
+	}
+
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function setStringArray(array $stringArray): void
+	{
+		$this->stringArray = $stringArray;
+	}
+
+	/**
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function setMixedArray(array $mixedArray): void
+	{
+		$this->mixedArray = $mixedArray;
+	}
+
+	public function setNullArray(array $nullArray): void
+	{
+		$this->nullArray = $nullArray;
+	}
+
+	public function setUnknownArray(array $unknownArray): void
+	{
+		$this->unknownArray = $unknownArray;
+	}
+
+	public function setBoolean(bool $boolean): void
+	{
+		$this->boolean = $boolean;
+	}
+
+	public function setFloat(float $float): void
+	{
+		$this->float = $float;
+	}
+
+	public function setInt(int $int): void
+	{
+		$this->int = $int;
+	}
+
+	public function setNull($null): void
+	{
+		$this->null = $null;
+	}
+
+	public function setNestedClass(NestedClass $nestedClass): void
+	{
+		$this->nestedClass = $nestedClass;
+	}
+
+	public function setString(string $string): void
+	{
+		$this->string = $string;
+	}
+}
+
+class NestedClass
+{
+	public int $var;
+
+	public function __construct(int $var)
+	{
+		$this->var = $var;
+	}
+
+	public function getVar(): int
+	{
+		return $this->var;
+	}
+
+	public function setVar(int $var): void
+	{
+		$this->var = $var;
+	}
+}

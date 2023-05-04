@@ -1,0 +1,53 @@
+class RootObject
+{
+	/** @var string[] */
+	public readonly array $stringArray;
+	/** @var (string|int|null)[] */
+	public readonly array $mixedArray;
+	public readonly array $nullArray;
+	public readonly array $unknownArray;
+	public readonly bool $boolean;
+	public readonly float $float;
+	public readonly int $int;
+	public readonly null $null;
+	public readonly NestedClass $nestedClass;
+	public readonly string $string;
+
+	/**
+	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function __construct(
+		array $stringArray,
+		array $mixedArray,
+		array $nullArray,
+		array $unknownArray,
+		bool $boolean,
+		float $float,
+		int $int,
+		null $null,
+		NestedClass $nestedClass,
+		string $string
+	) {
+		$this->stringArray = $stringArray;
+		$this->mixedArray = $mixedArray;
+		$this->nullArray = $nullArray;
+		$this->unknownArray = $unknownArray;
+		$this->boolean = $boolean;
+		$this->float = $float;
+		$this->int = $int;
+		$this->null = $null;
+		$this->nestedClass = $nestedClass;
+		$this->string = $string;
+	}
+}
+
+class NestedClass
+{
+	public readonly int $var;
+
+	public function __construct(int $var)
+	{
+		$this->var = $var;
+	}
+}

@@ -1,0 +1,6 @@
+class RootObject
+{
+	public function __construct(public int $test)
+	{
+	}
+}

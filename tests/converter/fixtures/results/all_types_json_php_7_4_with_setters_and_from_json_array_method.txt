@@ -1,0 +1,104 @@
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	/** @var (string|int|null)[] */
+	public array $mixedArray;
+	public array $nullArray;
+	public array $unknownArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public $null;
+	public NestedClass $nestedClass;
+	public string $string;
+
+	/**
+	 * @param string[] $stringArray
+	 */
+	public function setStringArray(array $stringArray): void
+	{
+		$this->stringArray = $stringArray;
+	}
+
+	/**
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function setMixedArray(array $mixedArray): void
+	{
+		$this->mixedArray = $mixedArray;
+	}
+
+	public function setNullArray(array $nullArray): void
+	{
+		$this->nullArray = $nullArray;
+	}
+
+	public function setUnknownArray(array $unknownArray): void
+	{
+		$this->unknownArray = $unknownArray;
+	}
+
+	public function setBoolean(bool $boolean): void
+	{
+		$this->boolean = $boolean;
+	}
+
+	public function setFloat(float $float): void
+	{
+		$this->float = $float;
+	}
+
+	public function setInt(int $int): void
+	{
+		$this->int = $int;
+	}
+
+	public function setNull($null): void
+	{
+		$this->null = $null;
+	}
+
+	public function setNestedClass(NestedClass $nestedClass): void
+	{
+		$this->nestedClass = $nestedClass;
+	}
+
+	public function setString(string $string): void
+	{
+		$this->string = $string;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setStringArray($data['string_array']);
+		$instance->setMixedArray($data['mixed_array']);
+		$instance->setNullArray($data['null_array']);
+		$instance->setUnknownArray($data['unknown_array']);
+		$instance->setBoolean($data['boolean']);
+		$instance->setFloat($data['float']);
+		$instance->setInt($data['int']);
+		$instance->setNull($data['null'] ?? null);
+		$instance->setNestedClass(NestedClass::fromJson($data['nested_class']));
+		$instance->setString($data['string']);
+		return $instance;
+	}
+}
+
+class NestedClass
+{
+	public int $var;
+
+	public function setVar(int $var): void
+	{
+		$this->var = $var;
+	}
+
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setVar($data['var']);
+		return $instance;
+	}
+}
