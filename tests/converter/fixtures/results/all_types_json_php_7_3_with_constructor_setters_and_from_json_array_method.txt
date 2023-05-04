@@ -2,6 +2,10 @@ class RootObject
 {
 	/** @var string[] */
 	public $stringArray;
+	/** @var (string|int|null)[] */
+	public $mixedArray;
+	public $nullArray;
+	public $unknownArray;
 	public $boolean;
 	public $float;
 	public $int;
@@ -15,6 +19,24 @@ class RootObject
 	public function setStringArray(array $stringArray): void
 	{
 		$this->stringArray = $stringArray;
+	}
+
+	/**
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function setMixedArray(array $mixedArray): void
+	{
+		$this->mixedArray = $mixedArray;
+	}
+
+	public function setNullArray(array $nullArray): void
+	{
+		$this->nullArray = $nullArray;
+	}
+
+	public function setUnknownArray(array $unknownArray): void
+	{
+		$this->unknownArray = $unknownArray;
 	}
 
 	public function setBoolean(bool $boolean): void
@@ -51,6 +73,9 @@ class RootObject
 	{
 		$instance = new self();
 		$instance->setStringArray($data['string_array']);
+		$instance->setMixedArray($data['mixed_array']);
+		$instance->setNullArray($data['null_array']);
+		$instance->setUnknownArray($data['unknown_array']);
 		$instance->setBoolean($data['boolean']);
 		$instance->setFloat($data['float']);
 		$instance->setInt($data['int']);

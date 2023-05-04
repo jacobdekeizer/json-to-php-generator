@@ -2,9 +2,13 @@ class RootObject
 {
 	/**
 	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
 	 */
 	public function __construct(
 		public array $stringArray,
+		public array $mixedArray,
+		public array $nullArray,
+		public array $unknownArray,
 		public bool $boolean,
 		public float $float,
 		public int $int,

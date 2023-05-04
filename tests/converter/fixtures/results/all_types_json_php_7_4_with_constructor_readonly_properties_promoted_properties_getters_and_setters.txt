@@ -2,6 +2,10 @@ class RootObject
 {
 	/** @var string[] */
 	public array $stringArray;
+	/** @var (string|int|null)[] */
+	public array $mixedArray;
+	public array $nullArray;
+	public array $unknownArray;
 	public bool $boolean;
 	public float $float;
 	public int $int;
@@ -11,9 +15,13 @@ class RootObject
 
 	/**
 	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
 	 */
 	public function __construct(
 		array $stringArray,
+		array $mixedArray,
+		array $nullArray,
+		array $unknownArray,
 		bool $boolean,
 		float $float,
 		int $int,
@@ -22,6 +30,9 @@ class RootObject
 		string $string
 	) {
 		$this->stringArray = $stringArray;
+		$this->mixedArray = $mixedArray;
+		$this->nullArray = $nullArray;
+		$this->unknownArray = $unknownArray;
 		$this->boolean = $boolean;
 		$this->float = $float;
 		$this->int = $int;
@@ -36,6 +47,24 @@ class RootObject
 	public function getStringArray(): array
 	{
 		return $this->stringArray;
+	}
+
+	/**
+	 * @return (string|int|null)[]
+	 */
+	public function getMixedArray(): array
+	{
+		return $this->mixedArray;
+	}
+
+	public function getNullArray(): array
+	{
+		return $this->nullArray;
+	}
+
+	public function getUnknownArray(): array
+	{
+		return $this->unknownArray;
 	}
 
 	public function getBoolean(): bool
@@ -74,6 +103,24 @@ class RootObject
 	public function setStringArray(array $stringArray): void
 	{
 		$this->stringArray = $stringArray;
+	}
+
+	/**
+	 * @param (string|int|null)[] $mixedArray
+	 */
+	public function setMixedArray(array $mixedArray): void
+	{
+		$this->mixedArray = $mixedArray;
+	}
+
+	public function setNullArray(array $nullArray): void
+	{
+		$this->nullArray = $nullArray;
+	}
+
+	public function setUnknownArray(array $unknownArray): void
+	{
+		$this->unknownArray = $unknownArray;
 	}
 
 	public function setBoolean(bool $boolean): void

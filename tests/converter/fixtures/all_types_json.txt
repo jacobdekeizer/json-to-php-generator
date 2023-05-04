@@ -3,6 +3,13 @@
         "test",
         "test"
     ],
+    "mixed_array": [
+        "test",
+        1,
+        null
+    ],
+    "null_array": [null],
+    "unknown_array": [],
     "boolean": false,
     "float": 0.5,
     "int": 1,

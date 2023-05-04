@@ -2,6 +2,10 @@ class RootObject
 {
 	/** @var string[] */
 	public $stringArray;
+	/** @var (string|int|null)[] */
+	public $mixedArray;
+	public $nullArray;
+	public $unknownArray;
 	public $boolean;
 	public $float;
 	public $int;
@@ -11,9 +15,13 @@ class RootObject
 
 	/**
 	 * @param string[] $stringArray
+	 * @param (string|int|null)[] $mixedArray
 	 */
 	public function __construct(
 		array $stringArray,
+		array $mixedArray,
+		array $nullArray,
+		array $unknownArray,
 		bool $boolean,
 		float $float,
 		int $int,
@@ -22,6 +30,9 @@ class RootObject
 		string $string
 	) {
 		$this->stringArray = $stringArray;
+		$this->mixedArray = $mixedArray;
+		$this->nullArray = $nullArray;
+		$this->unknownArray = $unknownArray;
 		$this->boolean = $boolean;
 		$this->float = $float;
 		$this->int = $int;
@@ -34,6 +45,9 @@ class RootObject
 	{
 		return new self(
 			$data['string_array'],
+			$data['mixed_array'],
+			$data['null_array'],
+			$data['unknown_array'],
 			$data['boolean'],
 			$data['float'],
 			$data['int'],

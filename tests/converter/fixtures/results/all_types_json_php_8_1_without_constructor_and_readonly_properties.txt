@@ -2,6 +2,10 @@ class RootObject
 {
 	/** @var string[] */
 	public readonly array $stringArray;
+	/** @var (string|int|null)[] */
+	public readonly array $mixedArray;
+	public readonly array $nullArray;
+	public readonly array $unknownArray;
 	public readonly bool $boolean;
 	public readonly float $float;
 	public readonly int $int;
