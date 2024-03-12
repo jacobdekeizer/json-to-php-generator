@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/**
@@ -130,6 +132,8 @@ class RootObject
 		$this->string = $string;
 	}
 }
+
+<?php
 
 class NestedClass
 {

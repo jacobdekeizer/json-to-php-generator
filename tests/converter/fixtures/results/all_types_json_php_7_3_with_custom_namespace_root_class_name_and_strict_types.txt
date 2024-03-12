@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace This\Is\A\Namespace;
+
+class CustomClassName
+{
+	/** @var string[] */
+	public $stringArray;
+	/** @var (string|int|null)[] */
+	public $mixedArray;
+	public $nullArray;
+	public $unknownArray;
+	public $boolean;
+	public $float;
+	public $int;
+	public $null;
+	public $nestedClass;
+	public $string;
+}
+
+<?php
+
+declare(strict_types=1);
+
+namespace This\Is\A\Namespace;
+
+class NestedClass
+{
+	public $var;
+}

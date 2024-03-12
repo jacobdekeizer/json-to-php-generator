@@ -40,9 +40,10 @@ export default class PhpClassPresenter {
         const codeWriter = new CodeWriter();
 
         // open new class
-        codeWriter.openClass(this.getClassName(), {
+        codeWriter.openClass(this.settings.namespace, this.getClassName(), {
             isFinal: this.settings.finalClasses,
-            isReadonly: this.settings.readonlyClasses
+            isReadonly: this.settings.readonlyClasses,
+            declareStrictTypes: this.settings.declareStrictTypes,
         });
 
         // properties
@@ -95,16 +96,6 @@ export default class PhpClassPresenter {
         // close current class
         codeWriter.closeClass();
 
-        // get php class content
-        let content = codeWriter.getContent();
-
-        // print other used classes
-        if (this.phpClass.getChildren().length > 0) {
-            content += '\n' + this.phpClass.getChildren()
-                .map(phpClass => (new PhpClassPresenter(phpClass, this.settings)).toString())
-                .join('\n');
-        }
-
-        return content;
+        return codeWriter.getContent();
     }
 }

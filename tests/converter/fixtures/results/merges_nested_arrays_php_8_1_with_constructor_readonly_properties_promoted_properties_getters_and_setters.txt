@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/**
@@ -15,6 +17,8 @@ class RootObject
 		return $this->simpleNesting;
 	}
 }
+
+<?php
 
 class SimpleNesting
 {
@@ -46,6 +50,8 @@ class SimpleNesting
 		return $this->number;
 	}
 }
+
+<?php
 
 class Object
 {

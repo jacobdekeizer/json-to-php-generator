@@ -1,3 +1,5 @@
+<?php
+
 final class RootObject
 {
 	/** @var string[]|null */
@@ -13,6 +15,8 @@ final class RootObject
 	public $nestedClass;
 	public $string;
 }
+
+<?php
 
 final class NestedClass
 {

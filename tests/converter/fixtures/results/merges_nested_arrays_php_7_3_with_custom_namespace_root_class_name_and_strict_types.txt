@@ -1,0 +1,37 @@
+<?php
+
+declare(strict_types=1);
+
+namespace This\Is\A\Namespace;
+
+class CustomClassName
+{
+	/** @var SimpleNesting[] */
+	public $simpleNesting;
+}
+
+<?php
+
+declare(strict_types=1);
+
+namespace This\Is\A\Namespace;
+
+class SimpleNesting
+{
+	public $alwaysPresent;
+	public $string;
+	public $object;
+	public $number;
+}
+
+<?php
+
+declare(strict_types=1);
+
+namespace This\Is\A\Namespace;
+
+class Object
+{
+	public $test;
+	public $anotherTest;
+}

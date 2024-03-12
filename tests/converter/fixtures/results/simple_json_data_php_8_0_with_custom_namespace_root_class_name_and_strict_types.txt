@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+namespace This\Is\A\Namespace;
+
+class CustomClassName
+{
+	public int $test;
+}

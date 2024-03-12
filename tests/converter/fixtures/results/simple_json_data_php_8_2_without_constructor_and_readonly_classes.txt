@@ -1,3 +1,5 @@
+<?php
+
 readonly class RootObject
 {
 	public int $test;

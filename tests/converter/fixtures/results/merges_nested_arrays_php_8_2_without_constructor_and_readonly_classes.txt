@@ -1,8 +1,12 @@
+<?php
+
 readonly class RootObject
 {
 	/** @var SimpleNesting[] */
 	public array $simpleNesting;
 }
+
+<?php
 
 readonly class SimpleNesting
 {
@@ -11,6 +15,8 @@ readonly class SimpleNesting
 	public ?Object $object;
 	public ?int $number;
 }
+
+<?php
 
 readonly class Object
 {

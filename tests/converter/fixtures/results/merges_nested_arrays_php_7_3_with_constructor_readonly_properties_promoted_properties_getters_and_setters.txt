@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/** @var SimpleNesting[] */
@@ -27,6 +29,8 @@ class RootObject
 		$this->simpleNesting = $simpleNesting;
 	}
 }
+
+<?php
 
 class SimpleNesting
 {
@@ -87,6 +91,8 @@ class SimpleNesting
 		$this->number = $number;
 	}
 }
+
+<?php
 
 class Object
 {

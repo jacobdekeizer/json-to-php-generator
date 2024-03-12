@@ -20,10 +20,10 @@
         Docblock
       </TabNavItem>
       <TabNavItem
-        :is-active="activeTab === 'from-json'"
-        @click="activeTab = 'from-json'"
+        :is-active="activeTab === 'namespace'"
+        @click="activeTab = 'namespace'"
       >
-        From JSON
+        Namespace / Class
       </TabNavItem>
     </TabNav>
 
@@ -36,36 +36,36 @@
             </Label>
             <Select
               id="php-version"
-              :model-value="props.modelValue.phpVersion"
+              v-model="model.phpVersion"
               :options="phpVersionOptions"
-              @update:model-value="(val) => updateSettings({ phpVersion: val })"
             />
           </FormGroup>
 
           <Checkbox
+            v-model="model.finalClasses"
             label="Final classes"
-            :model-value="props.modelValue.finalClasses"
-            @update:model-value="(val) => updateSettings({ finalClasses: val })"
           />
 
           <Checkbox
-            v-if="supportsReadonlyClasses(props.modelValue)"
+            v-if="supportsReadonlyClasses(model)"
+            v-model="model.readonlyClasses"
             label="Readonly classes"
-            :model-value="props.modelValue.readonlyClasses"
-            @update:model-value="(val) => updateSettings({ readonlyClasses: val })"
           />
 
           <Checkbox
+            v-model="model.addConstructor"
             label="Add constructor"
-            :model-value="props.modelValue.addConstructor"
-            @update:model-value="(val) => updateSettings({ addConstructor: val })"
           />
 
           <Checkbox
-            v-if="supportsConstructorPropertyPromotion(props.modelValue)"
+            v-if="supportsConstructorPropertyPromotion(model)"
+            v-model="model.constructorPropertyPromotion"
             label="Constructor property promotion"
-            :model-value="props.modelValue.constructorPropertyPromotion"
-            @update:model-value="(val) => updateSettings({ constructorPropertyPromotion: val })"
+          />
+
+          <Checkbox
+            v-model="model.declareStrictTypes"
+            label="Declare strict types"
           />
         </div>
         <div>
@@ -75,29 +75,25 @@
             </Label>
             <Select
               id="property-visibility"
-              :model-value="props.modelValue.propertyVisibility"
+              v-model="model.propertyVisibility"
               :options="phpVisibilityOptions"
-              @update:model-value="(val) => updateSettings({ propertyVisibility: val })"
             />
           </FormGroup>
 
           <Checkbox
+            v-model="model.allPropertiesNullable"
             label="All properties nullable"
-            :model-value="props.modelValue.allPropertiesNullable"
-            @update:model-value="(val) => updateSettings({ allPropertiesNullable: val })"
           />
 
           <Checkbox
+            v-model="model.propertyAddExtraNewLine"
             label="Add extra new line after property"
-            :model-value="props.modelValue.propertyAddExtraNewLine"
-            @update:model-value="(val) => updateSettings({ propertyAddExtraNewLine: val })"
           />
 
           <Checkbox
-            v-if="supportsReadonlyProperties(props.modelValue) && !props.modelValue.readonlyClasses"
+            v-if="supportsReadonlyProperties(model) && !model.readonlyClasses"
+            v-model="model.readonlyProperties"
             label="Readonly properties"
-            :model-value="props.modelValue.readonlyProperties"
-            @update:model-value="(val) => updateSettings({ readonlyProperties: val })"
           />
         </div>
         <div>
@@ -106,25 +102,38 @@
           </Label>
 
           <Checkbox
+            v-model="model.addGetters"
             label="Add getters"
-            :model-value="props.modelValue.addGetters"
-            @update:model-value="(val) => updateSettings({ addGetters: val })"
           />
 
           <Checkbox
             v-if="!hasReadonlyProperties"
+            v-model="model.addSetters"
             label="Add setters"
             class="mr-4"
-            :model-value="props.modelValue.addSetters"
-            @update:model-value="(val) => updateSettings({ addSetters: val })"
           />
 
           <Checkbox
-            v-if="props.modelValue.addSetters"
+            v-if="model.addSetters"
+            v-model="model.isFluentSetter"
             label="Is fluent setter"
-            :model-value="props.modelValue.isFluentSetter"
-            @update:model-value="(val) => updateSettings({ isFluentSetter: val })"
           />
+
+          <Label class="mt-2">
+            From JSON
+          </Label>
+
+          <FormGroup>
+            <Checkbox
+              v-model="model.addFromJsonMethod"
+              label="Add from json method"
+            />
+
+            <Checkbox
+              v-model="model.jsonIsArray"
+              label="JSON response is an array"
+            />
+          </FormGroup>
         </div>
       </div>
     </TabContent>
@@ -141,9 +150,8 @@
             </Label>
             <Select
               id="class-case"
-              :model-value="props.modelValue.classCase"
+              v-model="model.classCase"
               :options="caseOptions"
-              @update:model-value="(val) => updateSettings({ classCase: val })"
             />
           </FormGroup>
 
@@ -153,12 +161,10 @@
             </Label>
             <Select
               id="property-case"
-              :model-value="props.modelValue.propertyCase"
+              v-model="model.propertyCase"
               :options="caseOptions"
-              @update:model-value="(val) => updateSettings({ propertyCase: val })"
             />
           </FormGroup>
-
 
           <FormGroup>
             <Label for="getter-case">
@@ -166,12 +172,10 @@
             </Label>
             <Select
               id="getter-case"
-              :model-value="props.modelValue.getterCase"
+              v-model="model.getterCase"
               :options="caseOptions"
-              @update:model-value="(val) => updateSettings({ getterCase: val })"
             />
           </FormGroup>
-
 
           <FormGroup>
             <Label for="setter-case">
@@ -179,9 +183,8 @@
             </Label>
             <Select
               id="setter-case"
-              :model-value="props.modelValue.setterCase"
+              v-model="model.setterCase"
               :options="caseOptions"
-              @update:model-value="(val) => updateSettings({ setterCase: val })"
             />
           </FormGroup>
         </div>
@@ -197,9 +200,8 @@
             </Label>
             <Select
               id="property-docblock"
-              :model-value="props.modelValue.propertyDocblock"
+              v-model="model.propertyDocblock"
               :options="docblockOptions"
-              @update:model-value="(val) => updateSettings({ propertyDocblock: val })"
             />
           </FormGroup>
           <FormGroup>
@@ -208,9 +210,8 @@
             </Label>
             <Select
               id="property-docblock"
-              :model-value="props.modelValue.propertyDocblockType"
+              v-model="model.propertyDocblockType"
               :options="propertyDocblockTypeOptions"
-              @update:model-value="(val) => updateSettings({ propertyDocblockType: val })"
             />
           </FormGroup>
           <FormGroup>
@@ -219,27 +220,32 @@
             </Label>
             <Select
               id="method-constructor-docblock"
-              :model-value="props.modelValue.docblock"
+              v-model="model.docblock"
               :options="docblockOptions"
-              @update:model-value="(val) => updateSettings({ docblock: val })"
             />
           </FormGroup>
         </div>
       </div>
     </TabContent>
 
-    <TabContent :is-active="activeTab === 'from-json'">
+    <TabContent :is-active="activeTab === 'namespace'">
       <FormGroup>
-        <Checkbox
-          label="Add from json method"
-          :model-value="props.modelValue.addFromJsonMethod"
-          @update:model-value="(val) => updateSettings({ addFromJsonMethod: val })"
+        <Label for="root-class-name">
+          Root class name
+        </Label>
+        <TextInput
+          id="root-class-name"
+          v-model="model.rootClassName"
+          placeholder="RootObject"
         />
-
-        <Checkbox
-          label="JSON response is an array"
-          :model-value="props.modelValue.jsonIsArray"
-          @update:model-value="(val) => updateSettings({ jsonIsArray: val })"
+      </FormGroup>
+      <FormGroup>
+        <Label for="root-class-name">
+          Namespace
+        </Label>
+        <TextInput
+          id="root-class-name"
+          v-model="model.namespace"
         />
       </FormGroup>
     </TabContent>
@@ -247,12 +253,13 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, defineEmits, ref, computed} from 'vue';
+import { ref, computed } from 'vue';
 
 import Checkbox from '@/components/form/Checkbox.vue';
 import FormGroup from '@/components/form/FormGroup.vue';
 import Label from '@/components/form/Label.vue';
 import Select from '@/components/form/Select.vue';
+import TextInput from '@/components/form/TextInput.vue';
 import TabContent from '@/components/tab-panel/TabContent.vue';
 import TabNav from '@/components/tab-panel/TabNav.vue';
 import TabNavItem from '@/components/tab-panel/TabNavItem.vue';
@@ -271,8 +278,7 @@ import {PhpVisibility} from '@/enums/PhpVisibility';
 import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
 import {PhpDocblock} from '@/enums/PhpDocblock';
 
-const props = defineProps<{ modelValue: SettingsModel }>();
-const emit = defineEmits<{ (e: 'update:modelValue', value: SettingsModel): void }>()
+const model = defineModel<SettingsModel>({ required: true });
 
 const phpVersionOptions = EnumSelect.getOptions(PhpVersion);
 const caseOptions = EnumSelect.getOptions(StringCase);
@@ -280,11 +286,7 @@ const phpVisibilityOptions = EnumSelect.getOptions(PhpVisibility);
 const propertyDocblockTypeOptions = EnumSelect.getOptions(PropertyDocblockType);
 const docblockOptions = EnumSelect.getOptions(PhpDocblock);
 
-const activeTab = ref('general');
+const activeTab = ref<'general' | 'letter-case' | 'docblock' | 'namespace'>('general');
 
-const hasReadonlyProperties = computed(() => props.modelValue.readonlyProperties || props.modelValue.readonlyClasses);
-
-const updateSettings = (newProps: Partial<SettingsModel>): void => {
-  emit('update:modelValue', { ...props.modelValue, ...newProps });
-}
+const hasReadonlyProperties = computed(() => model.value.readonlyProperties || model.value.readonlyClasses);
 </script>

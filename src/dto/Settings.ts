@@ -33,6 +33,10 @@ export default interface Settings {
     jsonIsArray: boolean;
 
     docblock: PhpDocblock;
+
+    namespace: string;
+    rootClassName: string;
+    declareStrictTypes: boolean;
 }
 
 
@@ -103,5 +107,9 @@ export const createDefaultSettings = (): Settings => {
         jsonIsArray: true,
 
         docblock: PhpDocblock.Necessary,
+
+        namespace: '',
+        rootClassName: 'RootObject',
+        declareStrictTypes: false,
     }
 }

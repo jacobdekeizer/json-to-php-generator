@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/** @var SimpleNesting[] */
@@ -20,6 +22,8 @@ class RootObject
 		return $instance;
 	}
 }
+
+<?php
 
 class SimpleNesting
 {
@@ -58,6 +62,8 @@ class SimpleNesting
 		return $instance;
 	}
 }
+
+<?php
 
 class Object
 {
