@@ -28,10 +28,27 @@
 
       <Settings v-model="settings" />
     </Card>
-    <Card v-if="code">
+    <Card v-if="generatedCodeClasses.length > 0">
+      <div class="flex space-x-2 items-center">
+        <h2 class="text-dark-700 dark:text-dark-300 font-bold text-2xl">
+          Results
+        </h2>
+
+        <IconButton
+          v-if="phpClass"
+          :loading="exporting"
+          @click="exportPhpClassToZip(phpClass, settings)"
+        >
+          <CloudArrowDownIcon />
+        </IconButton>
+      </div>
+
       <Code
-        :code="code"
+        v-for="generatedCode in generatedCodeClasses"
+        :key="generatedCode"
+        :code="generatedCode"
         language="php"
+        class="mt-4"
       />
     </Card>
     <Card v-if="error">
@@ -54,10 +71,16 @@ import Settings from '@/components/Settings.vue';
 import Code from '@/components/Code.vue'
 import { useJsonConverter } from '@/hooks/use-json-converter';
 import { useSettings } from '@/hooks/use-settings';
+import CloudArrowDownIcon from '@/components/icons/CloudArrowDownIcon.vue';
+import IconButton from '@/components/buttons/IconButton.vue';
+import {usePhpCodePresenter} from '@/hooks/use-php-code-presenter';
+import {usePhpClassExport} from '@/hooks/use-php-class-export';
 
 const jsonContent = ref('');
 
 const { settings } = useSettings();
-const { error, code } = useJsonConverter({ jsonContent, settings })
+const { error, phpClass } = useJsonConverter({ jsonContent, settings });
+const { generatedCodeClasses } = usePhpCodePresenter({ phpClass, settings });
+const { exporting, exportPhpClassToZip } = usePhpClassExport();
 </script>
 

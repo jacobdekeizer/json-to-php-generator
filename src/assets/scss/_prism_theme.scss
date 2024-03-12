@@ -13,7 +13,7 @@ pre[class*="language-"] {
 
 pre[class*="language-"],
 :not(pre) > code[class*="language-"] {
-  @apply bg-dark-800 dark:bg-black;
+  @apply bg-dark-800 dark:bg-black rounded;
 }
 
 /* Code blocks */
@@ -71,6 +71,7 @@ pre[class*="language-"] {
   @apply text-primary-300;
 }
 
+.token.delimiter.important,
 .token.atrule,
 .token.attr-value,
 .token.keyword {
@@ -82,7 +83,6 @@ pre[class*="language-"] {
   @apply text-yellow-400;
 }
 
-.token.important,
 .token.bold {
   @apply font-black;
 }

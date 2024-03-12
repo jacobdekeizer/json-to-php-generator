@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/** @var SimpleNesting[] */
@@ -20,6 +22,8 @@ class RootObject
 		);
 	}
 }
+
+<?php
 
 class SimpleNesting
 {
@@ -50,6 +54,8 @@ class SimpleNesting
 		);
 	}
 }
+
+<?php
 
 class Object
 {

@@ -12,6 +12,7 @@ import {snakeCase} from 'change-case';
 import {withSetup} from '../test-utils';
 import {useSettings} from '@/hooks/use-settings';
 import {useJsonConverter} from '@/hooks/use-json-converter';
+import {usePhpCodePresenter} from '@/hooks/use-php-code-presenter';
 
 const dataCases: Array<[string, string]> = [
     [
@@ -30,8 +31,8 @@ const dataCases: Array<[string, string]> = [
 
 const versions = [PhpVersion.PHP73, PhpVersion.PHP74, PhpVersion.PHP80, PhpVersion.PHP81, PhpVersion.PHP82];
 
-const settingCases = versions.map(version => {
-    return [
+const settingCases = versions.map((version) => {
+    const value: Array<[string, Settings]> = [
         [
             version + ' with constructor',
             {
@@ -63,6 +64,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -96,6 +101,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -129,6 +138,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -162,6 +175,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -195,6 +212,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -228,6 +249,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -261,6 +286,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -294,6 +323,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -327,6 +360,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -360,6 +397,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: true,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -393,6 +434,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -426,6 +471,10 @@ const settingCases = versions.map(version => {
                 jsonIsArray: true,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -459,6 +508,11 @@ const settingCases = versions.map(version => {
                 jsonIsArray: true,
 
                 docblock: PhpDocblock.All,
+
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
         [
@@ -492,9 +546,53 @@ const settingCases = versions.map(version => {
                 jsonIsArray: false,
 
                 docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
+            }
+        ],
+
+        [
+            version + ' with custom namespace, root class name and strict types',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: false,
+                jsonIsArray: false,
+
+                docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'CustomClassName',
+                namespace: 'This\\Is\\A\\Namespace',
+                declareStrictTypes: true,
             }
         ],
     ];
+
+    return value;
 }).flat() as Array<[string, Settings]>;
 
 const cases = dataCases.map((dataCase) => {
@@ -514,14 +612,18 @@ describe('JsonToPhpFactory tests', () => {
         const [{ settings}] = withSetup(() => useSettings());
         settings.value = settingsToTest;
 
-        const [{ code }] = withSetup(() => useJsonConverter({ jsonContent, settings }));
+        const [{ phpClass }] = withSetup(() => useJsonConverter({ jsonContent, settings }));
+
+        const [{ generatedCodeClasses }] = withSetup(() => usePhpCodePresenter({ phpClass, settings }));
 
         const resultPath = path.resolve(__dirname, `./fixtures/results/${snakeCase(name)}.txt`, )
 
-        // fs.writeFileSync(resultPath, code.value ?? ''); // uncomment this line when you want to save fixtures for a new case
+        const code = generatedCodeClasses.value.join('\n');
+
+        // fs.writeFileSync(resultPath, code); // uncomment this line when you want to save fixtures for a new case
 
         const expectedResult = fs.readFileSync(resultPath, 'utf8');
 
-        expect(code.value).toBe(expectedResult)
+        expect(code).toBe(expectedResult)
     })
 })

@@ -7,7 +7,21 @@ export default class CodeWriter {
     private content = '';
     private indentation = '';
 
-    public openClass(name: string, options?: { isFinal?: boolean; isReadonly?: boolean }): void {
+    public openClass(
+        namespace: string,
+        name: string,
+        options?: { isFinal?: boolean; isReadonly?: boolean, declareStrictTypes?: boolean }
+    ): void {
+        this.writeLine('<?php');
+        this.writeLine('');
+        if (options?.declareStrictTypes) {
+            this.writeLine('declare(strict_types=1);')
+            this.writeLine('');
+        }
+        if (namespace !== '') {
+            this.writeLine(`namespace ${namespace};`)
+            this.writeLine('');
+        }
         this.writeLine(`${(options?.isFinal ? 'final ' : '')}${(options?.isReadonly ? 'readonly ' : '')}class ${name}`);
         this.writeLine('{');
         this.indent();

@@ -1,8 +1,12 @@
+<?php
+
 final class RootObject
 {
 	/** @var SimpleNesting[]|null */
 	public $simpleNesting;
 }
+
+<?php
 
 final class SimpleNesting
 {
@@ -11,6 +15,8 @@ final class SimpleNesting
 	public $object;
 	public $number;
 }
+
+<?php
 
 final class Object
 {

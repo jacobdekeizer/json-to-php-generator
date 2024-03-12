@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/**
@@ -16,6 +18,8 @@ class RootObject
 		);
 	}
 }
+
+<?php
 
 class SimpleNesting
 {
@@ -37,6 +41,8 @@ class SimpleNesting
 		);
 	}
 }
+
+<?php
 
 class Object
 {

@@ -1,3 +1,5 @@
+<?php
+
 readonly class RootObject
 {
 	/** @var string[] */
@@ -13,6 +15,8 @@ readonly class RootObject
 	public NestedClass $nestedClass;
 	public string $string;
 }
+
+<?php
 
 readonly class NestedClass
 {

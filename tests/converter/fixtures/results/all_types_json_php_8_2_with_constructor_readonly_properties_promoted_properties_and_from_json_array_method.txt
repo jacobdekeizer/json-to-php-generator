@@ -1,3 +1,5 @@
+<?php
+
 class RootObject
 {
 	/**
@@ -34,6 +36,8 @@ class RootObject
 		);
 	}
 }
+
+<?php
 
 class NestedClass
 {
