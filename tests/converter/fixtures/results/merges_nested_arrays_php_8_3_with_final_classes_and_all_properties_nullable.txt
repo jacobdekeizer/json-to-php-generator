@@ -1,0 +1,25 @@
+<?php
+
+final class RootObject
+{
+	/** @var SimpleNesting[]|null */
+	public ?array $simpleNesting;
+}
+
+<?php
+
+final class SimpleNesting
+{
+	public ?float $alwaysPresent;
+	public ?string $string;
+	public ?Object $object;
+	public ?int $number;
+}
+
+<?php
+
+final class Object
+{
+	public ?int $test;
+	public ?int $anotherTest;
+}

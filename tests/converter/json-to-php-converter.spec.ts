@@ -29,7 +29,14 @@ const dataCases: Array<[string, string]> = [
     ],
 ]
 
-const versions = [PhpVersion.PHP73, PhpVersion.PHP74, PhpVersion.PHP80, PhpVersion.PHP81, PhpVersion.PHP82];
+const versions = [
+    PhpVersion.PHP73,
+    PhpVersion.PHP74,
+    PhpVersion.PHP80,
+    PhpVersion.PHP81,
+    PhpVersion.PHP82,
+    PhpVersion.PHP83,
+];
 
 const settingCases = versions.map((version) => {
     const value: Array<[string, Settings]> = [

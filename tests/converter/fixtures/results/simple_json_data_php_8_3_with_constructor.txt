@@ -1,0 +1,11 @@
+<?php
+
+class RootObject
+{
+	public int $test;
+
+	public function __construct(int $test)
+	{
+		$this->test = $test;
+	}
+}

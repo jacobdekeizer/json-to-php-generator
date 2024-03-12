@@ -1,0 +1,24 @@
+<?php
+
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	/** @var (string|int|null)[] */
+	public array $mixedArray;
+	public array $nullArray;
+	public array $unknownArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public null $null;
+	public NestedClass $nestedClass;
+	public string $string;
+}
+
+<?php
+
+class NestedClass
+{
+	public int $var;
+}

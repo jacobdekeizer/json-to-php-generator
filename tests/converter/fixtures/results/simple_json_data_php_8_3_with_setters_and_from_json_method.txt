@@ -1,0 +1,18 @@
+<?php
+
+class RootObject
+{
+	public int $test;
+
+	public function setTest(int $test): void
+	{
+		$this->test = $test;
+	}
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->setTest($data->test);
+		return $instance;
+	}
+}

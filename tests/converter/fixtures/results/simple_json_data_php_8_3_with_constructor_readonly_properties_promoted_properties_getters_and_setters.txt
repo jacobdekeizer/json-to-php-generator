@@ -1,0 +1,13 @@
+<?php
+
+class RootObject
+{
+	public function __construct(public readonly int $test)
+	{
+	}
+
+	public function getTest(): int
+	{
+		return $this->test;
+	}
+}

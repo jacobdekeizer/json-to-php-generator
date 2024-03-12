@@ -1,0 +1,51 @@
+<?php
+
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public readonly array $simpleNesting;
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(array $simpleNesting)
+	{
+		$this->simpleNesting = $simpleNesting;
+	}
+}
+
+<?php
+
+class SimpleNesting
+{
+	public readonly float $alwaysPresent;
+	public readonly ?string $string;
+	public readonly ?Object $object;
+	public readonly ?int $number;
+
+	public function __construct(
+		float $alwaysPresent,
+		?string $string,
+		?Object $object,
+		?int $number
+	) {
+		$this->alwaysPresent = $alwaysPresent;
+		$this->string = $string;
+		$this->object = $object;
+		$this->number = $number;
+	}
+}
+
+<?php
+
+class Object
+{
+	public readonly ?int $test;
+	public readonly ?int $anotherTest;
+
+	public function __construct(?int $test, ?int $anotherTest)
+	{
+		$this->test = $test;
+		$this->anotherTest = $anotherTest;
+	}
+}

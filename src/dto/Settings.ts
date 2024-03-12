@@ -79,7 +79,7 @@ export const supportsReadonlyClasses = (settings: Settings): boolean => {
 
 export const createDefaultSettings = (): Settings => {
     return {
-        phpVersion: PhpVersion.PHP82,
+        phpVersion: PhpVersion.PHP83,
 
         classCase: StringCase.PascalCase,
         propertyCase: StringCase.CamelCase,

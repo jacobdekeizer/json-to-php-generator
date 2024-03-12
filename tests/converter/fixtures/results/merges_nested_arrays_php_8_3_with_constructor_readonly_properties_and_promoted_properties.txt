@@ -1,0 +1,33 @@
+<?php
+
+class RootObject
+{
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 */
+	public function __construct(public readonly array $simpleNesting)
+	{
+	}
+}
+
+<?php
+
+class SimpleNesting
+{
+	public function __construct(
+		public readonly float $alwaysPresent,
+		public readonly ?string $string,
+		public readonly ?Object $object,
+		public readonly ?int $number
+	) {
+	}
+}
+
+<?php
+
+class Object
+{
+	public function __construct(public readonly ?int $test, public readonly ?int $anotherTest)
+	{
+	}
+}
