@@ -69,6 +69,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -106,6 +107,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -143,6 +145,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -180,6 +183,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -217,6 +221,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -254,6 +259,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -291,6 +297,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -328,6 +335,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -365,6 +373,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -402,6 +411,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -439,6 +449,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -476,6 +487,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -513,6 +525,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.All,
 
@@ -551,6 +564,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -589,6 +603,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
