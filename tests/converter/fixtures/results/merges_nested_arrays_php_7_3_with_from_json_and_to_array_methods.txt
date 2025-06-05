@@ -1,0 +1,88 @@
+<?php
+
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public $simpleNesting;
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->simpleNesting = array_map(static function($data) {
+			return SimpleNesting::fromJson($data);
+		}, $data->simple_nesting);
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'simple_nesting' => array_map(function($item) {
+				    return $item->toArray();
+			}, $this->simple_nesting)
+		];
+	}
+}
+
+<?php
+
+class SimpleNesting
+{
+	public $alwaysPresent;
+	public $string;
+	public $object;
+	public $number;
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->alwaysPresent = $data->always_present;
+		$instance->string = $data->string ?? null;
+		$instance->object = ($data->object ?? null) !== null ? Object::fromJson($data->object) : null;
+		$instance->number = $data->number ?? null;
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'always_present' => $this->always_present,
+			'string' => $this->string,
+			'object' => $this->object !== null ? $this->object->toArray() : null,
+			'number' => $this->number
+		];
+	}
+}
+
+<?php
+
+class Object
+{
+	public $test;
+	public $anotherTest;
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->test = $data->test ?? null;
+		$instance->anotherTest = $data->another_test ?? null;
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'test' => $this->test,
+			'another_test' => $this->another_test
+		];
+	}
+}

@@ -1,0 +1,76 @@
+<?php
+
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	/** @var (string|int|null)[] */
+	public array $mixedArray;
+	public array $nullArray;
+	public array $unknownArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public null $null;
+	public NestedClass $nestedClass;
+	public string $string;
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->stringArray = $data->string_array;
+		$instance->mixedArray = $data->mixed_array;
+		$instance->nullArray = $data->null_array;
+		$instance->unknownArray = $data->unknown_array;
+		$instance->boolean = $data->boolean;
+		$instance->float = $data->float;
+		$instance->int = $data->int;
+		$instance->null = $data->null ?? null;
+		$instance->nestedClass = NestedClass::fromJson($data->nested_class);
+		$instance->string = $data->string;
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'string_array' => $this->string_array,
+			'mixed_array' => $this->mixed_array,
+			'null_array' => $this->null_array,
+			'unknown_array' => $this->unknown_array,
+			'boolean' => $this->boolean,
+			'float' => $this->float,
+			'int' => $this->int,
+			'null' => $this->null,
+			'nested_class' => $this->nested_class->toArray(),
+			'string' => $this->string
+		];
+	}
+}
+
+<?php
+
+class NestedClass
+{
+	public int $var;
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->var = $data->var;
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'var' => $this->var
+		];
+	}
+}

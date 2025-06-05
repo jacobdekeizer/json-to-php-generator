@@ -1,0 +1,23 @@
+<?php
+
+class RootObject
+{
+	public $test;
+
+	public static function fromJson(\stdClass $data): self
+	{
+		$instance = new self();
+		$instance->test = $data->test;
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'test' => $this->test
+		];
+	}
+}

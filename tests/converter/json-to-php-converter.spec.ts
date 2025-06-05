@@ -612,6 +612,82 @@ const settingCases = versions.map((version) => {
                 declareStrictTypes: true,
             }
         ],
+        [
+            version + ' with toArray method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: false,
+                jsonIsArray: false,
+                addToArrayMethod: true,
+
+                docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
+            }
+        ],
+        [
+            version + ' with fromJson and toArray methods',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: false,
+                addToArrayMethod: true,
+
+                docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
+            }
+        ],
     ];
 
     return value;

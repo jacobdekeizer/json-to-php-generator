@@ -1,0 +1,16 @@
+<?php
+
+class RootObject
+{
+	public $test;
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'test' => $this->test
+		];
+	}
+}
