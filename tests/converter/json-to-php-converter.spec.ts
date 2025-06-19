@@ -497,7 +497,7 @@ const settingCases = versions.map((version) => {
             }
         ],
         [
-            version + ' with getters, fluent setters, all docblocks, extra new lines for properties and from json method',
+            version + ' with getters, fluent setters, all docblocks, extra new lines for properties, from json method and to array method',
             {
                 phpVersion: version,
 
@@ -525,7 +525,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
-                addToArrayMethod: false,
+                addToArrayMethod: true,
 
                 docblock: PhpDocblock.All,
 

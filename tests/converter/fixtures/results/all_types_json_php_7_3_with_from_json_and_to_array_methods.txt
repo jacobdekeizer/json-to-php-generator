@@ -31,9 +31,6 @@ class RootObject
 		return $instance;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
@@ -64,9 +61,6 @@ class NestedClass
 		return $instance;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [

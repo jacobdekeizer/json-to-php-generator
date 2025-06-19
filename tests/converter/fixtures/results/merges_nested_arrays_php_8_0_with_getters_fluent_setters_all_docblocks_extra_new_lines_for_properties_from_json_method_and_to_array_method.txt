@@ -1,0 +1,250 @@
+<?php
+
+class RootObject
+{
+	/**
+	 * @var SimpleNesting[]
+	 */
+	public array $simpleNesting;
+
+	/**
+	 * @return SimpleNesting[]
+	 */
+	public function getSimpleNesting(): array
+	{
+		return $this->simpleNesting;
+	}
+
+	/**
+	 * @param SimpleNesting[] $simpleNesting
+	 * @return self
+	 */
+	public function setSimpleNesting(array $simpleNesting): self
+	{
+		$this->simpleNesting = $simpleNesting;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return self
+	 */
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setSimpleNesting(array_map(static function($data) {
+			return SimpleNesting::fromJson($data);
+		}, $data['simple_nesting']));
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'simple_nesting' => array_map(function($item) {
+				    return $item->toArray();
+			}, $this->simple_nesting)
+		];
+	}
+}
+
+<?php
+
+class SimpleNesting
+{
+	/**
+	 * @var float
+	 */
+	public float $alwaysPresent;
+
+	/**
+	 * @var string|null
+	 */
+	public ?string $string;
+
+	/**
+	 * @var Object|null
+	 */
+	public ?Object $object;
+
+	/**
+	 * @var int|null
+	 */
+	public ?int $number;
+
+	/**
+	 * @return float
+	 */
+	public function getAlwaysPresent(): float
+	{
+		return $this->alwaysPresent;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getString(): ?string
+	{
+		return $this->string;
+	}
+
+	/**
+	 * @return Object|null
+	 */
+	public function getObject(): ?Object
+	{
+		return $this->object;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getNumber(): ?int
+	{
+		return $this->number;
+	}
+
+	/**
+	 * @param float $alwaysPresent
+	 * @return self
+	 */
+	public function setAlwaysPresent(float $alwaysPresent): self
+	{
+		$this->alwaysPresent = $alwaysPresent;
+		return $this;
+	}
+
+	/**
+	 * @param string|null $string
+	 * @return self
+	 */
+	public function setString(?string $string): self
+	{
+		$this->string = $string;
+		return $this;
+	}
+
+	/**
+	 * @param Object|null $object
+	 * @return self
+	 */
+	public function setObject(?Object $object): self
+	{
+		$this->object = $object;
+		return $this;
+	}
+
+	/**
+	 * @param int|null $number
+	 * @return self
+	 */
+	public function setNumber(?int $number): self
+	{
+		$this->number = $number;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return self
+	 */
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setAlwaysPresent($data['always_present']);
+		$instance->setString($data['string'] ?? null);
+		$instance->setObject(($data['object'] ?? null) !== null ? Object::fromJson($data['object']) : null);
+		$instance->setNumber($data['number'] ?? null);
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'always_present' => $this->always_present,
+			'string' => $this->string,
+			'object' => $this->object !== null ? $this->object->toArray() : null,
+			'number' => $this->number
+		];
+	}
+}
+
+<?php
+
+class Object
+{
+	/**
+	 * @var int|null
+	 */
+	public ?int $test;
+
+	/**
+	 * @var int|null
+	 */
+	public ?int $anotherTest;
+
+	/**
+	 * @return int|null
+	 */
+	public function getTest(): ?int
+	{
+		return $this->test;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getAnotherTest(): ?int
+	{
+		return $this->anotherTest;
+	}
+
+	/**
+	 * @param int|null $test
+	 * @return self
+	 */
+	public function setTest(?int $test): self
+	{
+		$this->test = $test;
+		return $this;
+	}
+
+	/**
+	 * @param int|null $anotherTest
+	 * @return self
+	 */
+	public function setAnotherTest(?int $anotherTest): self
+	{
+		$this->anotherTest = $anotherTest;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return self
+	 */
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setTest($data['test'] ?? null);
+		$instance->setAnotherTest($data['another_test'] ?? null);
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'test' => $this->test,
+			'another_test' => $this->another_test
+		];
+	}
+}

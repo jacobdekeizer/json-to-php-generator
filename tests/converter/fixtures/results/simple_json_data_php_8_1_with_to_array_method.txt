@@ -4,9 +4,6 @@ class RootObject
 {
 	public int $test;
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [

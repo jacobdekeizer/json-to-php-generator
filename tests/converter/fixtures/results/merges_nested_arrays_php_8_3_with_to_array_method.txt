@@ -5,9 +5,6 @@ class RootObject
 	/** @var SimpleNesting[] */
 	public array $simpleNesting;
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
@@ -27,9 +24,6 @@ class SimpleNesting
 	public ?Object $object;
 	public ?int $number;
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
@@ -48,9 +42,6 @@ class Object
 	public ?int $test;
 	public ?int $anotherTest;
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [

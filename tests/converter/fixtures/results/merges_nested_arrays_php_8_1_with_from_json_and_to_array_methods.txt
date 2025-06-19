@@ -14,9 +14,6 @@ class RootObject
 		return $instance;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
@@ -46,9 +43,6 @@ class SimpleNesting
 		return $instance;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
@@ -75,9 +69,6 @@ class Object
 		return $instance;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [

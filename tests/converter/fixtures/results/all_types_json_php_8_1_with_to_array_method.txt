@@ -15,9 +15,6 @@ class RootObject
 	public NestedClass $nestedClass;
 	public string $string;
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
@@ -41,9 +38,6 @@ class NestedClass
 {
 	public int $var;
 
-	/**
-	 * @return array
-	 */
 	public function toArray(): array
 	{
 		return [
