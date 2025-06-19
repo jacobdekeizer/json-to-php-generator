@@ -97,7 +97,7 @@ export default class PhpClassPresenter {
         // toArray method
         if (this.settings.addToArrayMethod) {
             codeWriter.insertNewLine();
-            (new PhpClassToArrayMethodPresenter(propertyTypePresenters)).write(codeWriter);
+            (new PhpClassToArrayMethodPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
         }
 
         // close current class

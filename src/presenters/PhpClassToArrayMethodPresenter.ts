@@ -3,21 +3,27 @@ import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import CodeWriter from '@/writers/CodeWriter';
 import {PhpVisibility} from '@/enums/PhpVisibility';
 import PhpClassType from '@/php-types/PhpClassType';
+import {PhpDocblock} from '@/enums/PhpDocblock';
+import Settings from '@/dto/Settings';
 
 export default class PhpClassToArrayMethodPresenter {
     private readonly propertyTypePresenter: PhpPropertyTypePresenter[];
+    private readonly settings: Settings;
 
-    public constructor(propertyTypePresenter: PhpPropertyTypePresenter[]) {
+    public constructor(propertyTypePresenter: PhpPropertyTypePresenter[], settings: Settings) {
         this.propertyTypePresenter = propertyTypePresenter;
+        this.settings = settings;
     }
 
     public write(codeWriter: CodeWriter): void {
-        // Add method docblock
-        const docblockLines = [
-            '@return array'
-        ];
-        
-        codeWriter.writeMultilineDocblock(docblockLines);
+        // Add method docblock only if propertyDocblock is set to 'all'
+        if (this.settings.docblock === PhpDocblock.All) {
+            const docblockLines = [
+                '@return array'
+            ];
+            
+            codeWriter.writeMultilineDocblock(docblockLines);
+        }
 
         // Open method definition
         codeWriter.openMethod(
