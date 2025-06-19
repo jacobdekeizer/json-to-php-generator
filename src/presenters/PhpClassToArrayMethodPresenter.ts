@@ -12,8 +12,6 @@ export default class PhpClassToArrayMethodPresenter {
     }
 
     public write(codeWriter: CodeWriter): void {
-        const returnType = 'array';
-
         // Add method docblock
         const docblockLines = [
             '@return array'
@@ -25,7 +23,7 @@ export default class PhpClassToArrayMethodPresenter {
         codeWriter.openMethod(
             PhpVisibility.Public,
             'toArray',
-            returnType,
+            'array',
             [],
             {isStatic: false}
         );
