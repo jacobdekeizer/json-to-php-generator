@@ -5,7 +5,7 @@
       type="checkbox"
       :checked="props.modelValue"
       @change="emit('update:modelValue', $event.target.checked)"
-    >
+    />
     <span class="text-sm">{{ props.label }}</span>
   </label>
 </template>
@@ -13,6 +13,6 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{ label: string, modelValue: boolean}>();
+const props = defineProps<{ label: string; modelValue: boolean }>();
 const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
 </script>

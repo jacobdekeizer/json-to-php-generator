@@ -5,10 +5,7 @@
         <span class="font-semibold">Made by Jacob de Keizer</span>
       </div>
       <div class="flex rounded-full">
-        <a
-          href="https://github.com/jacobdekeizer/json-to-php-generator"
-          target="_blank"
-        >
+        <a href="https://github.com/jacobdekeizer/json-to-php-generator" target="_blank">
           <GithubIcon class="h-8 w-8" />
         </a>
       </div>

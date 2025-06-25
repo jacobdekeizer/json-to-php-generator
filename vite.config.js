@@ -1,18 +1,14 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueDevTools from 'vite-plugin-vue-devtools';
 import path from 'path';
 
 export default defineConfig({
-    plugins: [vue()],
-    base: './',
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './src'),
-        },
+  plugins: [vue(), vueDevTools()],
+  base: './',
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
     },
-    test: {
-        globals: true,
-        environment: 'happy-dom',
-        setupFiles: './tests/test-utils.ts'
-    },
-})
+  },
+});

@@ -1,5 +1,5 @@
 export enum PhpVisibility {
-    Private = 'private',
-    Protected = 'protected',
-    Public = 'public',
+  Private = 'private',
+  Protected = 'protected',
+  Public = 'public',
 }

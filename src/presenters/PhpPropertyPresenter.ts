@@ -1,47 +1,48 @@
-import Settings, {supportsTypedProperties} from '@/dto/Settings';
-import {PhpDocblock} from '@/enums/PhpDocblock';
-import {PropertyDocblockType} from '@/enums/PropertyDocblockType';
+import Settings, { supportsTypedProperties } from '@/dto/Settings';
+import { PhpDocblock } from '@/enums/PhpDocblock';
+import { PropertyDocblockType } from '@/enums/PropertyDocblockType';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import CodeWriter from '@/writers/CodeWriter';
 
 export default class PhpPropertyPresenter {
-    private readonly propertyTypePresenter: PhpPropertyTypePresenter;
-    private readonly settings: Settings;
+  private readonly propertyTypePresenter: PhpPropertyTypePresenter;
+  private readonly settings: Settings;
 
-    public constructor(propertyTypePresenter: PhpPropertyTypePresenter, settings: Settings) {
-        this.propertyTypePresenter = propertyTypePresenter;
-        this.settings = settings;
+  public constructor(propertyTypePresenter: PhpPropertyTypePresenter, settings: Settings) {
+    this.propertyTypePresenter = propertyTypePresenter;
+    this.settings = settings;
+  }
+
+  public getPropertyString(): string {
+    let property = this.settings.propertyVisibility + ' ';
+
+    if (this.settings.readonlyProperties) {
+      property += 'readonly ';
     }
 
-    public getPropertyString(): string {
-        let property = this.settings.propertyVisibility + ' ';
+    property += supportsTypedProperties(this.settings)
+      ? this.propertyTypePresenter.getPhpVarWithType()
+      : this.propertyTypePresenter.getPhpVar();
 
-        if (this.settings.readonlyProperties) {
-            property += 'readonly ';
-        }
+    return property;
+  }
 
-        property += supportsTypedProperties(this.settings)
-            ? this.propertyTypePresenter.getPhpVarWithType()
-            : this.propertyTypePresenter.getPhpVar();
+  public write(codeWriter: CodeWriter): void {
+    const mustAddDocblock =
+      this.settings.propertyDocblock === PhpDocblock.All ||
+      (this.settings.propertyDocblock !== PhpDocblock.None &&
+        this.propertyTypePresenter.getProperty().isDocblockRequired());
 
-        return property;
+    if (mustAddDocblock) {
+      const docblockContent = '@var ' + this.propertyTypePresenter.getDocblockContent();
+
+      if (this.settings.propertyDocblockType === PropertyDocblockType.Inline) {
+        codeWriter.writeInlineDocblock(docblockContent);
+      } else {
+        codeWriter.writeMultilineDocblock([docblockContent]);
+      }
     }
 
-    public write(codeWriter: CodeWriter): void {
-        const mustAddDocblock = this.settings.propertyDocblock === PhpDocblock.All
-             || (
-                this.settings.propertyDocblock !== PhpDocblock.None
-                && this.propertyTypePresenter.getProperty().isDocblockRequired()
-            );
-
-        if (mustAddDocblock) {
-            const docblockContent = '@var ' + this.propertyTypePresenter.getDocblockContent();
-
-            this.settings.propertyDocblockType === PropertyDocblockType.Inline
-                ? codeWriter.writeInlineDocblock(docblockContent)
-                : codeWriter.writeMultilineDocblock([docblockContent]);
-        }
-
-        codeWriter.writeLine(this.getPropertyString() + ';');
-    }
+    codeWriter.writeLine(this.getPropertyString() + ';');
+  }
 }

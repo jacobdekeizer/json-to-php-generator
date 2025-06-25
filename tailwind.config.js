@@ -1,12 +1,9 @@
-const colors = require('tailwindcss/colors')
+// const colors = require('tailwindcss/colors')
+import colors from 'tailwindcss/colors';
 
 module.exports = {
   darkMode: 'class',
-  content: [
-    './public/**/*.html',
-    './src/**/*.vue',
-    './src/**/*.scss',
-  ],
+  content: ['./public/**/*.html', './src/**/*.vue', './src/**/*.scss'],
   theme: {
     fontFamily: {
       display: ['Gilroy', 'sans-serif'],
@@ -17,7 +14,7 @@ module.exports = {
         primary: colors.sky,
         dark: colors.gray,
         danger: colors.red,
-      }
-    }
-  }
+      },
+    },
+  },
 };

@@ -3,36 +3,31 @@ import Str from '@/support/Str';
 import PhpDocblockPresenter from '@/presenters/PhpDocblockPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import CodeWriter from '@/writers/CodeWriter';
-import {PhpVisibility} from '@/enums/PhpVisibility';
+import { PhpVisibility } from '@/enums/PhpVisibility';
 
 export default class PhpSetterPresenter {
-    protected readonly propertyTypePresenter: PhpPropertyTypePresenter;
-    protected readonly settings: Settings;
+  protected readonly propertyTypePresenter: PhpPropertyTypePresenter;
+  protected readonly settings: Settings;
 
-    public constructor(propertyTypePresenter: PhpPropertyTypePresenter, settings: Settings) {
-        this.propertyTypePresenter = propertyTypePresenter;
-        this.settings = settings;
-    }
+  public constructor(propertyTypePresenter: PhpPropertyTypePresenter, settings: Settings) {
+    this.propertyTypePresenter = propertyTypePresenter;
+    this.settings = settings;
+  }
 
-    public getMethodName(): string {
-        return Str.changeCase('set_' + this.propertyTypePresenter.getPhpVarName(), this.settings.setterCase);
-    }
+  public getMethodName(): string {
+    return Str.changeCase('set_' + this.propertyTypePresenter.getPhpVarName(), this.settings.setterCase);
+  }
 
-    public write(codeWriter: CodeWriter): void {
-        (new PhpDocblockPresenter(this.settings, [this.propertyTypePresenter], 'void')).write(codeWriter);
-        codeWriter.openMethod(
-            PhpVisibility.Public,
-            this.getMethodName(),
-            'void',
-            [this.getMethodParameter()]
-        );
-        codeWriter.writeLine(
-            `$this->${this.propertyTypePresenter.getPhpVarName()} = ${this.propertyTypePresenter.getPhpVar()};`
-        );
-        codeWriter.closeMethod();
-    }
+  public write(codeWriter: CodeWriter): void {
+    new PhpDocblockPresenter(this.settings, [this.propertyTypePresenter], 'void').write(codeWriter);
+    codeWriter.openMethod(PhpVisibility.Public, this.getMethodName(), 'void', [this.getMethodParameter()]);
+    codeWriter.writeLine(
+      `$this->${this.propertyTypePresenter.getPhpVarName()} = ${this.propertyTypePresenter.getPhpVar()};`,
+    );
+    codeWriter.closeMethod();
+  }
 
-    protected getMethodParameter(): string {
-        return this.propertyTypePresenter.getPhpVarWithType();
-    }
+  protected getMethodParameter(): string {
+    return this.propertyTypePresenter.getPhpVarWithType();
+  }
 }

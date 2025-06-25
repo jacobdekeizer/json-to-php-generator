@@ -1,5 +1,5 @@
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   @apply text-white whitespace-pre leading-normal;
 
   -moz-tab-size: 4;
@@ -11,18 +11,18 @@ pre[class*="language-"] {
   hyphens: none;
 }
 
-pre[class*="language-"],
-:not(pre) > code[class*="language-"] {
+pre[class*='language-'],
+:not(pre) > code[class*='language-'] {
   @apply bg-dark-800 dark:bg-black rounded;
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*='language-'] {
   @apply whitespace-normal p-3 overflow-auto;
 }
 
 /* Inline code */
-:not(pre) > code[class*="language-"] {
+:not(pre) > code[class*='language-'] {
   @apply whitespace-normal p-4;
 }
 

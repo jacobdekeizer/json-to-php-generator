@@ -1,29 +1,17 @@
 <template>
-  <div
-    class="cursor-pointer"
-    @click="next"
-  >
-    <HalfFilledCircleIcon
-      v-if="color === 'system'"
-      class="w-full h-full"
-    />
-    <SunIcon
-      v-if="color === 'light'"
-      class="w-full h-full"
-    />
-    <MoonIcon
-      v-if="color === 'dark'"
-      class="w-full h-full"
-    />
+  <div class="cursor-pointer" @click="next">
+    <HalfFilledCircleIcon v-if="color === 'system'" class="w-full h-full" />
+    <SunIcon v-if="color === 'light'" class="w-full h-full" />
+    <MoonIcon v-if="color === 'dark'" class="w-full h-full" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import {computed, ref, watch} from 'vue';
+import { computed, ref, watch } from 'vue';
 import MoonIcon from '@/components/icons/MoonIcon.vue';
 import SunIcon from '@/components/icons/SunIcon.vue';
 import HalfFilledCircleIcon from '@/components/icons/HalfFilledCircleIcon.vue';
-import {ThemeColor} from '@/enums/ThemeColor';
+import { ThemeColor } from '@/enums/ThemeColor';
 
 const themeColorModeKey = 'theme-color-mode';
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -44,7 +32,7 @@ const options = computed(() => {
   return options;
 });
 
-const index = ref(options.value.findIndex(o => o === color.value) || 0);
+const index = ref(options.value.findIndex((o) => o === color.value) || 0);
 
 const enableDarkMode = (): void => {
   document.documentElement.classList.add('dark');
@@ -62,25 +50,29 @@ const next = (): void => {
   }
 
   color.value = options.value[index.value];
-}
+};
 
-watch(color, () => {
-  localStorage.setItem(themeColorModeKey, color.value);
+watch(
+  color,
+  () => {
+    localStorage.setItem(themeColorModeKey, color.value);
 
-  switch (color.value) {
-    case ThemeColor.SYSTEM:
-      if (prefersDark) {
+    switch (color.value) {
+      case ThemeColor.SYSTEM:
+        if (prefersDark) {
+          enableDarkMode();
+        } else {
+          enableLightMode();
+        }
+        break;
+      case ThemeColor.DARK:
         enableDarkMode();
-      } else {
+        break;
+      case ThemeColor.LIGHT:
         enableLightMode();
-      }
-      break;
-    case ThemeColor.DARK:
-      enableDarkMode();
-      break;
-    case ThemeColor.LIGHT:
-      enableLightMode();
-      break;
-  }
-}, { immediate: true })
+        break;
+    }
+  },
+  { immediate: true },
+);
 </script>

@@ -1,38 +1,38 @@
-import {computed, ComputedRef, Ref} from 'vue';
+import { computed, ComputedRef, Ref } from 'vue';
 import PhpClass from '@/dto/PhpClass';
 import PhpClassPresenter from '@/presenters/PhpClassPresenter';
 import Settings from '@/dto/Settings';
 
 interface UsePhpCodePresenterProps {
-    phpClass: Ref<PhpClass | null>;
-    settings: Ref<Settings>;
+  phpClass: Ref<PhpClass | null>;
+  settings: Ref<Settings>;
 }
 
 interface UsePhpCodePresenter {
-    generatedCodeClasses: ComputedRef<string[]>;
+  generatedCodeClasses: ComputedRef<string[]>;
 }
 
-export const usePhpCodePresenter = ({ phpClass, settings } : UsePhpCodePresenterProps): UsePhpCodePresenter => {
-    const generateAllCode = (phpClass: PhpClass, s: Settings): string[] => {
-        const result: string[] = [];
-        result.push((new PhpClassPresenter(phpClass, s)).toString());
+export const usePhpCodePresenter = ({ phpClass, settings }: UsePhpCodePresenterProps): UsePhpCodePresenter => {
+  const generateAllCode = (phpClass: PhpClass, s: Settings): string[] => {
+    const result: string[] = [];
+    result.push(new PhpClassPresenter(phpClass, s).toString());
 
-        for (const childClass of phpClass.getChildren()) {
-            result.push(...generateAllCode(childClass, s));
-        }
-
-        return result;
+    for (const childClass of phpClass.getChildren()) {
+      result.push(...generateAllCode(childClass, s));
     }
 
-    const generatedCodeClasses = computed(() => {
-        if (phpClass.value === null) {
-            return [];
-        }
+    return result;
+  };
 
-        return generateAllCode(phpClass.value, settings.value);
-    });
+  const generatedCodeClasses = computed(() => {
+    if (phpClass.value === null) {
+      return [];
+    }
 
-    return {
-        generatedCodeClasses,
-    };
-}
+    return generateAllCode(phpClass.value, settings.value);
+  });
+
+  return {
+    generatedCodeClasses,
+  };
+};

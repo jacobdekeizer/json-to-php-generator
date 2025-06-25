@@ -3,28 +3,26 @@ import PhpClass from '@/dto/PhpClass';
 import PhpClassPresenter from '@/presenters/PhpClassPresenter';
 
 export default class PhpClassType extends PhpType {
-    private readonly phpClass: PhpClass;
-   
-    public constructor(phpClass: PhpClass) {
-        super();
-        this.phpClass = phpClass;
-    }
-    
-    public getType(): string {
-       return this.getClassName();
-    }
+  private readonly phpClass: PhpClass;
 
-    public getDocblockContent(): string {
-        return this.getClassName();
-    }
+  public constructor(phpClass: PhpClass) {
+    super();
+    this.phpClass = phpClass;
+  }
 
-    public isDocblockRequired(): boolean {
-        return false;
-    }
+  public getType(): string {
+    return this.getClassName();
+  }
 
-    private getClassName(): string {
-        return this.settings
-            ? (new PhpClassPresenter(this.phpClass, this.settings)).getClassName()
-            : this.phpClass.getName();
-    }
+  public getDocblockContent(): string {
+    return this.getClassName();
+  }
+
+  public isDocblockRequired(): boolean {
+    return false;
+  }
+
+  private getClassName(): string {
+    return this.settings ? new PhpClassPresenter(this.phpClass, this.settings).getClassName() : this.phpClass.getName();
+  }
 }

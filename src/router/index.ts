@@ -1,17 +1,17 @@
-import {createRouter, createWebHashHistory} from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Generator from '@/views/Generator.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Generator',
-    component: Generator
-  }
+    component: Generator,
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-})
+});
 
-export default router
+export default router;

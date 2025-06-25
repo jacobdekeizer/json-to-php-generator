@@ -1,4 +1,4 @@
 export enum PropertyDocblockType {
-    Inline = 'Inline',
-    Multiline = 'Multiline',
+  Inline = 'Inline',
+  Multiline = 'Multiline',
 }
