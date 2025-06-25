@@ -32,6 +32,8 @@ export default interface Settings {
     addFromJsonMethod: boolean;
     jsonIsArray: boolean;
 
+    addToArrayMethod: boolean;
+
     docblock: PhpDocblock;
 
     namespace: string;
@@ -105,6 +107,8 @@ export const createDefaultSettings = (): Settings => {
 
         addFromJsonMethod: false,
         jsonIsArray: true,
+
+        addToArrayMethod: false,
 
         docblock: PhpDocblock.Necessary,
 

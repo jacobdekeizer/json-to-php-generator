@@ -1,0 +1,52 @@
+<?php
+
+class RootObject
+{
+	/** @var SimpleNesting[] */
+	public array $simpleNesting;
+
+	public function toArray(): array
+	{
+		return [
+			'simple_nesting' => array_map(static function($item) {
+				    return $item->toArray();
+			}, $this->simpleNesting)
+		];
+	}
+}
+
+<?php
+
+class SimpleNesting
+{
+	public float $alwaysPresent;
+	public ?string $string;
+	public ?Object $object;
+	public ?int $number;
+
+	public function toArray(): array
+	{
+		return [
+			'always_present' => $this->alwaysPresent,
+			'string' => $this->string,
+			'object' => $this->object !== null ? $this->object->toArray() : null,
+			'number' => $this->number
+		];
+	}
+}
+
+<?php
+
+class Object
+{
+	public ?int $test;
+	public ?int $anotherTest;
+
+	public function toArray(): array
+	{
+		return [
+			'test' => $this->test,
+			'another_test' => $this->anotherTest
+		];
+	}
+}

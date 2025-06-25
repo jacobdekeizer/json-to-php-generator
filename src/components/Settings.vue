@@ -134,6 +134,17 @@
               label="JSON response is an array"
             />
           </FormGroup>
+
+          <Label class="mt-2">
+            To Array
+          </Label>
+
+          <FormGroup>
+            <Checkbox
+              v-model="model.addToArrayMethod"
+              label="Add toArray method"
+            />
+          </FormGroup>
         </div>
       </div>
     </TabContent>

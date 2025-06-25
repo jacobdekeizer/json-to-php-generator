@@ -1,0 +1,47 @@
+<?php
+
+class RootObject
+{
+	/** @var string[] */
+	public array $stringArray;
+	/** @var (string|int|null)[] */
+	public array $mixedArray;
+	public array $nullArray;
+	public array $unknownArray;
+	public bool $boolean;
+	public float $float;
+	public int $int;
+	public null $null;
+	public NestedClass $nestedClass;
+	public string $string;
+
+	public function toArray(): array
+	{
+		return [
+			'string_array' => $this->stringArray,
+			'mixed_array' => $this->mixedArray,
+			'null_array' => $this->nullArray,
+			'unknown_array' => $this->unknownArray,
+			'boolean' => $this->boolean,
+			'float' => $this->float,
+			'int' => $this->int,
+			'null' => $this->null,
+			'nested_class' => $this->nestedClass->toArray(),
+			'string' => $this->string
+		];
+	}
+}
+
+<?php
+
+class NestedClass
+{
+	public int $var;
+
+	public function toArray(): array
+	{
+		return [
+			'var' => $this->var
+		];
+	}
+}

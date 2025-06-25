@@ -9,6 +9,7 @@ import PhpClassFromJsonMethodPresenter from '@/presenters/PhpClassFromJsonMethod
 import PhpPropertyPresenter from '@/presenters/PhpPropertyPresenter';
 import PhpPropertyTypePresenter from '@/presenters/PhpPropertyTypePresenter';
 import CodeWriter from '@/writers/CodeWriter';
+import PhpClassToArrayMethodPresenter from '@/presenters/PhpClassToArrayMethodPresenter';
 
 export default class PhpClassPresenter {
     private readonly phpClass: PhpClass;
@@ -91,6 +92,12 @@ export default class PhpClassPresenter {
         if (this.settings.addFromJsonMethod) {
             codeWriter.insertNewLine();
             (new PhpClassFromJsonMethodPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
+        }
+
+        // toArray method
+        if (this.settings.addToArrayMethod) {
+            codeWriter.insertNewLine();
+            (new PhpClassToArrayMethodPresenter(propertyTypePresenters, this.settings)).write(codeWriter);
         }
 
         // close current class

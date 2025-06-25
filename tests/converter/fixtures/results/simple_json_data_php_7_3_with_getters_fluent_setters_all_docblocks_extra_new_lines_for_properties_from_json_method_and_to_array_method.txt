@@ -1,0 +1,48 @@
+<?php
+
+class RootObject
+{
+	/**
+	 * @var int
+	 */
+	public $test;
+
+	/**
+	 * @return int
+	 */
+	public function getTest(): int
+	{
+		return $this->test;
+	}
+
+	/**
+	 * @param int $test
+	 * @return self
+	 */
+	public function setTest(int $test): self
+	{
+		$this->test = $test;
+		return $this;
+	}
+
+	/**
+	 * @param array $data
+	 * @return self
+	 */
+	public static function fromJson(array $data): self
+	{
+		$instance = new self();
+		$instance->setTest($data['test']);
+		return $instance;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function toArray(): array
+	{
+		return [
+			'test' => $this->test
+		];
+	}
+}

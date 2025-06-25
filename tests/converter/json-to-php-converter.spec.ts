@@ -69,6 +69,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -106,6 +107,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -143,6 +145,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -180,6 +183,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -217,6 +221,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -254,6 +259,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -291,6 +297,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -328,6 +335,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -365,6 +373,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -402,6 +411,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -439,6 +449,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -476,6 +487,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -485,7 +497,7 @@ const settingCases = versions.map((version) => {
             }
         ],
         [
-            version + ' with getters, fluent setters, all docblocks, extra new lines for properties and from json method',
+            version + ' with getters, fluent setters, all docblocks, extra new lines for properties, from json method and to array method',
             {
                 phpVersion: version,
 
@@ -513,6 +525,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: true,
                 jsonIsArray: true,
+                addToArrayMethod: true,
 
                 docblock: PhpDocblock.All,
 
@@ -551,6 +564,7 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
@@ -589,12 +603,89 @@ const settingCases = versions.map((version) => {
 
                 addFromJsonMethod: false,
                 jsonIsArray: false,
+                addToArrayMethod: false,
 
                 docblock: PhpDocblock.Necessary,
 
                 rootClassName: 'CustomClassName',
                 namespace: 'This\\Is\\A\\Namespace',
                 declareStrictTypes: true,
+            }
+        ],
+        [
+            version + ' with toArray method',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: false,
+                jsonIsArray: false,
+                addToArrayMethod: true,
+
+                docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
+            }
+        ],
+        [
+            version + ' with fromJson and toArray methods',
+            {
+                phpVersion: version,
+
+                classCase: StringCase.PascalCase,
+                propertyCase: StringCase.CamelCase,
+
+                propertyVisibility: PhpVisibility.Public,
+                propertyDocblock: PhpDocblock.Necessary,
+                propertyDocblockType: PropertyDocblockType.Inline,
+                propertyAddExtraNewLine: false,
+                readonlyProperties: false,
+
+                addGetters: false,
+                getterCase: StringCase.CamelCase,
+                addSetters: false,
+                setterCase: StringCase.CamelCase,
+                isFluentSetter: false,
+
+                addConstructor: false,
+                constructorPropertyPromotion: false,
+
+                finalClasses: false,
+                readonlyClasses: false,
+                allPropertiesNullable: false,
+
+                addFromJsonMethod: true,
+                jsonIsArray: false,
+                addToArrayMethod: true,
+
+                docblock: PhpDocblock.Necessary,
+
+                rootClassName: 'RootObject',
+                namespace: '',
+                declareStrictTypes: false
             }
         ],
     ];
