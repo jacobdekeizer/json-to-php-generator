@@ -17,9 +17,9 @@ class RootObject
 	public function toArray(): array
 	{
 		return [
-			'simple_nesting' => array_map(function($item) {
+			'simple_nesting' => array_map(static function($item) {
 				    return $item->toArray();
-			}, $this->simple_nesting)
+			}, $this->simpleNesting)
 		];
 	}
 }
@@ -46,7 +46,7 @@ class SimpleNesting
 	public function toArray(): array
 	{
 		return [
-			'always_present' => $this->always_present,
+			'always_present' => $this->alwaysPresent,
 			'string' => $this->string,
 			'object' => $this->object !== null ? $this->object->toArray() : null,
 			'number' => $this->number
@@ -73,7 +73,7 @@ class Object
 	{
 		return [
 			'test' => $this->test,
-			'another_test' => $this->another_test
+			'another_test' => $this->anotherTest
 		];
 	}
 }

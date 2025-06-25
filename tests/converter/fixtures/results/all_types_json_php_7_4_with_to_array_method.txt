@@ -18,15 +18,15 @@ class RootObject
 	public function toArray(): array
 	{
 		return [
-			'string_array' => $this->string_array,
-			'mixed_array' => $this->mixed_array,
-			'null_array' => $this->null_array,
-			'unknown_array' => $this->unknown_array,
+			'string_array' => $this->stringArray,
+			'mixed_array' => $this->mixedArray,
+			'null_array' => $this->nullArray,
+			'unknown_array' => $this->unknownArray,
 			'boolean' => $this->boolean,
 			'float' => $this->float,
 			'int' => $this->int,
 			'null' => $this->null,
-			'nested_class' => $this->nested_class->toArray(),
+			'nested_class' => $this->nestedClass->toArray(),
 			'string' => $this->string
 		];
 	}

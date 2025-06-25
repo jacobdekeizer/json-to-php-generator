@@ -69,7 +69,7 @@ export default class PhpClassToArrayMethodPresenter {
 
     private getPropertyToArrayCode(typePresenter: PhpPropertyTypePresenter): string[] {
         const property = typePresenter.getProperty();
-        const propertyAccess = `$this->${property.getName()}`;
+        const propertyAccess = `$this->${typePresenter.getPhpVarName()}`
 
         // Handle array type properties
         const classArrayType = property.getTypes()
@@ -78,14 +78,14 @@ export default class PhpClassToArrayMethodPresenter {
         if (classArrayType) {
             if (property.isNullable()) {
                 return [
-                    `${propertyAccess} !== null ? array_map(function($item) {`,
+                    `${propertyAccess} !== null ? array_map(static function($item) {`,
                     '    return $item->toArray();',
                     `}, ${propertyAccess}) : null`
                 ];
             }
             
             return [
-                'array_map(function($item) {',
+                'array_map(static function($item) {',
                 '    return $item->toArray();',
                 `}, ${propertyAccess})`
             ];
