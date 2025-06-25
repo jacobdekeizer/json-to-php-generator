@@ -6,13 +6,21 @@ final class RootObject
 	public $stringArray;
 	/** @var (string|int|null)[]|null */
 	public $mixedArray;
+	/** @var array|null */
 	public $nullArray;
+	/** @var array|null */
 	public $unknownArray;
+	/** @var bool|null */
 	public $boolean;
+	/** @var float|null */
 	public $float;
+	/** @var int|null */
 	public $int;
+	/** @var |null */
 	public $null;
+	/** @var NestedClass|null */
 	public $nestedClass;
+	/** @var string|null */
 	public $string;
 }
 
@@ -20,5 +28,6 @@ final class RootObject
 
 final class NestedClass
 {
+	/** @var int|null */
 	public $var;
 }

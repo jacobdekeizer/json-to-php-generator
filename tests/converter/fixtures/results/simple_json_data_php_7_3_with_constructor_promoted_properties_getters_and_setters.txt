@@ -2,18 +2,28 @@
 
 class RootObject
 {
+	/** @var int */
 	public $test;
 
+	/**
+	 * @param int $test
+	 */
 	public function __construct(int $test)
 	{
 		$this->test = $test;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getTest(): int
 	{
 		return $this->test;
 	}
 
+	/**
+	 * @param int $test
+	 */
 	public function setTest(int $test): void
 	{
 		$this->test = $test;

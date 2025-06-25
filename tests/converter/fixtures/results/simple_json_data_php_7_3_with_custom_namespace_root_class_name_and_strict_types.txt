@@ -6,5 +6,6 @@ namespace This\Is\A\Namespace;
 
 class CustomClassName
 {
+	/** @var int */
 	public $test;
 }

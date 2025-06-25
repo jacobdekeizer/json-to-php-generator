@@ -2,5 +2,6 @@
 
 final class RootObject
 {
+	/** @var int|null */
 	public $test;
 }

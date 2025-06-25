@@ -10,9 +10,13 @@ final class RootObject
 
 final class SimpleNesting
 {
+	/** @var float|null */
 	public $alwaysPresent;
+	/** @var string|null */
 	public $string;
+	/** @var Object|null */
 	public $object;
+	/** @var int|null */
 	public $number;
 }
 
@@ -20,6 +24,8 @@ final class SimpleNesting
 
 final class Object
 {
+	/** @var int|null */
 	public $test;
+	/** @var int|null */
 	public $anotherTest;
 }

@@ -27,26 +27,42 @@ class RootObject
 
 class SimpleNesting
 {
+	/** @var float */
 	public $alwaysPresent;
+	/** @var string|null */
 	public $string;
+	/** @var Object|null */
 	public $object;
+	/** @var int|null */
 	public $number;
 
+	/**
+	 * @param float $alwaysPresent
+	 */
 	public function setAlwaysPresent(float $alwaysPresent): void
 	{
 		$this->alwaysPresent = $alwaysPresent;
 	}
 
+	/**
+	 * @param string|null $string
+	 */
 	public function setString(?string $string): void
 	{
 		$this->string = $string;
 	}
 
+	/**
+	 * @param Object|null $object
+	 */
 	public function setObject(?Object $object): void
 	{
 		$this->object = $object;
 	}
 
+	/**
+	 * @param int|null $number
+	 */
 	public function setNumber(?int $number): void
 	{
 		$this->number = $number;
@@ -67,14 +83,22 @@ class SimpleNesting
 
 class Object
 {
+	/** @var int|null */
 	public $test;
+	/** @var int|null */
 	public $anotherTest;
 
+	/**
+	 * @param int|null $test
+	 */
 	public function setTest(?int $test): void
 	{
 		$this->test = $test;
 	}
 
+	/**
+	 * @param int|null $anotherTest
+	 */
 	public function setAnotherTest(?int $anotherTest): void
 	{
 		$this->anotherTest = $anotherTest;

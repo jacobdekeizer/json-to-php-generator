@@ -18,9 +18,13 @@ namespace This\Is\A\Namespace;
 
 class SimpleNesting
 {
+	/** @var float */
 	public $alwaysPresent;
+	/** @var string|null */
 	public $string;
+	/** @var Object|null */
 	public $object;
+	/** @var int|null */
 	public $number;
 }
 
@@ -32,6 +36,8 @@ namespace This\Is\A\Namespace;
 
 class Object
 {
+	/** @var int|null */
 	public $test;
+	/** @var int|null */
 	public $anotherTest;
 }

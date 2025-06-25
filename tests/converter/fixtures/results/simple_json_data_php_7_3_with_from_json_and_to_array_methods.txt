@@ -2,6 +2,7 @@
 
 class RootObject
 {
+	/** @var int */
 	public $test;
 
 	public static function fromJson(\stdClass $data): self
