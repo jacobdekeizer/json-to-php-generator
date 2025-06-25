@@ -6,13 +6,21 @@ class RootObject
 	public $stringArray;
 	/** @var (string|int|null)[] */
 	public $mixedArray;
+	/** @var array */
 	public $nullArray;
+	/** @var array */
 	public $unknownArray;
+	/** @var bool */
 	public $boolean;
+	/** @var float */
 	public $float;
+	/** @var int */
 	public $int;
+	/** @var |null */
 	public $null;
+	/** @var NestedClass */
 	public $nestedClass;
+	/** @var string */
 	public $string;
 
 	public static function fromJson(\stdClass $data): self
@@ -52,6 +60,7 @@ class RootObject
 
 class NestedClass
 {
+	/** @var int */
 	public $var;
 
 	public static function fromJson(\stdClass $data): self

@@ -19,9 +19,13 @@ class RootObject
 
 class SimpleNesting
 {
+	/** @var float */
 	public $alwaysPresent;
+	/** @var string|null */
 	public $string;
+	/** @var Object|null */
 	public $object;
+	/** @var int|null */
 	public $number;
 
 	public function toArray(): array
@@ -39,7 +43,9 @@ class SimpleNesting
 
 class Object
 {
+	/** @var int|null */
 	public $test;
+	/** @var int|null */
 	public $anotherTest;
 
 	public function toArray(): array

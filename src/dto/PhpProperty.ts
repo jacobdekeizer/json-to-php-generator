@@ -1,5 +1,5 @@
 import PhpType from '@/php-types/PhpType';
-import Settings, {createDefaultSettings, supportsUnionType} from '@/dto/Settings';
+import Settings, {createDefaultSettings, supportsTypedProperties, supportsUnionType} from '@/dto/Settings';
 import NullType from '@/php-types/NullType';
 import ArrayType from '@/php-types/ArrayType';
 
@@ -72,6 +72,10 @@ export default class PhpProperty {
     }
 
     public isDocblockRequired(): boolean {
+        if (!supportsTypedProperties(this.settings)) {
+            return true;
+        }
+
         if (this.types.some(type => type.isDocblockRequired())) {
             return true;
         }

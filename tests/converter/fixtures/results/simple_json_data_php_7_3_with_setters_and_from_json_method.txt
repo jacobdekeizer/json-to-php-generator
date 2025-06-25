@@ -2,8 +2,12 @@
 
 class RootObject
 {
+	/** @var int */
 	public $test;
 
+	/**
+	 * @param int $test
+	 */
 	public function setTest(int $test): void
 	{
 		$this->test = $test;

@@ -2,6 +2,7 @@
 
 class RootObject
 {
+	/** @var int */
 	public $test;
 
 	public function toArray(): array

@@ -10,13 +10,21 @@ class CustomClassName
 	public $stringArray;
 	/** @var (string|int|null)[] */
 	public $mixedArray;
+	/** @var array */
 	public $nullArray;
+	/** @var array */
 	public $unknownArray;
+	/** @var bool */
 	public $boolean;
+	/** @var float */
 	public $float;
+	/** @var int */
 	public $int;
+	/** @var |null */
 	public $null;
+	/** @var NestedClass */
 	public $nestedClass;
+	/** @var string */
 	public $string;
 }
 
@@ -28,5 +36,6 @@ namespace This\Is\A\Namespace;
 
 class NestedClass
 {
+	/** @var int */
 	public $var;
 }

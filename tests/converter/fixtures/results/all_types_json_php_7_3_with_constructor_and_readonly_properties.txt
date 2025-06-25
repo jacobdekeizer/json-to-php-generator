@@ -6,18 +6,34 @@ class RootObject
 	public $stringArray;
 	/** @var (string|int|null)[] */
 	public $mixedArray;
+	/** @var array */
 	public $nullArray;
+	/** @var array */
 	public $unknownArray;
+	/** @var bool */
 	public $boolean;
+	/** @var float */
 	public $float;
+	/** @var int */
 	public $int;
+	/** @var |null */
 	public $null;
+	/** @var NestedClass */
 	public $nestedClass;
+	/** @var string */
 	public $string;
 
 	/**
 	 * @param string[] $stringArray
 	 * @param (string|int|null)[] $mixedArray
+	 * @param array $nullArray
+	 * @param array $unknownArray
+	 * @param bool $boolean
+	 * @param float $float
+	 * @param int $int
+	 * @param |null $null
+	 * @param NestedClass $nestedClass
+	 * @param string $string
 	 */
 	public function __construct(
 		array $stringArray,
@@ -48,8 +64,12 @@ class RootObject
 
 class NestedClass
 {
+	/** @var int */
 	public $var;
 
+	/**
+	 * @param int $var
+	 */
 	public function __construct(int $var)
 	{
 		$this->var = $var;

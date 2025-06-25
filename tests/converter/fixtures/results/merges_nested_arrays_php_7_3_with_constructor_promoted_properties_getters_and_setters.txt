@@ -34,11 +34,21 @@ class RootObject
 
 class SimpleNesting
 {
+	/** @var float */
 	public $alwaysPresent;
+	/** @var string|null */
 	public $string;
+	/** @var Object|null */
 	public $object;
+	/** @var int|null */
 	public $number;
 
+	/**
+	 * @param float $alwaysPresent
+	 * @param string|null $string
+	 * @param Object|null $object
+	 * @param int|null $number
+	 */
 	public function __construct(
 		float $alwaysPresent,
 		?string $string,
@@ -51,41 +61,65 @@ class SimpleNesting
 		$this->number = $number;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getAlwaysPresent(): float
 	{
 		return $this->alwaysPresent;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function getString(): ?string
 	{
 		return $this->string;
 	}
 
+	/**
+	 * @return Object|null
+	 */
 	public function getObject(): ?Object
 	{
 		return $this->object;
 	}
 
+	/**
+	 * @return int|null
+	 */
 	public function getNumber(): ?int
 	{
 		return $this->number;
 	}
 
+	/**
+	 * @param float $alwaysPresent
+	 */
 	public function setAlwaysPresent(float $alwaysPresent): void
 	{
 		$this->alwaysPresent = $alwaysPresent;
 	}
 
+	/**
+	 * @param string|null $string
+	 */
 	public function setString(?string $string): void
 	{
 		$this->string = $string;
 	}
 
+	/**
+	 * @param Object|null $object
+	 */
 	public function setObject(?Object $object): void
 	{
 		$this->object = $object;
 	}
 
+	/**
+	 * @param int|null $number
+	 */
 	public function setNumber(?int $number): void
 	{
 		$this->number = $number;
@@ -96,30 +130,48 @@ class SimpleNesting
 
 class Object
 {
+	/** @var int|null */
 	public $test;
+	/** @var int|null */
 	public $anotherTest;
 
+	/**
+	 * @param int|null $test
+	 * @param int|null $anotherTest
+	 */
 	public function __construct(?int $test, ?int $anotherTest)
 	{
 		$this->test = $test;
 		$this->anotherTest = $anotherTest;
 	}
 
+	/**
+	 * @return int|null
+	 */
 	public function getTest(): ?int
 	{
 		return $this->test;
 	}
 
+	/**
+	 * @return int|null
+	 */
 	public function getAnotherTest(): ?int
 	{
 		return $this->anotherTest;
 	}
 
+	/**
+	 * @param int|null $test
+	 */
 	public function setTest(?int $test): void
 	{
 		$this->test = $test;
 	}
 
+	/**
+	 * @param int|null $anotherTest
+	 */
 	public function setAnotherTest(?int $anotherTest): void
 	{
 		$this->anotherTest = $anotherTest;

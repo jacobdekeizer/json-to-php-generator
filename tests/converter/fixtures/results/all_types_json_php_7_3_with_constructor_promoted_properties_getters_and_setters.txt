@@ -6,18 +6,34 @@ class RootObject
 	public $stringArray;
 	/** @var (string|int|null)[] */
 	public $mixedArray;
+	/** @var array */
 	public $nullArray;
+	/** @var array */
 	public $unknownArray;
+	/** @var bool */
 	public $boolean;
+	/** @var float */
 	public $float;
+	/** @var int */
 	public $int;
+	/** @var |null */
 	public $null;
+	/** @var NestedClass */
 	public $nestedClass;
+	/** @var string */
 	public $string;
 
 	/**
 	 * @param string[] $stringArray
 	 * @param (string|int|null)[] $mixedArray
+	 * @param array $nullArray
+	 * @param array $unknownArray
+	 * @param bool $boolean
+	 * @param float $float
+	 * @param int $int
+	 * @param |null $null
+	 * @param NestedClass $nestedClass
+	 * @param string $string
 	 */
 	public function __construct(
 		array $stringArray,
@@ -59,41 +75,65 @@ class RootObject
 		return $this->mixedArray;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getNullArray(): array
 	{
 		return $this->nullArray;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getUnknownArray(): array
 	{
 		return $this->unknownArray;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function getBoolean(): bool
 	{
 		return $this->boolean;
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getFloat(): float
 	{
 		return $this->float;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getInt(): int
 	{
 		return $this->int;
 	}
 
+	/**
+	 * @return |null
+	 */
 	public function getNull()
 	{
 		return $this->null;
 	}
 
+	/**
+	 * @return NestedClass
+	 */
 	public function getNestedClass(): NestedClass
 	{
 		return $this->nestedClass;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getString(): string
 	{
 		return $this->string;
@@ -115,41 +155,65 @@ class RootObject
 		$this->mixedArray = $mixedArray;
 	}
 
+	/**
+	 * @param array $nullArray
+	 */
 	public function setNullArray(array $nullArray): void
 	{
 		$this->nullArray = $nullArray;
 	}
 
+	/**
+	 * @param array $unknownArray
+	 */
 	public function setUnknownArray(array $unknownArray): void
 	{
 		$this->unknownArray = $unknownArray;
 	}
 
+	/**
+	 * @param bool $boolean
+	 */
 	public function setBoolean(bool $boolean): void
 	{
 		$this->boolean = $boolean;
 	}
 
+	/**
+	 * @param float $float
+	 */
 	public function setFloat(float $float): void
 	{
 		$this->float = $float;
 	}
 
+	/**
+	 * @param int $int
+	 */
 	public function setInt(int $int): void
 	{
 		$this->int = $int;
 	}
 
+	/**
+	 * @param |null $null
+	 */
 	public function setNull($null): void
 	{
 		$this->null = $null;
 	}
 
+	/**
+	 * @param NestedClass $nestedClass
+	 */
 	public function setNestedClass(NestedClass $nestedClass): void
 	{
 		$this->nestedClass = $nestedClass;
 	}
 
+	/**
+	 * @param string $string
+	 */
 	public function setString(string $string): void
 	{
 		$this->string = $string;
@@ -160,18 +224,28 @@ class RootObject
 
 class NestedClass
 {
+	/** @var int */
 	public $var;
 
+	/**
+	 * @param int $var
+	 */
 	public function __construct(int $var)
 	{
 		$this->var = $var;
 	}
 
+	/**
+	 * @return int
+	 */
 	public function getVar(): int
 	{
 		return $this->var;
 	}
 
+	/**
+	 * @param int $var
+	 */
 	public function setVar(int $var): void
 	{
 		$this->var = $var;

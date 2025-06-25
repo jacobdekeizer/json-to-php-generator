@@ -28,9 +28,13 @@ class RootObject
 
 class SimpleNesting
 {
+	/** @var float */
 	public $alwaysPresent;
+	/** @var string|null */
 	public $string;
+	/** @var Object|null */
 	public $object;
+	/** @var int|null */
 	public $number;
 
 	public static function fromJson(\stdClass $data): self
@@ -58,7 +62,9 @@ class SimpleNesting
 
 class Object
 {
+	/** @var int|null */
 	public $test;
+	/** @var int|null */
 	public $anotherTest;
 
 	public static function fromJson(\stdClass $data): self
