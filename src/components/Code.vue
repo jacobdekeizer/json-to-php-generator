@@ -11,16 +11,22 @@
       class="absolute top-2 right-2"
       @click="copy"
     >
-      <template v-if="copied">
-        <span class="flex flex-row items-center text-white pl-2 pr-2">
-          <CheckIcon class="text-green-600 h-6 w-6 mr-2" />
-          Copied!
-        </span>
-      </template>
+      <CheckIcon
+        v-if="copied"
+        class="text-green-600"
+      />
       <ClipboardIcon
         v-else
         class="text-white"
       />
+      <template
+        v-if="copied"
+        #text
+      >
+        <span class="text-white">
+          Copied!
+        </span>
+      </template>
     </IconButton>
   </div>
 </template>

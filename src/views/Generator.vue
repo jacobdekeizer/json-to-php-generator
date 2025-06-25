@@ -40,6 +40,9 @@
           @click="exportPhpClassToZip(phpClass, settings)"
         >
           <CloudArrowDownIcon />
+          <template #text>
+            Download
+          </template>
         </IconButton>
       </div>
 
